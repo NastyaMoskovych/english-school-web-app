@@ -1,0 +1,37 @@
+.footer {
+  &__menu {
+    padding: 24px 0;
+
+    ul {
+      li {
+        margin: 0 6px;
+
+        a {
+          color: var(--primary-text-color);
+          font-weight: 600;
+          text-decoration: none;
+          text-transform: uppercase;
+
+          &:hover {
+            text-decoration: underline;
+          }
+        }
+      }
+    }
+  }
+
+  &__socials {
+    a {
+      margin: 0 4px;
+      transition: .3s;
+
+      &:hover {
+        transform: scale(1.1);
+      }
+    }
+  }
+
+  &__copyright {
+    padding: 12px 0;
+  }
+}

@@ -1,0 +1,39 @@
+.flex-box {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+}
+
+.flex-box-mobile {
+  @media screen and (max-width: 768px) {
+    flex-direction: column;
+  }
+}
+
+.flex-row-reverse {
+  flex-direction: row-reverse;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.align-items-center {
+  align-items: center;
+}
+
+.flex {
+  display: flex;
+}
+
+.justify-content-between {
+  justify-content: space-between;
+}
+
+.justify-content-center {
+  justify-content: center;
+}
+
+.justify-content-around {
+  justify-content: space-around;
+}

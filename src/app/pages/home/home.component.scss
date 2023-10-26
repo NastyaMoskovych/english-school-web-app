@@ -1,0 +1,166 @@
+.home {
+  &__section {
+    padding: 24px 0;
+
+    &--primary {
+      justify-content: center;
+
+      &>div {
+        margin: 0 5px;
+      }
+
+      h1 {
+        margin: 0;
+      }
+
+      p {
+        color: #497D91;
+        font-weight: 500;
+      }
+
+      img {
+        max-height: 420px;
+      }
+
+      button {
+        background-color: #984800;
+        border: 1px solid #984800;
+        border-radius: 8px;
+        cursor: pointer;
+        color: #EFFBFF;
+        font-weight: 600;
+        padding: 12px 24px;
+        text-transform: uppercase;
+        transition: .3s;
+        margin-top: 24px;
+
+        &:hover {
+          background-color: transparent;
+          color: #984800;
+        }
+
+        &:active {
+          transform: scale(.9);
+        }
+      }
+    }
+  }
+
+  &__stats {
+    margin-bottom: 64px;
+
+    &-info {
+      margin-top: 24px;
+      min-width: 200px;
+
+      p {
+        font-weight: 500;
+
+        &:first-of-type {
+          font-size: 24px;
+          color: #92BADF;
+        }
+
+        &:last-of-type {
+          color: #497D91;
+        }
+      }
+    }
+
+    p {
+      max-width: 540px;
+      margin: 0 auto;
+    }
+  }
+
+  &__banner {
+    margin: 24px 0;
+
+    &--reversed {
+      flex-direction: row-reverse;
+
+      .home {
+        &__banner-text {
+          margin-right: 24px;
+        }
+
+        &__banner-img-wrapper {
+          img {
+            box-shadow: -20px 20px 0 rgba(0, 0, 0, 0.2);
+          }
+        }
+      }
+
+      .home__banner-text {
+        margin-left: 24px;
+      }
+    }
+
+    &-img-wrapper {
+      flex: 1 1 45%;
+
+      img {
+        box-shadow: 20px 20px 0 rgba(0, 0, 0, 0.2);
+        height: 100%;
+        max-width: 100%;
+      }
+    }
+
+    &-text {
+      flex: 1 1 55%;
+      margin-right: 24px;
+
+      p {
+        &:first-of-type {
+          font-weight: 700;
+          margin-bottom: 10px;
+          text-transform: uppercase;
+        }
+      }
+    }
+  }
+
+  &__quote {
+    padding: 48px 0;
+
+    q {
+      font-style: italic;
+      letter-spacing: 2px;
+    }
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .home {
+    &__section {
+      &--primary {
+        padding-bottom: 60px;
+        text-align: center;
+
+        img {
+          display: none;
+        }
+      }
+    }
+
+    &__banner,
+    &__banner--reversed {
+      flex-direction: column;
+
+      .home__banner {
+        &-img-wrapper {
+          img {
+            box-shadow: none;
+            max-height: 300px;
+            margin: 16px 0;
+          }
+        }
+
+        &-text {
+          margin: 0;
+          padding: 0 16px;
+        }
+      }
+    }
+  }
+}

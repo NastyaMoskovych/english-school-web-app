@@ -1,0 +1,36 @@
+<footer class="footer">
+  <app-page-layout [separator]="true">
+    <div class="footer__menu">
+      <ul class="flex-box justify-content-center">
+        <li>
+          <a routerLink="/">Home</a>
+        </li>
+        <li>
+          <a routerLink="/signup">Sign Up</a>
+        </li>
+        <li>
+          <a routerLink="/login">Login</a>
+        </li>
+        <li>
+          <a routerLink="/about-us">About us</a>
+        </li>
+      </ul>
+    </div>
+    <div class="footer__socials flex-box justify-content-center">
+      <!-- @TODO -->
+      <!-- Add links to social medias, click should open a new page -->
+      <a>
+        <img src="assets/images/facebook.svg" alt="">
+      </a>
+      <a>
+        <img src="assets/images/instagram.svg" alt="">
+      </a>
+      <a>
+        <img src="assets/images/github.svg" alt="">
+      </a>
+    </div>
+    <div class="footer__copyright text-center">
+      Copyright © {{ currentYear }}
+    </div>
+  </app-page-layout>
+</footer>

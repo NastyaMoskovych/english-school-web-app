@@ -1,0 +1,19 @@
+.page-layout {
+  &__content {
+    margin: 0 auto;
+    max-width: 1000px;
+    padding: 0 16px;
+  }
+
+  &__separator {
+    border-top: 1px solid #e4e4e4;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .page-layout {
+    &__content {
+      padding: 0;
+    }
+  }
+}

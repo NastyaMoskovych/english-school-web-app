@@ -1,0 +1,39 @@
+<div class="auth">
+  <h1 class="auth__title text-center">
+    {{ isSignUp ? 'Sign Up' : 'Sign In' }}
+  </h1>
+
+  <div class="auth__socials flex-box justify-content-center">
+    <button>
+      <img src="assets/images/google.svg" alt="Google" />
+    </button>
+    <button>
+      <img src="assets/images/facebook.svg" alt="Facebook" />
+    </button>
+  </div>
+
+  <form class="auth__form text-center">
+    <p class="text-center">
+      {{ isSignUp ? 'or use your email for registration' : 'or use your email to login' }}
+    </p>
+
+    <label *ngIf="isSignUp" class="input-field">
+      <input placeholder="" type="text">
+      <span>Name</span>
+    </label>
+
+    <label class="input-field">
+      <input placeholder="" type="email">
+      <span>Email</span>
+    </label>
+
+    <label class="input-field">
+      <input placeholder="" type="password">
+      <span>Password</span>
+    </label>
+
+    <button class="auth__submit-btn">
+      {{ isSignUp ? 'Sign Up' : 'Sign In' }}
+    </button>
+  </form>
+</div>

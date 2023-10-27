@@ -1,0 +1,64 @@
+.auth {
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 48px 12px;
+
+  &__title {
+    font-size: 36px;
+    margin: 0;
+  }
+
+  &__socials {
+    margin: 24px 0 12px;
+
+    button {
+      border: 1px solid var(--palette-primary-color-6);
+      border-radius: 50%;
+      background-color: transparent;
+      position: relative;
+      margin: 0 4px;
+      height: 48px;
+      width: 48px;
+      transition: .3s;
+
+      &:hover {
+        img {
+          height: 42px;
+          width: 42px;
+        }
+      }
+
+      img {
+        height: 32px;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        width: 32px;
+        transform: translate(-50%, -50%);
+        transition: .3s;
+      }
+    }
+  }
+
+  &__submit-btn {
+    background-color: var(--palette-tertiary-color-1);
+    border: 1px solid var(--palette-tertiary-color-1);
+    border-radius: 8px;
+    cursor: pointer;
+    color: #EFFBFF;
+    font-weight: 600;
+    padding: 12px 24px;
+    text-transform: uppercase;
+    transition: .3s;
+    margin-top: 24px;
+
+    &:hover {
+      background-color: transparent;
+      color: var(--palette-tertiary-color-1);
+    }
+
+    &:active {
+      transform: scale(.9);
+    }
+  }
+}

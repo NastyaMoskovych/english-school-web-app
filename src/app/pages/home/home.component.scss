@@ -10,11 +10,12 @@
       }
 
       h1 {
+        font-size: 36px;
         margin: 0;
       }
 
       p {
-        color: #497D91;
+        color: var(--palette-secondary-color-1);
         font-weight: 500;
       }
 
@@ -23,11 +24,11 @@
       }
 
       button {
-        background-color: #984800;
-        border: 1px solid #984800;
+        background-color: var(--palette-tertiary-color-1);
+        border: 1px solid var(--palette-tertiary-color-1);
         border-radius: 8px;
         cursor: pointer;
-        color: #EFFBFF;
+        color: var(--palette-primary-color-5);
         font-weight: 600;
         padding: 12px 24px;
         text-transform: uppercase;
@@ -36,7 +37,7 @@
 
         &:hover {
           background-color: transparent;
-          color: #984800;
+          color: var(--palette-tertiary-color-1);
         }
 
         &:active {
@@ -58,11 +59,11 @@
 
         &:first-of-type {
           font-size: 24px;
-          color: #92BADF;
+          color: var(--palette-secondary-color-2);
         }
 
         &:last-of-type {
-          color: #497D91;
+          color: var(--palette-secondary-color-1);
         }
       }
     }

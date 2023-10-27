@@ -1,0 +1,109 @@
+.input-field {
+  display: block;
+  overflow: hidden;
+  margin: 16px 0;
+  position: relative;
+  text-align: left;
+  width: 100%;
+}
+
+/* Input, Textarea */
+.input-field>input,
+.input-field>textarea {
+  display: block;
+  box-sizing: border-box;
+  margin: 0;
+  border: none;
+  border-top: solid 27px transparent;
+  border-bottom: solid 1px rgba(0, 0, 0, 0.6);
+  border-radius: 4px 4px 0 0;
+  padding: 0 12px 10px;
+  width: 100%;
+  height: inherit;
+  color: rgba(0, 0, 0, 0.87);
+  background-color: rgba(0, 0, 0, 0.04);
+  box-shadow: none;
+}
+
+/* Span */
+.input-field>input+span,
+.input-field>textarea+span {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: block;
+  box-sizing: border-box;
+  padding: 7px 12px 0;
+  color: rgba(0, 0, 0, 0.6);
+  font-size: 75%;
+  line-height: 18px;
+  pointer-events: none;
+  transition: color 0.2s, font-size 0.2s, line-height 0.2s;
+  font-weight: 500;
+}
+
+/* Underline */
+.input-field>input+span::after,
+.input-field>textarea+span::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  display: block;
+  width: 100%;
+  height: 2px;
+  background-color: rgb(0, 33, 150, 243);
+  transform-origin: bottom center;
+  transform: scaleX(0);
+  transition: transform 0.3s;
+}
+
+/* Hover */
+.input-field>input:hover,
+.input-field>textarea:hover {
+  border-bottom-color: rgba(0, 0, 0, 0.87);
+  background-color: rgba(0, 0, 0, 0.08);
+}
+
+/* Placeholder-shown */
+.input-field>input:not(:focus):placeholder-shown+span,
+.input-field>textarea:not(:focus):placeholder-shown+span {
+  font-size: inherit;
+  line-height: 48px;
+}
+
+/* Focus */
+.input-field>input:focus,
+.input-field>textarea:focus {
+  outline: none;
+}
+
+.input-field>input:focus+span,
+.input-field>textarea:focus+span {
+  color: rgb(0, 33, 150, 243);
+}
+
+.input-field>input:focus+span::before,
+.input-field>textarea:focus+span::before {
+  opacity: 0.12;
+}
+
+.input-field>input:focus+span::after,
+.input-field>textarea:focus+span::after {
+  transform: scale(1);
+}
+
+/* Disabled */
+.input-field>input:disabled,
+.input-field>textarea:disabled {
+  border-bottom-color: rgba(0, 0, 0, 0.38);
+  color: rgba(0, 0, 0, 0.38);
+  background-color: rgba(0, 0, 0, 0.24);
+}
+
+.input-field>input:disabled+span,
+.input-field>textarea:disabled+span {
+  color: rgba(0, 0, 0, 0.38);
+}

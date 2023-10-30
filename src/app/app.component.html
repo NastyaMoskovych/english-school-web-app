@@ -1,4 +1,7 @@
-<app-header></app-header>
+<app-header
+  (changeLanguage)="onChangeLanguage($event)"
+  [selectedLanguage]="selectedLanguage"
+></app-header>
 
 <main>
   <router-outlet></router-outlet>

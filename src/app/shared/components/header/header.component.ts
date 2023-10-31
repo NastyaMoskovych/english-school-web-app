@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
   selector: 'app-header',
@@ -7,4 +7,11 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HeaderComponent {
+  @Input() selectedLanguage: string;
+  @Output() changeLanguage = new EventEmitter<string>();
+
+  onChangeLanguage(): void {
+    const nextLanguage = this.selectedLanguage === 'en' ? 'ua' : 'en';
+    this.changeLanguage.emit(nextLanguage);
+  }
 }

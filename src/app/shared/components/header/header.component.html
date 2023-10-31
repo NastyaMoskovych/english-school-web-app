@@ -1,5 +1,5 @@
 <header class="header">
-  <div class="flex-box">
+  <div class="flex-box flex-wrap">
     <a routerLink="/home" class="header__logo flex-box">
       <img src="assets/images/logo.png" alt="Logo">
       <p>
@@ -17,6 +17,14 @@
         </li>
         <li>
           <a routerLink="/about-us">About us</a>
+        </li>
+        <li>
+          <a (click)="onChangeLanguage()">
+            <img
+              [title]="selectedLanguage === 'ua' ? 'Change to English' : 'Перейти на українську'"
+              [src]="'assets/images/' + (selectedLanguage === 'ua' ? 'eng-flag.png' : 'ukraine-flag.svg')" alt=""
+            />
+          </a>
         </li>
       </ul>
     </div>

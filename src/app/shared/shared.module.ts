@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
 
 import { AuthFormComponent } from './components/auth-form/auth-form.component';
 import { FooterComponent } from './components/footer/footer.component';
@@ -19,10 +20,12 @@ import { PageLayoutComponent } from './components/page-layout/page-layout.compon
     CommonModule,
     RouterModule,
     ReactiveFormsModule,
+    TranslateModule,
   ],
   exports: [
     RouterModule,
     ReactiveFormsModule,
+    TranslateModule,
     HeaderComponent,
     PageLayoutComponent,
     FooterComponent,

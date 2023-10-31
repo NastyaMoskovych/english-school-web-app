@@ -49,6 +49,7 @@
 
   &__stats {
     margin-bottom: 64px;
+    padding: 0 16px;
 
     &-info {
       margin-top: 24px;
@@ -135,7 +136,7 @@
   .home {
     &__section {
       &--primary {
-        padding-bottom: 60px;
+        padding: 100px 0;
         text-align: center;
 
         img {

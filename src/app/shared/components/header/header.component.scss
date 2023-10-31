@@ -51,6 +51,33 @@
             }
           }
         }
+
+        &:last-of-type {
+          &:hover {
+            a {
+              img {
+                border-color: var(--palette-secondary-color-3);
+                border-radius: 50%;
+              }
+            }
+          }
+
+          a {
+            &::before {
+              display: none;
+            }
+
+            img {
+              border: 2px solid transparent;
+              position: relative;
+              top: 3px;
+              padding: 1px;
+              height: 32px;
+              transition: .3s;
+              width: 32px;
+            }
+          }
+        }
       }
 
       a {
@@ -67,7 +94,7 @@
           height: 2px;
           bottom: -2px;
           left: 0;
-          background-color: #000;
+          background-color: var(--palette-secondary-color-3);
           transform: scaleX(0);
           transition: transform 0.3s ease;
         }

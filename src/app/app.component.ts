@@ -29,6 +29,6 @@ export class AppComponent {
       return language;
     }
 
-    return this.translate.getBrowserLang() || 'ua';
+    return 'ua';
   }
 }

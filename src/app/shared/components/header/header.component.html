@@ -10,19 +10,19 @@
     <div class="header__menu">
       <ul class="flex-box">
         <li>
-          <a routerLink="/signup">Become a student</a>
+          <a routerLink="/signup">{{"header.menu.registration" | translate}}</a>
         </li>
         <li>
-          <a routerLink="/login">Login</a>
+          <a routerLink="/login">{{"header.menu.login" | translate}}</a>
         </li>
         <li>
-          <a routerLink="/about-us">About us</a>
+          <a routerLink="/about-us">{{"header.menu.aboutUs" | translate}}</a>
         </li>
         <li>
           <a (click)="onChangeLanguage()">
             <img
-              [title]="selectedLanguage === 'ua' ? 'Change to English' : 'Перейти на українську'"
-              [src]="'assets/images/' + (selectedLanguage === 'ua' ? 'eng-flag.png' : 'ukraine-flag.svg')" alt=""
+              [title]="selectedLanguage === 'uk' ? 'Change to English' : 'Перейти на українську'"
+              [src]="'assets/images/' + (selectedLanguage === 'uk' ? 'eng-flag.png' : 'ukraine-flag.svg')" alt=""
             />
           </a>
         </li>

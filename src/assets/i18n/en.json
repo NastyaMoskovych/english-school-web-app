@@ -4,6 +4,66 @@
       "title": "Join our sсhool now!",
       "subtitle": "Make your studying easier with us",
       "button": "Become a Student"
+    },
+    "mainBlock": {
+      "mainInformation": {
+        "title": "Learn English together with us",
+        "subtitle": "Why should you study English?",
+        "text": "It's a great skill that connects you with people worldwide and opens up exciting job opportunities. The best part is, it's not as hard as you might think – in fact, it can be a lot of fun! Discover the importance of English. It's the key to global communication and amazing career prospects. The best news is, learning it is an enjoyable journey."
+      },
+      "statistics": {
+        "tasks": "Tasks",
+        "students": "Students",
+        "feedbacks": "Positive feedbacks"
+      },
+      "bannerInformation": {
+        "title1": "Global Communication",
+        "text1": "English is one of the most widely spoken languages globally, making it a crucial tool for international communication. Learning English allows you to converse with people from diverse backgrounds and cultures, breaking down language barriers and fostering global connections.",
+
+        "title2": "Enhanced Career Opportunities",
+        "text2": "English proficiency is often a requirement for many job opportunities, especially in multinational companies and industries like technology, business, and tourism. Mastering English can open up a world of career possibilities, increase your employability, and potentially lead to higher-paying jobs.",
+
+        "title3": "Academic Advancement",
+        "text3": "Many of the world's top universities and educational institutions use English as the medium of instruction. Learning English can open doors to higher education and research opportunities, enabling you to pursue advanced degrees and gain valuable academic experiences."
+      },
+      "quote": "The limits of my language means the limits of my world.",
+      "author": "Ludwig Wittgenstein, Austrian-British philosopher"
+    }
+  },
+  "header": {
+    "menu": {
+      "registration": "Become a student",
+      "login": "Login",
+      "aboutUs": "About us"
+    }
+  },
+  "footer": {
+    "menu": {
+      "home": "Home",
+      "signUp": "Sign Up",
+      "login": "Login",
+      "aboutUs": "About us"
+    }
+  },
+  "authForm": {
+    "registrationScreen": {
+      "title": "Sign Up",
+      "text": "or use your email for registration",
+      "button": "Sign Up"
+    },
+    "registrationFields": {
+      "name": "Name",
+      "email": "Email",
+      "password": "Password"
+    },
+    "loginScreen": {
+      "title": "Sign In",
+      "text": "or use your email to login",
+      "button": "Sign In"
+    },
+    "loginFields": {
+      "email": "Email",
+      "password": "Password"
     }
   }
 }

@@ -11,7 +11,7 @@ export class HeaderComponent {
   @Output() changeLanguage = new EventEmitter<string>();
 
   onChangeLanguage(): void {
-    const nextLanguage = this.selectedLanguage === 'en' ? 'ua' : 'en';
+    const nextLanguage = this.selectedLanguage === 'en' ? 'uk' : 'en';
     this.changeLanguage.emit(nextLanguage);
   }
 }

@@ -1,6 +1,12 @@
 <div class="auth">
   <h1 class="auth__title text-center">
-    {{ isSignUp ? 'Sign Up' : 'Sign In' }}
+    <ng-container *ngIf="isSignUp">
+      {{"authForm.registrationScreen.title" | translate}}
+    </ng-container>
+
+    <ng-container *ngIf="!isSignUp">
+      {{"authForm.loginScreen.title" | translate}}
+    </ng-container>
   </h1>
 
   <div class="auth__socials flex-box justify-content-center">
@@ -14,26 +20,39 @@
 
   <form class="auth__form text-center">
     <p class="text-center">
-      {{ isSignUp ? 'or use your email for registration' : 'or use your email to login' }}
+      <ng-container *ngIf="isSignUp">
+        {{"authForm.registrationScreen.text" | translate}}
+      </ng-container>
+
+      <ng-container *ngIf="!isSignUp">
+        {{"authForm.loginScreen.text" | translate}}
+      </ng-container>
+
     </p>
 
     <label *ngIf="isSignUp" class="input-field">
       <input placeholder="" type="text">
-      <span>Name</span>
+      <span>{{"authForm.registrationFields.name" | translate}}</span>
     </label>
 
     <label class="input-field">
       <input placeholder="" type="email">
-      <span>Email</span>
+      <span>{{"authForm.registrationFields.email" | translate}}</span>
     </label>
 
     <label class="input-field">
       <input placeholder="" type="password">
-      <span>Password</span>
+      <span>{{"authForm.registrationFields.password" | translate}}</span>
     </label>
 
     <button class="auth__submit-btn">
-      {{ isSignUp ? 'Sign Up' : 'Sign In' }}
+      <ng-container *ngIf="isSignUp">
+        {{"authForm.registrationScreen.button" | translate}}
+      </ng-container>
+
+      <ng-container *ngIf="!isSignUp">
+        {{"authForm.loginScreen.button" | translate}}
+      </ng-container>
     </button>
   </form>
 </div>

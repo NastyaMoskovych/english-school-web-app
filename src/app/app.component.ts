@@ -12,7 +12,7 @@ export class AppComponent {
   public selectedLanguage = this.getDefaultLanguage();
 
   constructor(public translate: TranslateService) {
-    translate.addLangs(['en', 'ua']);
+    translate.addLangs(['en', 'uk']);
     translate.setDefaultLang(this.getDefaultLanguage());
   }
 
@@ -29,6 +29,6 @@ export class AppComponent {
       return language;
     }
 
-    return 'ua';
+    return this.translate.getBrowserLang() || 'uk';
   }
 }

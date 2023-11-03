@@ -9,21 +9,34 @@
     </a>
     <div class="header__menu">
       <ul class="flex-box">
-        <li>
+        <li *ngIf="!user">
           <a routerLink="/signup">{{"header.menu.registration" | translate}}</a>
         </li>
-        <li>
+        <li *ngIf="!user">
           <a routerLink="/login">{{"header.menu.login" | translate}}</a>
         </li>
         <li>
           <a routerLink="/about-us">{{"header.menu.aboutUs" | translate}}</a>
         </li>
-        <li>
+        <li *ngIf="!user" class="with-image">
           <a (click)="onChangeLanguage()">
             <img
+              class="language-icon"
               [title]="selectedLanguage === 'uk' ? 'Change to English' : 'Перейти на українську'"
               [src]="'assets/images/' + (selectedLanguage === 'uk' ? 'eng-flag.png' : 'ukraine-flag.svg')" alt=""
             />
+          </a>
+        </li>
+         <!-- Will be replaced with account menu -->
+         <li *ngIf="user">
+          <a (click)="signOut.emit()">
+            Logout
+          </a>
+        </li>
+        <li *ngIf="user" class="with-image">
+          <a class="flex-box">
+            <span>Hello, {{ user.displayName | firstName }}</span>
+            <img [src]="user.photoURL" alt="">
           </a>
         </li>
       </ul>

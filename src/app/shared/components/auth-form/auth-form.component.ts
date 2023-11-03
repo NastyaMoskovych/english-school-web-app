@@ -1,4 +1,5 @@
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
+import { SignInProviders } from '../../../services/auth.service';
 
 export enum AuthType {
   Login = 'login',
@@ -13,6 +14,9 @@ export enum AuthType {
 })
 export class AuthFormComponent {
   @Input({ required: true }) authType: AuthType;
+  @Output() signInWithProvider = new EventEmitter<SignInProviders>();
+
+  signInProviders = SignInProviders;
 
   get isSignUp(): boolean {
     return this.authType === AuthType.Signup;

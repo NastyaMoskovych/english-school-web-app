@@ -1,4 +1,5 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { User } from '@angular/fire/auth';
 
 @Component({
   selector: 'app-footer',
@@ -7,5 +8,7 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class FooterComponent {
+  @Input() user: User | null;
+
   currentYear = new Date().getFullYear();
 }

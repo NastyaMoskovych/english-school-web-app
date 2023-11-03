@@ -1,5 +1,8 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { User } from '@angular/fire/auth';
 import { TranslateService } from '@ngx-translate/core';
+import { Observable } from 'rxjs';
+import { AuthService } from './services/auth.service';
 
 @Component({
   selector: 'app-root',
@@ -10,10 +13,16 @@ import { TranslateService } from '@ngx-translate/core';
 export class AppComponent {
   private languageKey = 'e-school:language';
   public selectedLanguage = this.getDefaultLanguage();
+  public authService = inject(AuthService);
+  public user$: Observable<User> = this.authService.user$;
 
   constructor(public translate: TranslateService) {
     translate.addLangs(['en', 'uk']);
     translate.setDefaultLang(this.getDefaultLanguage());
+  }
+
+  ngOnInit(): void {
+    this.user$.subscribe((user: any) => console.log(user));
   }
 
   onChangeLanguage(language: string): void {

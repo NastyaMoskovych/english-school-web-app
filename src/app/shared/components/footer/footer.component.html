@@ -5,10 +5,10 @@
         <li>
           <a routerLink="/">{{ "footer.menu.home" | translate }}</a>
         </li>
-        <li>
+        <li *ngIf="!user">
           <a routerLink="/signup">{{ "footer.menu.signUp" | translate }}</a>
         </li>
-        <li>
+        <li *ngIf="!user">
           <a routerLink="/login">{{ "footer.menu.login" | translate }}</a>
         </li>
         <li>

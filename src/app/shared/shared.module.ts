@@ -8,6 +8,7 @@ import { AuthFormComponent } from './components/auth-form/auth-form.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { HeaderComponent } from './components/header/header.component';
 import { PageLayoutComponent } from './components/page-layout/page-layout.component';
+import { FirstNamePipe } from './pipes/first-name.pipe';
 
 @NgModule({
   declarations: [
@@ -15,6 +16,7 @@ import { PageLayoutComponent } from './components/page-layout/page-layout.compon
     PageLayoutComponent,
     FooterComponent,
     AuthFormComponent,
+    FirstNamePipe,
   ],
   imports: [
     CommonModule,
@@ -30,6 +32,7 @@ import { PageLayoutComponent } from './components/page-layout/page-layout.compon
     PageLayoutComponent,
     FooterComponent,
     AuthFormComponent,
+    FirstNamePipe,
   ],
 })
 export class SharedModule { }

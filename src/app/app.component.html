@@ -1,10 +1,14 @@
 <app-header
   (changeLanguage)="onChangeLanguage($event)"
+  (signOut)="authService.signOut()"
   [selectedLanguage]="selectedLanguage"
+  [user]="user$ | async"
 ></app-header>
 
 <main>
   <router-outlet></router-outlet>
 </main>
 
-<app-footer></app-footer>
+<app-footer
+  [user]="user$ | async"
+></app-footer>

@@ -52,7 +52,7 @@
           }
         }
 
-        &:last-of-type {
+        &.with-image {
           &:hover {
             a {
               img {
@@ -67,14 +67,22 @@
               display: none;
             }
 
+            span {
+              margin-right: 6px;
+            }
+
             img {
               border: 2px solid transparent;
+              border-radius: 50%;
               position: relative;
-              top: 3px;
               padding: 1px;
-              height: 32px;
+              height: 36px;
               transition: .3s;
-              width: 32px;
+              width: 36px;
+
+              &.language-icon {
+                top: 3px;
+              }
             }
           }
         }

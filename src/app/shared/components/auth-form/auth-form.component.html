@@ -10,10 +10,10 @@
   </h1>
 
   <div class="auth__socials flex-box justify-content-center">
-    <button>
+    <button (click)="signInWithProvider.emit(signInProviders.GOOGLE)">
       <img src="assets/images/google.svg" alt="Google" />
     </button>
-    <button>
+    <button (click)="signInWithProvider.emit(signInProviders.FACEBOOK)">
       <img src="assets/images/facebook.svg" alt="Facebook" />
     </button>
   </div>
@@ -27,7 +27,6 @@
       <ng-container *ngIf="!isSignUp">
         {{"authForm.loginScreen.text" | translate}}
       </ng-container>
-
     </p>
 
     <label *ngIf="isSignUp" class="input-field">

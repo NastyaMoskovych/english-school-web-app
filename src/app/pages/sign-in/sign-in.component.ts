@@ -1,4 +1,5 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { AuthService } from '../../services/auth.service';
 import { AuthType } from '../../shared/components/auth-form/auth-form.component';
 
 @Component({
@@ -9,4 +10,5 @@ import { AuthType } from '../../shared/components/auth-form/auth-form.component'
 })
 export class SignInComponent {
   authType = AuthType.Login;
+  authService = inject(AuthService);
 }

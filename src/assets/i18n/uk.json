@@ -64,8 +64,11 @@
     "loginFields": {
       "email": "Електронна адреса",
       "password": "Пароль"
+    },
+    "errors": {
+      "invalidLoginCredentials": "Неправильний логін або пароль",
+      "emailAlreadyInUse": "Ця електронна адреса вже використовується",
+      "generalError": "Щось пішло не так. Спробуйте пізніше"
     }
   }
 }
-
-

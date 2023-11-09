@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
-import { User } from '@angular/fire/auth';
+import { IUser } from '../../../models/user.model';
 
 @Component({
   selector: 'app-header',
@@ -8,7 +8,7 @@ import { User } from '@angular/fire/auth';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HeaderComponent {
-  @Input() user: User | null;
+  @Input() user: IUser | null;
   @Input() selectedLanguage: string;
   @Output() changeLanguage = new EventEmitter<string>();
   @Output() signOut = new EventEmitter<void>();

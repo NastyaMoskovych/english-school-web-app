@@ -64,6 +64,11 @@
     "loginFields": {
       "email": "Email",
       "password": "Password"
+    },
+    "errors": {
+      "invalidLoginCredentials": "Invalid email or password",
+      "emailAlreadyInUse": "Email is already in use by another account",
+      "generalError": "Something went wrong. Please try again later"
     }
   }
 }

@@ -1,6 +1,9 @@
 <app-page-layout backgroundColor="var(--palette-primary-color-4)">
   <app-auth-form
     (signInWithProvider)="authService.signInWithProvider($event)"
+    (formSubmit)="onSignUpWithEmailAndPassword($event)"
     [authType]="authType"
+    [error]="error$ | async"
+    [loading]="loading$ | async"
   ></app-auth-form>
 </app-page-layout>

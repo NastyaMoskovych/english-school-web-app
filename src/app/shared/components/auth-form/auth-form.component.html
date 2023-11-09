@@ -18,7 +18,7 @@
     </button>
   </div>
 
-  <form class="auth__form text-center">
+  <form class="auth__form text-center" [formGroup]="form" (ngSubmit)="onSubmit()">
     <p class="text-center">
       <ng-container *ngIf="isSignUp">
         {{"authForm.registrationScreen.text" | translate}}
@@ -30,21 +30,27 @@
     </p>
 
     <label *ngIf="isSignUp" class="input-field">
-      <input placeholder="" type="text">
+      <input placeholder="" type="text" formControlName="displayName">
       <span>{{"authForm.registrationFields.name" | translate}}</span>
     </label>
 
     <label class="input-field">
-      <input placeholder="" type="email">
+      <input placeholder="" type="email" formControlName="email">
       <span>{{"authForm.registrationFields.email" | translate}}</span>
     </label>
 
     <label class="input-field">
-      <input placeholder="" type="password">
+      <input placeholder="" type="password" formControlName="password">
       <span>{{"authForm.registrationFields.password" | translate}}</span>
     </label>
 
-    <button class="auth__submit-btn">
+    <app-notification
+      *ngIf="error"
+      icon="error"
+      [message]="error | authError"
+    ></app-notification>
+
+    <button [disabled]="loading" class="auth__submit-btn" [class.loading]="loading">
       <ng-container *ngIf="isSignUp">
         {{"authForm.registrationScreen.button" | translate}}
       </ng-container>

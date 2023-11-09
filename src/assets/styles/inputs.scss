@@ -23,6 +23,17 @@
   color: rgba(0, 0, 0, 0.87);
   background-color: rgba(0, 0, 0, 0.04);
   box-shadow: none;
+
+  &.ng-invalid.ng-touched {
+    & + span {
+      background-color: rgba(182, 97, 0, 0.05);
+
+      &::after {
+        background-color: var(--palette-tertiary-color-1);
+        transform: scale(1);
+      }
+    }
+  }
 }
 
 /* Span */

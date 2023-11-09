@@ -7,7 +7,9 @@ import { TranslateModule } from '@ngx-translate/core';
 import { AuthFormComponent } from './components/auth-form/auth-form.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { HeaderComponent } from './components/header/header.component';
+import { NotificationComponent } from './components/notification/notification.component';
 import { PageLayoutComponent } from './components/page-layout/page-layout.component';
+import { AuthErrorPipe } from './pipes/auth-error.pipe';
 import { FirstNamePipe } from './pipes/first-name.pipe';
 
 @NgModule({
@@ -17,6 +19,8 @@ import { FirstNamePipe } from './pipes/first-name.pipe';
     FooterComponent,
     AuthFormComponent,
     FirstNamePipe,
+    AuthErrorPipe,
+    NotificationComponent,
   ],
   imports: [
     CommonModule,
@@ -33,6 +37,8 @@ import { FirstNamePipe } from './pipes/first-name.pipe';
     FooterComponent,
     AuthFormComponent,
     FirstNamePipe,
+    AuthErrorPipe,
+    NotificationComponent,
   ],
 })
 export class SharedModule { }

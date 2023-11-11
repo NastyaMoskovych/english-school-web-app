@@ -34,7 +34,9 @@
     "menu": {
       "registration": "Стати студентом",
       "login": "Вхід",
-      "aboutUs": "Про нас"
+      "aboutUs": "Про нас",
+      "profile": "Мій Профіль",
+      "logout": "Вихід"
     }
   },
   "footer": {
@@ -84,5 +86,8 @@
       "emailAlreadyInUse": "Ця електронна адреса вже використовується",
       "generalError": "Щось пішло не так. Спробуйте пізніше"
     }
+  },
+  "languageSelector": {
+    "changeLang": "Змінити мову"
   }
 }

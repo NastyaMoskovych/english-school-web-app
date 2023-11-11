@@ -8,6 +8,7 @@ import { AuthFormComponent } from './components/auth-form/auth-form.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { FormFieldComponent } from './components/form-field/form-field.component';
 import { HeaderComponent } from './components/header/header.component';
+import { LanguageSelectorComponent } from './components/language-selector/language-selector.component';
 import { NotificationComponent } from './components/notification/notification.component';
 import { PageLayoutComponent } from './components/page-layout/page-layout.component';
 import { AuthErrorPipe } from './pipes/auth-error.pipe';
@@ -23,6 +24,7 @@ import { FirstNamePipe } from './pipes/first-name.pipe';
     AuthErrorPipe,
     NotificationComponent,
     FormFieldComponent,
+    LanguageSelectorComponent,
   ],
   imports: [
     CommonModule,
@@ -42,6 +44,7 @@ import { FirstNamePipe } from './pipes/first-name.pipe';
     AuthErrorPipe,
     NotificationComponent,
     FormFieldComponent,
+    LanguageSelectorComponent,
   ],
 })
 export class SharedModule { }

@@ -15,29 +15,54 @@
         <li *ngIf="!user">
           <a routerLink="/login">{{"header.menu.login" | translate}}</a>
         </li>
-        <li>
+        <li *ngIf="!user">
           <a routerLink="/about-us">{{"header.menu.aboutUs" | translate}}</a>
         </li>
-        <li *ngIf="!user" class="with-image">
-          <a (click)="onChangeLanguage()">
-            <img
-              class="language-icon"
-              [title]="selectedLanguage === 'uk' ? 'Change to English' : 'Перейти на українську'"
-              [src]="'assets/images/' + (selectedLanguage === 'uk' ? 'eng-flag.png' : 'ukraine-flag.svg')" alt=""
-            />
-          </a>
+        <li *ngIf="!user">
+          <app-language-selector />
         </li>
-         <!-- Will be replaced with account menu -->
-         <li *ngIf="user">
-          <a (click)="signOut.emit()">
-            Logout
+        <li
+          *ngIf="user"
+          class="with-image menu-dropdown"
+          (click)="accountMenuVisible = !accountMenuVisible"
+          (mouseenter)="onAccountMenuHover(true)"
+          (mouseleave)="onAccountMenuHover(false)"
+          [class.opened]="accountMenuVisible"
+        >
+          <a>
+            <div class="flex align-items-center justify-content-end">
+              <span>{{ user.displayName }}</span>
+              <img [src]="user.photoURL" alt="">
+            </div>
           </a>
-        </li>
-        <li *ngIf="user" class="with-image">
-          <a class="flex-box">
-            <span>Hello, {{ user.displayName | firstName }}</span>
-            <img [src]="user.photoURL" alt="">
-          </a>
+          <div *ngIf="accountMenuVisible" @fadeAnimation class="menu-content">
+            <ul>
+              <li>
+                <a routerLink="/profile">
+                  <span class="material-symbols-outlined">person</span>
+                  <span class="link-text">{{ "header.menu.profile" | translate }}</span>
+                </a>
+              </li>
+              <li>
+                <a routerLink="/about-us">
+                  <span class="material-symbols-outlined">info</span>
+                  <span class="link-text">{{ "header.menu.aboutUs" | translate }}</span>
+                </a>
+              </li>
+              <li>
+                <a (click)="signOut.emit()">
+                  <span class="material-symbols-outlined">logout</span>
+                  <span class="link-text">{{ "header.menu.logout" | translate }}</span>
+                </a>
+              </li>
+              <li class="separator"></li>
+              <li>
+                <a>
+                  <app-language-selector [withText]="true" size="24px" />
+                </a>
+              </li>
+            </ul>
+          </div>
         </li>
       </ul>
     </div>

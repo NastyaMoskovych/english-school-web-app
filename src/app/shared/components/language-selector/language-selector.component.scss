@@ -1,0 +1,26 @@
+.language-selector {
+  align-items: center;
+  background: none;
+  border: none;
+  display: flex;
+  padding: 0;
+
+  &:hover {
+    img {
+      border-color: var(--palette-secondary-color-3);
+    }
+  }
+
+  img {
+    border-radius: 50%;
+    border: 2px solid transparent;
+    transition: .3s;
+  }
+
+  p {
+    color: var(--palette-secondary-color-3);
+    font-weight: 600;
+    font-size: 16px;
+    margin-left: 6px;
+  }
+}

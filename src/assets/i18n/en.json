@@ -34,7 +34,9 @@
     "menu": {
       "registration": "Become a student",
       "login": "Login",
-      "aboutUs": "About us"
+      "aboutUs": "About us",
+      "profile": "My Account",
+      "logout": "Logout"
     }
   },
   "footer": {
@@ -84,5 +86,8 @@
       "emailAlreadyInUse": "Email is already in use by another account",
       "generalError": "Something went wrong. Please try again later"
     }
+  },
+  "languageSelector": {
+    "changeLang": "Change language"
   }
 }

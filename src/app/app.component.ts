@@ -3,6 +3,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import { IUser } from './models/user.model';
 import { AuthService } from './services/auth.service';
+import { getDefaultLanguage } from './shared/components/language-selector/language-selector.component';
 
 @Component({
   selector: 'app-root',
@@ -11,33 +12,15 @@ import { AuthService } from './services/auth.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AppComponent implements OnInit {
-  private languageKey = 'e-school:language';
-  public selectedLanguage = this.getDefaultLanguage();
   public authService = inject(AuthService);
   public user$: Observable<IUser> = this.authService.user$;
 
-  constructor(public translate: TranslateService) {
+  constructor(private translate: TranslateService) {
     translate.addLangs(['en', 'uk']);
-    translate.setDefaultLang(this.getDefaultLanguage());
+    translate.setDefaultLang(getDefaultLanguage(this.translate));
   }
 
   ngOnInit(): void {
     this.user$.subscribe((user: IUser) => console.log(user));
-  }
-
-  onChangeLanguage(language: string): void {
-    localStorage.setItem(this.languageKey, language);
-    this.selectedLanguage = language;
-    this.translate.use(language);
-  }
-
-  private getDefaultLanguage(): string {
-    const language = localStorage.getItem(this.languageKey);
-
-    if (language) {
-      return language;
-    }
-
-    return this.translate.getBrowserLang() || 'uk';
   }
 }

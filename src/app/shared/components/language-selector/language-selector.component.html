@@ -1,0 +1,10 @@
+<button class="language-selector" (click)="onChangeLanguage($event)">
+  <img
+    [ngStyle]="{ height: size, width: size }"
+    [title]="selectedLanguage === 'uk' ? 'Change to English' : 'Перейти на українську'"
+    [src]="'assets/images/' + (selectedLanguage === 'uk' ? 'eng-flag.png' : 'ukraine-flag.svg')" alt=""
+  />
+  <p *ngIf="withText">
+    {{ "languageSelector.changeLang" | translate }}
+  </p>
+</button>

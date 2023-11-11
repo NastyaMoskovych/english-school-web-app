@@ -1,7 +1,5 @@
 <app-header
-  (changeLanguage)="onChangeLanguage($event)"
   (signOut)="authService.signOut()"
-  [selectedLanguage]="selectedLanguage"
   [user]="user$ | async"
 ></app-header>
 

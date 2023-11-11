@@ -28,8 +28,8 @@ export class AuthFormComponent implements OnInit {
   @Output() signInWithProvider = new EventEmitter<SignInProviders>();
   @Output() formSubmit = new EventEmitter<AuthForm>();
 
-  private formBuilder = inject(FormBuilder);
   private destroy = inject(DestroyRef);
+  private formBuilder = inject(FormBuilder);
 
   signInProviders = SignInProviders;
   form: FormGroup;

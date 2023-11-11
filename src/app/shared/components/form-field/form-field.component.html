@@ -1,0 +1,9 @@
+<div *ngIf="formControl" class="input-wrapper" [class.error]="formControl.invalid && formControl.touched">
+  <label class="input-field">
+    <input placeholder="" [type]="type" [formControl]="formControl">
+    <span>{{ label }}</span>
+  </label>
+  <span *ngIf="formControl.errors" class="input-error">
+    {{ errorMesage }}
+  </span>
+</div>

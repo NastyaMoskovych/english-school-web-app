@@ -29,20 +29,27 @@
       </ng-container>
     </p>
 
-    <label *ngIf="isSignUp" class="input-field">
-      <input placeholder="" type="text" formControlName="displayName">
-      <span>{{"authForm.registrationFields.name" | translate}}</span>
-    </label>
+    <app-form-field
+      *ngIf="isSignUp"
+      controlName="displayName"
+      type="text"
+      [label]="'authForm.fields.name.label' | translate"
+      [errorMessages]="'authForm.fields.name.errors' | translate"
+    />
 
-    <label class="input-field">
-      <input placeholder="" type="email" formControlName="email">
-      <span>{{"authForm.registrationFields.email" | translate}}</span>
-    </label>
+    <app-form-field
+      controlName="email"
+      type="email"
+      [label]="'authForm.fields.email.label' | translate"
+      [errorMessages]="'authForm.fields.email.errors' | translate"
+    />
 
-    <label class="input-field">
-      <input placeholder="" type="password" formControlName="password">
-      <span>{{"authForm.registrationFields.password" | translate}}</span>
-    </label>
+    <app-form-field
+      controlName="password"
+      type="password"
+      [label]="'authForm.fields.password.label' | translate"
+      [errorMessages]="'authForm.fields.password.errors' | translate"
+    />
 
     <app-notification
       *ngIf="error"

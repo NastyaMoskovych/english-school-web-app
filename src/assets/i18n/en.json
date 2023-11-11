@@ -51,19 +51,33 @@
       "text": "or use your email for registration",
       "button": "Sign Up"
     },
-    "registrationFields": {
-      "name": "Name",
-      "email": "Email",
-      "password": "Password"
-    },
     "loginScreen": {
       "title": "Sign In",
       "text": "or use your email to login",
       "button": "Sign In"
     },
-    "loginFields": {
-      "email": "Email",
-      "password": "Password"
+    "fields": {
+      "name": {
+        "label": "Name",
+        "errors": {
+          "required": "Name is required",
+          "minlength": "Name must be at least 4 characters long"
+        }
+      },
+      "email": {
+        "label": "Email",
+        "errors": {
+          "required": "Email is required",
+          "email": "Email must be a valid email address"
+        }
+      },
+      "password": {
+        "label": "Password",
+        "errors": {
+          "required": "Password is required",
+          "minlength": "Password must be at least 6 characters long"
+        }
+      }
     },
     "errors": {
       "invalidLoginCredentials": "Invalid email or password",

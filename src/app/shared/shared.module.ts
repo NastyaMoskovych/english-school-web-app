@@ -6,6 +6,7 @@ import { TranslateModule } from '@ngx-translate/core';
 
 import { AuthFormComponent } from './components/auth-form/auth-form.component';
 import { FooterComponent } from './components/footer/footer.component';
+import { FormFieldComponent } from './components/form-field/form-field.component';
 import { HeaderComponent } from './components/header/header.component';
 import { NotificationComponent } from './components/notification/notification.component';
 import { PageLayoutComponent } from './components/page-layout/page-layout.component';
@@ -21,6 +22,7 @@ import { FirstNamePipe } from './pipes/first-name.pipe';
     FirstNamePipe,
     AuthErrorPipe,
     NotificationComponent,
+    FormFieldComponent,
   ],
   imports: [
     CommonModule,
@@ -39,6 +41,7 @@ import { FirstNamePipe } from './pipes/first-name.pipe';
     FirstNamePipe,
     AuthErrorPipe,
     NotificationComponent,
+    FormFieldComponent,
   ],
 })
 export class SharedModule { }

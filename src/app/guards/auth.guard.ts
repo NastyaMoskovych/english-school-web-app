@@ -10,7 +10,7 @@ export const authGuard: CanActivateFn = () => {
 
   return authState.pipe(
     map((user: User | null) => {
-      if (user) {
+      if (user?.emailVerified) {
         return true;
       }
 

@@ -1,18 +1,21 @@
 import { Injectable } from '@angular/core';
+import { FirebaseError } from '@angular/fire/app';
 import {
   Auth,
+  AuthErrorCodes,
   FacebookAuthProvider,
   GoogleAuthProvider,
   User,
   authState,
   createUserWithEmailAndPassword,
   getIdTokenResult,
+  sendEmailVerification,
   signInWithEmailAndPassword,
-  signInWithPopup
+  signInWithPopup,
 } from '@angular/fire/auth';
-import { Firestore, collection, collectionData, query, where } from '@angular/fire/firestore';
+import { Firestore, collection, collectionData, doc, getDoc, query, where } from '@angular/fire/firestore';
 import { Router } from '@angular/router';
-import { BehaviorSubject, Observable, first, map, of, shareReplay, switchMap } from 'rxjs';
+import { BehaviorSubject, Observable, map, of, shareReplay, switchMap } from 'rxjs';
 import { IUser } from '../models/user.model';
 import { AuthForm } from '../shared/components/auth-form/auth-form.component';
 import { UserService } from './user.service';
@@ -30,7 +33,7 @@ export class AuthService {
   constructor(private auth: Auth, private firestore: Firestore, private router: Router, private userService: UserService) {
     this.user$ = authState(this.auth).pipe(
       switchMap((user: User | null) => {
-        if (!user) {
+        if (!user || !user.emailVerified) {
           this.canChangePassword.next(false);
           return of(null);
         }
@@ -49,21 +52,29 @@ export class AuthService {
     const userCredential = await createUserWithEmailAndPassword(this.auth, email, password);
     const payload = { uid: userCredential.user.uid, displayName, email, photoURL: null };
 
+    await sendEmailVerification(userCredential.user);
     await this.userService.updateUser(payload.uid, payload);
-    this.router.navigate(['/']);
+
+    this.signOut();
   }
 
   public async signInWithEmailAndPassword({ email, password }: AuthForm): Promise<void> {
-    await signInWithEmailAndPassword(this.auth, email, password);
-    this.router.navigate(['/']);
+    const userCredential = await signInWithEmailAndPassword(this.auth, email, password);
+
+    if (userCredential.user.emailVerified) {
+      this.router.navigate(['/']);
+    } else {
+      this.signOut();
+      throw new FirebaseError(AuthErrorCodes.UNVERIFIED_EMAIL, '');
+    }
   }
 
   public async signInWithProvider(providerType: SignInProviders): Promise<void> {
     const userCredential = await signInWithPopup(this.auth, providerType === SignInProviders.GOOGLE ? new GoogleAuthProvider() : new FacebookAuthProvider());
     const { email, photoURL, displayName, uid } = userCredential.user;
-    const currentUser = await this.user$.pipe(first()).toPromise();
+    const document = (await getDoc(doc(this.firestore, 'users', uid))).exists();
 
-    if (!currentUser) {
+    if (!document) {
       const payload = { email, displayName, uid, photoURL: photoURL?.replaceAll('s96-c', 's256-c') } as IUser;
       await this.userService.updateUser(payload.uid, payload);
     }

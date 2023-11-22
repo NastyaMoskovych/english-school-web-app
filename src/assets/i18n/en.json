@@ -39,6 +39,7 @@
     "errors": {
       "invalidLoginCredentials": "Invalid email or password",
       "emailAlreadyInUse": "Email is already in use by another account",
+      "unverifiedEmail": "Email is not verified. Please check your inbox for verification link",
       "generalError": "Something went wrong. Please try again later"
     },
     "buttons": {

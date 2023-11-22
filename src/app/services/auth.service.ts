@@ -6,32 +6,50 @@ import {
   User,
   authState,
   createUserWithEmailAndPassword,
+  getIdTokenResult,
   signInWithEmailAndPassword,
-  signInWithPopup,
+  signInWithPopup
 } from '@angular/fire/auth';
-import { Firestore, collection, collectionData, doc, query, setDoc, where } from '@angular/fire/firestore';
+import { Firestore, collection, collectionData, query, where } from '@angular/fire/firestore';
 import { Router } from '@angular/router';
-import { Observable, first, map, of, switchMap } from 'rxjs';
+import { BehaviorSubject, Observable, first, map, of, shareReplay, switchMap } from 'rxjs';
 import { IUser } from '../models/user.model';
 import { AuthForm } from '../shared/components/auth-form/auth-form.component';
+import { UserService } from './user.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  public user$: Observable<IUser>;
+  private readonly canChangePassword = new BehaviorSubject<boolean>(false);
 
-  constructor(private auth: Auth, private firestore: Firestore, private router: Router) {
+  public readonly authState$ = authState(this.auth);
+  public readonly canChangePassword$ = this.canChangePassword.asObservable();
+  public readonly user$: Observable<IUser | null>;
+
+  constructor(private auth: Auth, private firestore: Firestore, private router: Router, private userService: UserService) {
     this.user$ = authState(this.auth).pipe(
-      switchMap((user: User | null) => user ? this.getCurrentUser(user.email as string) : of(null)),
-    ) as Observable<IUser>;
+      switchMap((user: User | null) => {
+        if (!user) {
+          this.canChangePassword.next(false);
+          return of(null);
+        }
+
+        if (!this.canChangePassword.value) {
+          getIdTokenResult(user).then(({ signInProvider }) => this.canChangePassword.next(signInProvider === 'password'));
+        }
+
+        return this.getCurrentUser(user.email as string);
+      }),
+      shareReplay(),
+    );
   }
 
   public async signUpWithEmailAndPassword({ displayName, email, password }: AuthForm): Promise<void> {
     const userCredential = await createUserWithEmailAndPassword(this.auth, email, password);
-    const payload = { uid: userCredential.user.uid, displayName, email, photoURL: `https://ui-avatars.com/api/?name=${displayName}&size=128&bold=true` };
+    const payload = { uid: userCredential.user.uid, displayName, email, photoURL: null };
 
-    await this.updateUser(payload);
+    await this.userService.updateUser(payload.uid, payload);
     this.router.navigate(['/']);
   }
 
@@ -43,9 +61,13 @@ export class AuthService {
   public async signInWithProvider(providerType: SignInProviders): Promise<void> {
     const userCredential = await signInWithPopup(this.auth, providerType === SignInProviders.GOOGLE ? new GoogleAuthProvider() : new FacebookAuthProvider());
     const { email, photoURL, displayName, uid } = userCredential.user;
-    const user = { email, photoURL, displayName, uid };
+    const currentUser = await this.user$.pipe(first()).toPromise();
 
-    await this.updateUser(user as IUser);
+    if (!currentUser) {
+      const payload = { email, displayName, uid, photoURL: photoURL?.replaceAll('s96-c', 's256-c') } as IUser;
+      await this.userService.updateUser(payload.uid, payload);
+    }
+
     this.router.navigate(['/']);
   }
 
@@ -57,14 +79,8 @@ export class AuthService {
   public getCurrentUser(email: string): Observable<IUser> {
     const q = query(collection(this.firestore, 'users'), where('email', '==', email));
     return collectionData(q).pipe(
-      first(),
       map((u) => u[0])
     ) as Observable<IUser>;
-  }
-
-  private async updateUser(user: IUser): Promise<IUser> {
-    await setDoc(doc(this.firestore, 'users', user.uid), user, { merge: true });
-    return user;
   }
 }
 

@@ -32,13 +32,13 @@
           <a>
             <div class="flex align-items-center justify-content-end">
               <span>{{ user.displayName }}</span>
-              <img [src]="user.photoURL" alt="">
+              <img [src]="user | photoUrl" alt="">
             </div>
           </a>
           <div *ngIf="accountMenuVisible" @fadeAnimation class="menu-content">
             <ul>
               <li>
-                <a routerLink="/profile">
+                <a routerLink="/update-profile">
                   <span class="material-symbols-outlined">person</span>
                   <span class="link-text">{{ "header.menu.profile" | translate }}</span>
                 </a>

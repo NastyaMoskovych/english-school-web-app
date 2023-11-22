@@ -1,0 +1,36 @@
+import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
+import { AuthError } from '@angular/fire/auth';
+import { AuthService } from '../../services/auth.service';
+import { UserService } from '../../services/user.service';
+import { IChangePasswordPayload } from './components/change-password-form/change-password-form.component';
+import { IUpdateProfilePayload } from './components/update-profile-form/update-profile-form.component';
+
+@Component({
+  selector: 'app-update-profile',
+  templateUrl: './update-profile.component.html',
+  styleUrls: ['./update-profile.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
+})
+export class UpdateProfileComponent {
+  public authService = inject(AuthService);
+  private userService = inject(UserService);
+
+  updateProfileLoading = signal<boolean>(false);
+  changePasswordLoading = signal<boolean>(false);
+  changePasswordError = signal<AuthError | null>(null);
+
+  onUpdateProfile(payload: IUpdateProfilePayload): void {
+    this.updateProfileLoading.set(true);
+
+    this.userService.updateProfile(payload)
+      .finally(() => this.updateProfileLoading.set(false));
+  }
+
+  onChangePassword(payload: IChangePasswordPayload): void {
+    this.changePasswordLoading.set(true);
+
+    this.userService.changePassword(payload)
+      .catch(error => this.changePasswordError.set(error))
+      .finally(() => this.changePasswordLoading.set(false));
+  }
+}

@@ -33,22 +33,22 @@
       *ngIf="isSignUp"
       controlName="displayName"
       type="text"
-      [label]="'authForm.fields.name.label' | translate"
-      [errorMessages]="'authForm.fields.name.errors' | translate"
+      [label]="'general.form.name.label' | translate"
+      [errorMessages]="'general.form.name.errors' | translate"
     />
 
     <app-form-field
       controlName="email"
       type="email"
-      [label]="'authForm.fields.email.label' | translate"
-      [errorMessages]="'authForm.fields.email.errors' | translate"
+      [label]="'general.form.email.label' | translate"
+      [errorMessages]="'general.form.email.errors' | translate"
     />
 
     <app-form-field
       controlName="password"
       type="password"
-      [label]="'authForm.fields.password.label' | translate"
-      [errorMessages]="'authForm.fields.password.errors' | translate"
+      [label]="'general.form.password.label' | translate"
+      [errorMessages]="'general.form.password.errors' | translate"
     />
 
     <app-notification
@@ -57,7 +57,7 @@
       [message]="error | authError"
     ></app-notification>
 
-    <button [disabled]="loading" class="auth__submit-btn" [class.loading]="loading">
+    <button [disabled]="loading" class="submit-btn" [class.loading]="loading">
       <ng-container *ngIf="isSignUp">
         {{"authForm.registrationScreen.button" | translate}}
       </ng-container>

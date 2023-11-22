@@ -22,28 +22,6 @@
       img {
         max-height: 420px;
       }
-
-      button {
-        background-color: var(--palette-tertiary-color-1);
-        border: 1px solid var(--palette-tertiary-color-1);
-        border-radius: 8px;
-        cursor: pointer;
-        color: var(--palette-primary-color-5);
-        font-weight: 600;
-        padding: 12px 24px;
-        text-transform: uppercase;
-        transition: .3s;
-        margin-top: 24px;
-
-        &:hover {
-          background-color: transparent;
-          color: var(--palette-tertiary-color-1);
-        }
-
-        &:active {
-          transform: scale(.9);
-        }
-      }
     }
   }
 

@@ -1,4 +1,50 @@
 {
+  "general": {
+    "form": {
+      "name": {
+        "label": "Name",
+        "errors": {
+          "required": "Name is required",
+          "minlength": "Name must be at least 4 characters long"
+        }
+      },
+      "email": {
+        "label": "Email",
+        "errors": {
+          "required": "Email is required",
+          "email": "Email must be a valid email address"
+        }
+      },
+      "password": {
+        "label": "Password",
+        "errors": {
+          "required": "Password is required",
+          "minlength": "Password must be at least 6 characters long"
+        }
+      },
+      "currentPassword": {
+        "label": "Current password",
+        "errors": {
+          "required": "Current password is required"
+        }
+      },
+      "newPassword": {
+        "label": "New password",
+        "errors": {
+          "required": "New password is required",
+          "minlength": "New password must be at least 6 characters long"
+        }
+      }
+    },
+    "errors": {
+      "invalidLoginCredentials": "Invalid email or password",
+      "emailAlreadyInUse": "Email is already in use by another account",
+      "generalError": "Something went wrong. Please try again later"
+    },
+    "buttons": {
+      "saveChanges": "Save changes"
+    }
+  },
   "home": {
     "primaryBanner": {
       "title": "Join our sсhool now!",
@@ -35,7 +81,7 @@
       "registration": "Become a student",
       "login": "Login",
       "aboutUs": "About us",
-      "profile": "My Account",
+      "profile": "Update profile",
       "logout": "Logout"
     }
   },
@@ -57,37 +103,13 @@
       "title": "Sign In",
       "text": "or use your email to login",
       "button": "Sign In"
-    },
-    "fields": {
-      "name": {
-        "label": "Name",
-        "errors": {
-          "required": "Name is required",
-          "minlength": "Name must be at least 4 characters long"
-        }
-      },
-      "email": {
-        "label": "Email",
-        "errors": {
-          "required": "Email is required",
-          "email": "Email must be a valid email address"
-        }
-      },
-      "password": {
-        "label": "Password",
-        "errors": {
-          "required": "Password is required",
-          "minlength": "Password must be at least 6 characters long"
-        }
-      }
-    },
-    "errors": {
-      "invalidLoginCredentials": "Invalid email or password",
-      "emailAlreadyInUse": "Email is already in use by another account",
-      "generalError": "Something went wrong. Please try again later"
     }
   },
   "languageSelector": {
     "changeLang": "Change language"
+  },
+  "updateProfile": {
+    "title1": "Update Profile",
+    "title2": "Change Password"
   }
 }

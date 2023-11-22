@@ -11,20 +11,31 @@ import { HeaderComponent } from './components/header/header.component';
 import { LanguageSelectorComponent } from './components/language-selector/language-selector.component';
 import { NotificationComponent } from './components/notification/notification.component';
 import { PageLayoutComponent } from './components/page-layout/page-layout.component';
+
 import { AuthErrorPipe } from './pipes/auth-error.pipe';
 import { FirstNamePipe } from './pipes/first-name.pipe';
+import { PhotoUrlPipe } from './pipes/photo-url.pipe';
+
+const components = [
+  HeaderComponent,
+  PageLayoutComponent,
+  FooterComponent,
+  AuthFormComponent,
+  NotificationComponent,
+  FormFieldComponent,
+  LanguageSelectorComponent,
+];
+
+const pipes = [
+  FirstNamePipe,
+  AuthErrorPipe,
+  PhotoUrlPipe,
+];
 
 @NgModule({
   declarations: [
-    HeaderComponent,
-    PageLayoutComponent,
-    FooterComponent,
-    AuthFormComponent,
-    FirstNamePipe,
-    AuthErrorPipe,
-    NotificationComponent,
-    FormFieldComponent,
-    LanguageSelectorComponent,
+    ...components,
+    ...pipes,
   ],
   imports: [
     CommonModule,
@@ -36,15 +47,8 @@ import { FirstNamePipe } from './pipes/first-name.pipe';
     RouterModule,
     ReactiveFormsModule,
     TranslateModule,
-    HeaderComponent,
-    PageLayoutComponent,
-    FooterComponent,
-    AuthFormComponent,
-    FirstNamePipe,
-    AuthErrorPipe,
-    NotificationComponent,
-    FormFieldComponent,
-    LanguageSelectorComponent,
+    ...components,
+    ...pipes,
   ],
 })
 export class SharedModule { }

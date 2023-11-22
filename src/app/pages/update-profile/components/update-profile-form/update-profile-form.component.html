@@ -1,0 +1,47 @@
+<form class="update-profile-form flex-box flex-box-mobile justify-content-center" [formGroup]="form" (ngSubmit)="onSubmit()">
+  <div class="update-profile-form__photo" (click)="fileInput.click()">
+    <div class="update-profile-form__photo-wrapper rounded">
+      <img
+        alt=""
+        class="rounded"
+        [src]="imagePreview() || (user | photoUrl)"
+      />
+    </div>
+
+    <button
+      *ngIf="imagePreview()"
+      class="rounded"
+      (click)="onPreviewRemove($event)"
+    >
+      <span class="material-symbols-outlined">close</span>
+    </button>
+
+    <input
+      #fileInput
+      accept="image/*"
+      hidden
+      type="file"
+      (change)="onImageUpload($event)"
+    />
+  </div>
+  <div class="update-profile-form__data">
+    <app-form-field
+      controlName="displayName"
+      type="text"
+      [label]="'general.form.name.label' | translate"
+      [errorMessages]="'general.form.name.errors' | translate"
+    />
+
+    <app-form-field
+      controlName="email"
+      type="email"
+      [disabled]="true"
+      [label]="'general.form.email.label' | translate"
+      [errorMessages]="'general.form.email.errors' | translate"
+    />
+
+    <button [disabled]="loading" class="submit-btn" [class.loading]="loading">
+      {{ "general.buttons.saveChanges" | translate }}
+    </button>
+  </div>
+</form>

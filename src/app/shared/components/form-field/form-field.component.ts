@@ -10,10 +10,12 @@ export class FormFieldComponent implements OnInit {
   @Input({ required: true }) controlName: string;
   @Input({ required: true }) label: string;
   @Input() errorMessages: { [key: string]: string };
+  @Input() disabled = false;
   @Input() type = 'text';
 
   private controlContainer = inject(ControlContainer);
   public formControl: FormControl;
+  public isPasswordVisible = false;
 
   get errorMesage(): string {
     const errors = this.formControl.errors;
@@ -27,5 +29,9 @@ export class FormFieldComponent implements OnInit {
 
   ngOnInit(): void {
     this.formControl = this.controlContainer.control?.get(this.controlName) as FormControl;
+
+    if (this.disabled) {
+      this.formControl.disable();
+    }
   }
 }

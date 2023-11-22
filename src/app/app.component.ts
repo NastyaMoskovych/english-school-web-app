@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import { IUser } from './models/user.model';
@@ -11,16 +11,12 @@ import { getDefaultLanguage } from './shared/components/language-selector/langua
   styleUrls: ['./app.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AppComponent implements OnInit {
+export class AppComponent {
   public authService = inject(AuthService);
-  public user$: Observable<IUser> = this.authService.user$;
+  public user$: Observable<IUser | null> = this.authService.user$;
 
   constructor(private translate: TranslateService) {
     translate.addLangs(['en', 'uk']);
     translate.setDefaultLang(getDefaultLanguage(this.translate));
-  }
-
-  ngOnInit(): void {
-    this.user$.subscribe((user: IUser) => console.log(user));
   }
 }

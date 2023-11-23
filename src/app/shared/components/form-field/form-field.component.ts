@@ -1,6 +1,10 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input, OnInit, inject } from '@angular/core';
-import { ControlContainer, FormControl, ReactiveFormsModule } from '@angular/forms';
+import {
+  ControlContainer,
+  FormControl,
+  ReactiveFormsModule,
+} from '@angular/forms';
 
 @Component({
   selector: 'app-form-field',
@@ -31,7 +35,9 @@ export class FormFieldComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.formControl = this.controlContainer.control?.get(this.controlName) as FormControl;
+    this.formControl = this.controlContainer.control?.get(
+      this.controlName,
+    ) as FormControl;
 
     if (this.disabled) {
       this.formControl.disable();

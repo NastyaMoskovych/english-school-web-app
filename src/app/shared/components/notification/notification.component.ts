@@ -8,7 +8,7 @@ import { TranslateModule } from '@ngx-translate/core';
   styleUrls: ['./notification.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
-  imports: [CommonModule, TranslateModule]
+  imports: [CommonModule, TranslateModule],
 })
 export class NotificationComponent {
   @Input({ required: true }) message: string;

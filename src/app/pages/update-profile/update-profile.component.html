@@ -2,7 +2,7 @@
   <app-page-layout backgroundColor="var(--palette-primary-color-3)">
     <div class="update-profile__block">
       <h2 class="update-profile__title text-center">
-        {{ "updateProfile.title1" | translate }}
+        {{ 'updateProfile.title1' | translate }}
       </h2>
       <app-update-profile-form
         *ngIf="authService.user$ | async as user"
@@ -13,10 +13,13 @@
     </div>
   </app-page-layout>
 
-  <app-page-layout *ngIf="authService.canChangePassword$ | async" backgroundColor="var(--palette-primary-color-4)">
+  <app-page-layout
+    *ngIf="authService.canChangePassword$ | async"
+    backgroundColor="var(--palette-primary-color-4)"
+  >
     <div class="update-profile__block">
       <h2 class="update-profile__title text-center">
-        {{ "updateProfile.title2" | translate }}
+        {{ 'updateProfile.title2' | translate }}
       </h2>
       <app-change-password-form
         [error]="changePasswordError()"

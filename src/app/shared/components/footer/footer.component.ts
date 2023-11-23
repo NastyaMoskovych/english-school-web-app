@@ -11,12 +11,7 @@ import { PageLayoutComponent } from '../page-layout/page-layout.component';
   styleUrls: ['./footer.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
-  imports: [
-    CommonModule,
-    PageLayoutComponent,
-    RouterLink,
-    TranslateModule,
-  ],
+  imports: [CommonModule, PageLayoutComponent, RouterLink, TranslateModule],
 })
 export class FooterComponent {
   @Input() user: IUser | null;

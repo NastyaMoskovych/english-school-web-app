@@ -1,6 +1,22 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, inject, signal } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  EventEmitter,
+  Input,
+  OnChanges,
+  OnInit,
+  Output,
+  SimpleChanges,
+  inject,
+  signal,
+} from '@angular/core';
+import {
+  FormBuilder,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
 import { FormFieldComponent } from '@shared/components';
 import { PhotoUrlPipe } from '@shared/pipes';
@@ -38,7 +54,10 @@ export class UpdateProfileFormComponent implements OnInit, OnChanges {
 
   ngOnInit(): void {
     this.form = this.formBuilder.group({
-      displayName: [this.user.displayName, [Validators.required, Validators.minLength(4)]],
+      displayName: [
+        this.user.displayName,
+        [Validators.required, Validators.minLength(4)],
+      ],
       email: [this.user.email, [Validators.required, Validators.email]],
       file: [null],
     });

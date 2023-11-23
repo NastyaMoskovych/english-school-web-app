@@ -2,10 +2,9 @@ import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
   name: 'firstName',
-  standalone: true
+  standalone: true,
 })
 export class FirstNamePipe implements PipeTransform {
-
   transform(value: string | null): string {
     if (value) {
       return value.split(' ')[0];

@@ -14,12 +14,7 @@ import { getDefaultLanguage } from './shared/components/language-selector/langua
   styleUrls: ['./app.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
-  imports: [
-    CommonModule,
-    HeaderComponent,
-    RouterOutlet,
-    FooterComponent,
-  ],
+  imports: [CommonModule, HeaderComponent, RouterOutlet, FooterComponent],
 })
 export class AppComponent {
   public authService = inject(AuthService);

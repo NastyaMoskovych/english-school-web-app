@@ -1,13 +1,21 @@
-<div *ngIf="formControl" class="input-wrapper" [class.error]="formControl.invalid && formControl.touched">
+<div
+  *ngIf="formControl"
+  class="input-wrapper"
+  [class.error]="formControl.invalid && formControl.touched"
+>
   <label class="input-field">
-    <input placeholder="" [type]="isPasswordVisible ? 'text' : type" [formControl]="formControl">
+    <input
+      placeholder=""
+      [type]="isPasswordVisible ? 'text' : type"
+      [formControl]="formControl"
+    />
     <span>{{ label }}</span>
     <span
       *ngIf="type === 'password' && formControl?.value"
       class="visibility-icon material-symbols-outlined"
       (click)="isPasswordVisible = !isPasswordVisible"
     >
-      {{ isPasswordVisible ? "visibility" : "visibility_off" }}
+      {{ isPasswordVisible ? 'visibility' : 'visibility_off' }}
     </span>
   </label>
   <span *ngIf="formControl.errors" class="input-error">

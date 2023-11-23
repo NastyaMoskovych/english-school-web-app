@@ -1,11 +1,11 @@
-<form class="update-profile-form flex-box flex-box-mobile justify-content-center" [formGroup]="form" (ngSubmit)="onSubmit()">
+<form
+  class="update-profile-form flex-box flex-box-mobile justify-content-center"
+  [formGroup]="form"
+  (ngSubmit)="onSubmit()"
+>
   <div class="update-profile-form__photo" (click)="fileInput.click()">
     <div class="update-profile-form__photo-wrapper rounded">
-      <img
-        alt=""
-        class="rounded"
-        [src]="imagePreview() || (user | photoUrl)"
-      />
+      <img alt="" class="rounded" [src]="imagePreview() || (user | photoUrl)" />
     </div>
 
     <button
@@ -41,7 +41,7 @@
     />
 
     <button [disabled]="loading" class="submit-btn" [class.loading]="loading">
-      {{ "general.buttons.saveChanges" | translate }}
+      {{ 'general.buttons.saveChanges' | translate }}
     </button>
   </div>
 </form>

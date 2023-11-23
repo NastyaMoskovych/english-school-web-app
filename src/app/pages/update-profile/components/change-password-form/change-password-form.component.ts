@@ -1,5 +1,16 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, DestroyRef, EventEmitter, inject, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  DestroyRef,
+  EventEmitter,
+  inject,
+  Input,
+  OnChanges,
+  OnInit,
+  Output,
+  SimpleChanges,
+} from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { AuthError } from '@angular/fire/auth';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -25,7 +36,7 @@ export interface IChangePasswordPayload {
     NotificationComponent,
     TranslateModule,
     AuthErrorPipe,
-  ]
+  ],
 })
 export class ChangePasswordFormComponent implements OnInit, OnChanges {
   @Input({ required: true }) loading: boolean;
@@ -40,18 +51,21 @@ export class ChangePasswordFormComponent implements OnInit, OnChanges {
   });
 
   ngOnInit(): void {
-    this.form.valueChanges.pipe(
-      takeUntilDestroyed(this.destroy),
-    ).subscribe(() => {
-      if (this.error) {
-        this.error = null;
-      }
-    });
+    this.form.valueChanges
+      .pipe(takeUntilDestroyed(this.destroy))
+      .subscribe(() => {
+        if (this.error) {
+          this.error = null;
+        }
+      });
   }
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['loading'] && !changes['loading'].currentValue) {
-      this.form.reset({ currentPassword: '', newPassword: '' }, { emitEvent: false });
+      this.form.reset(
+        { currentPassword: '', newPassword: '' },
+        { emitEvent: false },
+      );
       this.form.markAsUntouched();
       this.form.updateValueAndValidity({ emitEvent: false });
     }

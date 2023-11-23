@@ -3,10 +3,9 @@ import { IUser } from '../../models/user.model';
 
 @Pipe({
   name: 'photoUrl',
-  standalone: true
+  standalone: true,
 })
 export class PhotoUrlPipe implements PipeTransform {
-
   transform(user: IUser): string {
     const { displayName, photoURL } = user;
 

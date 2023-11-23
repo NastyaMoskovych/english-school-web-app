@@ -3,10 +3,9 @@ import { AuthError, AuthErrorCodes } from '@angular/fire/auth';
 
 @Pipe({
   name: 'authError',
-  standalone: true
+  standalone: true,
 })
 export class AuthErrorPipe implements PipeTransform {
-
   transform(error: AuthError): string {
     return errorMessagesMap[error.code] || 'general.errors.generalError';
   }

@@ -1,5 +1,10 @@
 import { CommonModule, NgOptimizedImage } from '@angular/common';
-import { ChangeDetectionStrategy, Component, Input, inject } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Input,
+  inject,
+} from '@angular/core';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 
 export const languageKey = 'e-school:language';
@@ -20,11 +25,7 @@ export const getDefaultLanguage = (translate: TranslateService): string => {
   styleUrls: ['./language-selector.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
-  imports: [
-    CommonModule,
-    NgOptimizedImage,
-    TranslateModule,
-  ]
+  imports: [CommonModule, NgOptimizedImage, TranslateModule],
 })
 export class LanguageSelectorComponent {
   @Input() size = 36;

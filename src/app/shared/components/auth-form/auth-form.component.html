@@ -1,11 +1,11 @@
 <div class="auth">
   <h1 class="auth__title text-center">
     <ng-container *ngIf="isSignUp">
-      {{"authForm.registrationScreen.title" | translate}}
+      {{ 'authForm.registrationScreen.title' | translate }}
     </ng-container>
 
     <ng-container *ngIf="!isSignUp">
-      {{"authForm.loginScreen.title" | translate}}
+      {{ 'authForm.loginScreen.title' | translate }}
     </ng-container>
   </h1>
 
@@ -18,14 +18,18 @@
     </button>
   </div>
 
-  <form class="auth__form text-center" [formGroup]="form" (ngSubmit)="onSubmit()">
+  <form
+    class="auth__form text-center"
+    [formGroup]="form"
+    (ngSubmit)="onSubmit()"
+  >
     <p class="text-center">
       <ng-container *ngIf="isSignUp">
-        {{"authForm.registrationScreen.text" | translate}}
+        {{ 'authForm.registrationScreen.text' | translate }}
       </ng-container>
 
       <ng-container *ngIf="!isSignUp">
-        {{"authForm.loginScreen.text" | translate}}
+        {{ 'authForm.loginScreen.text' | translate }}
       </ng-container>
     </p>
 
@@ -59,11 +63,11 @@
 
     <button [disabled]="loading" class="submit-btn" [class.loading]="loading">
       <ng-container *ngIf="isSignUp">
-        {{"authForm.registrationScreen.button" | translate}}
+        {{ 'authForm.registrationScreen.button' | translate }}
       </ng-container>
 
       <ng-container *ngIf="!isSignUp">
-        {{"authForm.loginScreen.button" | translate}}
+        {{ 'authForm.loginScreen.button' | translate }}
       </ng-container>
     </button>
   </form>

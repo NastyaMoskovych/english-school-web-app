@@ -1,12 +1,23 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  inject,
+  signal,
+} from '@angular/core';
 import { AuthError } from '@angular/fire/auth';
 import { TranslateModule } from '@ngx-translate/core';
 import { PageLayoutComponent } from '@shared/components';
 import { AuthService } from '../../services/auth.service';
 import { UserService } from '../../services/user.service';
-import { ChangePasswordFormComponent, IChangePasswordPayload } from './components/change-password-form/change-password-form.component';
-import { IUpdateProfilePayload, UpdateProfileFormComponent } from './components/update-profile-form/update-profile-form.component';
+import {
+  ChangePasswordFormComponent,
+  IChangePasswordPayload,
+} from './components/change-password-form/change-password-form.component';
+import {
+  IUpdateProfilePayload,
+  UpdateProfileFormComponent,
+} from './components/update-profile-form/update-profile-form.component';
 
 @Component({
   selector: 'app-update-profile',
@@ -33,15 +44,17 @@ export class UpdateProfileComponent {
   onUpdateProfile(payload: IUpdateProfilePayload): void {
     this.updateProfileLoading.set(true);
 
-    this.userService.updateProfile(payload)
+    this.userService
+      .updateProfile(payload)
       .finally(() => this.updateProfileLoading.set(false));
   }
 
   onChangePassword(payload: IChangePasswordPayload): void {
     this.changePasswordLoading.set(true);
 
-    this.userService.changePassword(payload)
-      .catch(error => this.changePasswordError.set(error))
+    this.userService
+      .changePassword(payload)
+      .catch((error) => this.changePasswordError.set(error))
       .finally(() => this.changePasswordLoading.set(false));
   }
 }

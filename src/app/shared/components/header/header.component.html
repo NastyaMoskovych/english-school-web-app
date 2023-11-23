@@ -1,7 +1,7 @@
 <header class="header">
   <div class="flex-box flex-wrap">
     <a routerLink="/home" class="header__logo flex-box">
-      <img src="assets/images/logo.png" alt="Logo">
+      <img src="assets/images/logo.png" alt="Logo" />
       <p>
         <span>E</span>
         <span>School</span>
@@ -10,13 +10,15 @@
     <div class="header__menu">
       <ul class="flex-box">
         <li *ngIf="!user">
-          <a routerLink="/signup">{{"header.menu.registration" | translate}}</a>
+          <a routerLink="/signup">{{
+            'header.menu.registration' | translate
+          }}</a>
         </li>
         <li *ngIf="!user">
-          <a routerLink="/login">{{"header.menu.login" | translate}}</a>
+          <a routerLink="/login">{{ 'header.menu.login' | translate }}</a>
         </li>
         <li *ngIf="!user">
-          <a routerLink="/about-us">{{"header.menu.aboutUs" | translate}}</a>
+          <a routerLink="/about-us">{{ 'header.menu.aboutUs' | translate }}</a>
         </li>
         <li *ngIf="!user">
           <app-language-selector />
@@ -32,7 +34,7 @@
           <a>
             <div class="flex align-items-center justify-content-end">
               <span>{{ user.displayName }}</span>
-              <img [src]="user | photoUrl" alt="">
+              <img [src]="user | photoUrl" alt="" />
             </div>
           </a>
           <div *ngIf="accountMenuVisible" @fadeAnimation class="menu-content">
@@ -40,19 +42,25 @@
               <li>
                 <a routerLink="/update-profile">
                   <span class="material-symbols-outlined">person</span>
-                  <span class="link-text">{{ "header.menu.profile" | translate }}</span>
+                  <span class="link-text">{{
+                    'header.menu.profile' | translate
+                  }}</span>
                 </a>
               </li>
               <li>
                 <a routerLink="/about-us">
                   <span class="material-symbols-outlined">info</span>
-                  <span class="link-text">{{ "header.menu.aboutUs" | translate }}</span>
+                  <span class="link-text">{{
+                    'header.menu.aboutUs' | translate
+                  }}</span>
                 </a>
               </li>
               <li>
                 <a (click)="signOut.emit()">
                   <span class="material-symbols-outlined">logout</span>
-                  <span class="link-text">{{ "header.menu.logout" | translate }}</span>
+                  <span class="link-text">{{
+                    'header.menu.logout' | translate
+                  }}</span>
                 </a>
               </li>
               <li class="separator"></li>

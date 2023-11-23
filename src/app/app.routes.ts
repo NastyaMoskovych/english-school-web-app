@@ -9,20 +9,32 @@ export const routes: Routes = [
   },
   {
     path: 'login',
-    loadComponent: () => import('./pages/sign-in/sign-in.component').then(c => c.SignInComponent),
+    loadComponent: () =>
+      import('./pages/sign-in/sign-in.component').then(
+        (c) => c.SignInComponent,
+      ),
   },
   {
     path: 'signup',
-    loadComponent: () => import('./pages/sign-up/sign-up.component').then(c => c.SignUpComponent),
+    loadComponent: () =>
+      import('./pages/sign-up/sign-up.component').then(
+        (c) => c.SignUpComponent,
+      ),
   },
   {
     path: 'update-profile',
-    loadComponent: () => import('./pages/update-profile/update-profile.component').then(c => c.UpdateProfileComponent),
+    loadComponent: () =>
+      import('./pages/update-profile/update-profile.component').then(
+        (c) => c.UpdateProfileComponent,
+      ),
     canActivate: [authGuard],
   },
   {
     path: 'about-us',
-    loadComponent: () => import('./pages/about-us/about-us.component').then(c => c.AboutUsComponent),
+    loadComponent: () =>
+      import('./pages/about-us/about-us.component').then(
+        (c) => c.AboutUsComponent,
+      ),
   },
   {
     path: '**',

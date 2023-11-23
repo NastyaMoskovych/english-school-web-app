@@ -18,5 +18,4 @@ import { PageLayoutComponent } from '@shared/components';
     TranslateModule,
   ],
 })
-export class HomeComponent {
-}
+export class HomeComponent {}

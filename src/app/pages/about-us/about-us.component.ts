@@ -9,5 +9,4 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
   imports: [CommonModule],
   standalone: true,
 })
-export class AboutUsComponent {
-}
+export class AboutUsComponent {}

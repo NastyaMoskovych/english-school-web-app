@@ -1,8 +1,22 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, DestroyRef, EventEmitter, Input, OnInit, Output, inject } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  DestroyRef,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+  inject,
+} from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { AuthError } from '@angular/fire/auth';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
 import { AuthErrorPipe } from '@shared/pipes';
 import { SignInProviders } from '../../../services/auth.service';
@@ -54,18 +68,21 @@ export class AuthFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.form = this.formBuilder.group({
-      displayName: ['', this.isSignUp ? [Validators.required, Validators.minLength(4)] : []],
+      displayName: [
+        '',
+        this.isSignUp ? [Validators.required, Validators.minLength(4)] : [],
+      ],
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]],
     });
 
-    this.form.valueChanges.pipe(
-      takeUntilDestroyed(this.destroy),
-    ).subscribe(() => {
-      if (this.error) {
-        this.error = null;
-      }
-    });
+    this.form.valueChanges
+      .pipe(takeUntilDestroyed(this.destroy))
+      .subscribe(() => {
+        if (this.error) {
+          this.error = null;
+        }
+      });
   }
 
   onSubmit(): void {

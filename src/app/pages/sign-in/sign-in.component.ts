@@ -1,7 +1,12 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { AuthError } from '@angular/fire/auth';
-import { AuthForm, AuthFormComponent, AuthType, PageLayoutComponent } from '@shared/components';
+import {
+  AuthForm,
+  AuthFormComponent,
+  AuthType,
+  PageLayoutComponent,
+} from '@shared/components';
 import { BehaviorSubject } from 'rxjs';
 import { AuthService } from '../../services/auth.service';
 
@@ -11,11 +16,7 @@ import { AuthService } from '../../services/auth.service';
   styleUrls: ['./sign-in.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
-  imports: [
-    CommonModule,
-    PageLayoutComponent,
-    AuthFormComponent,
-  ],
+  imports: [CommonModule, PageLayoutComponent, AuthFormComponent],
 })
 export class SignInComponent {
   authType = AuthType.Login;
@@ -26,8 +27,9 @@ export class SignInComponent {
 
   onSignInWithEmailAndPassword(authForm: AuthForm) {
     this.loading$.next(true);
-    this.authService.signInWithEmailAndPassword(authForm)
-      .catch(error => this.error$.next(error))
+    this.authService
+      .signInWithEmailAndPassword(authForm)
+      .catch((error) => this.error$.next(error))
       .finally(() => this.loading$.next(false));
   }
 }

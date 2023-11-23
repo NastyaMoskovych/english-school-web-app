@@ -11,7 +11,7 @@
     <button
       *ngIf="imagePreview()"
       class="rounded"
-      (click)="onPreviewRemove($event)"
+      (click)="onPreviewRemove($event); fileInput.value = ''"
     >
       <span class="material-symbols-outlined">close</span>
     </button>

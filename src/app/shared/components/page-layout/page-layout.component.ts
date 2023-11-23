@@ -1,3 +1,4 @@
+import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 
 @Component({
@@ -5,6 +6,8 @@ import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
   templateUrl: './page-layout.component.html',
   styleUrls: ['./page-layout.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: true,
+  imports: [CommonModule],
 })
 export class PageLayoutComponent {
   @Input() backgroundColor = 'inherit';

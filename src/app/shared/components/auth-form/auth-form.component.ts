@@ -1,8 +1,13 @@
+import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, DestroyRef, EventEmitter, Input, OnInit, Output, inject } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { AuthError } from '@angular/fire/auth';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { TranslateModule } from '@ngx-translate/core';
+import { AuthErrorPipe } from '@shared/pipes';
 import { SignInProviders } from '../../../services/auth.service';
+import { FormFieldComponent } from '../form-field/form-field.component';
+import { NotificationComponent } from '../notification/notification.component';
 
 export enum AuthType {
   Login = 'login',
@@ -19,7 +24,16 @@ export interface AuthForm {
   selector: 'app-auth-form',
   templateUrl: './auth-form.component.html',
   styleUrls: ['./auth-form.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: true,
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    FormFieldComponent,
+    NotificationComponent,
+    TranslateModule,
+    AuthErrorPipe,
+  ],
 })
 export class AuthFormComponent implements OnInit {
   @Input({ required: true }) authType: AuthType;

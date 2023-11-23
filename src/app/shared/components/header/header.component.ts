@@ -1,6 +1,11 @@
+import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
+import { RouterLink } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
 import { IUser } from '../../../models/user.model';
 import { fadeAnimation } from '../../animations/fade.animation';
+import { PhotoUrlPipe } from '../../pipes/photo-url.pipe';
+import { LanguageSelectorComponent } from '../language-selector/language-selector.component';
 
 @Component({
   selector: 'app-header',
@@ -8,6 +13,14 @@ import { fadeAnimation } from '../../animations/fade.animation';
   styleUrls: ['./header.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   animations: [fadeAnimation],
+  standalone: true,
+  imports: [
+    CommonModule,
+    RouterLink,
+    LanguageSelectorComponent,
+    TranslateModule,
+    PhotoUrlPipe,
+  ],
 })
 export class HeaderComponent {
   @Input() user: IUser | null;

@@ -2,7 +2,8 @@ import { Pipe, PipeTransform } from '@angular/core';
 import { AuthError, AuthErrorCodes } from '@angular/fire/auth';
 
 @Pipe({
-  name: 'authError'
+  name: 'authError',
+  standalone: true
 })
 export class AuthErrorPipe implements PipeTransform {
 

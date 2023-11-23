@@ -1,14 +1,21 @@
+import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { AuthError } from '@angular/fire/auth';
+import { AuthForm, AuthFormComponent, AuthType, PageLayoutComponent } from '@shared/components';
 import { BehaviorSubject } from 'rxjs';
 import { AuthService } from '../../services/auth.service';
-import { AuthForm, AuthType } from '../../shared/components/auth-form/auth-form.component';
 
 @Component({
   selector: 'app-sign-up',
   templateUrl: './sign-up.component.html',
   styleUrls: ['./sign-up.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: true,
+  imports: [
+    CommonModule,
+    PageLayoutComponent,
+    AuthFormComponent,
+  ]
 })
 export class SignUpComponent {
   authType = AuthType.Signup;

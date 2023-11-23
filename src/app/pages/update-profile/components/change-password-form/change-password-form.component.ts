@@ -1,7 +1,11 @@
+import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, DestroyRef, EventEmitter, inject, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { AuthError } from '@angular/fire/auth';
-import { FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { TranslateModule } from '@ngx-translate/core';
+import { FormFieldComponent, NotificationComponent } from '@shared/components';
+import { AuthErrorPipe } from '@shared/pipes';
 
 export interface IChangePasswordPayload {
   currentPassword: string;
@@ -12,7 +16,16 @@ export interface IChangePasswordPayload {
   selector: 'app-change-password-form',
   templateUrl: './change-password-form.component.html',
   styleUrls: ['./change-password-form.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: true,
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    FormFieldComponent,
+    NotificationComponent,
+    TranslateModule,
+    AuthErrorPipe,
+  ]
 })
 export class ChangePasswordFormComponent implements OnInit, OnChanges {
   @Input({ required: true }) loading: boolean;

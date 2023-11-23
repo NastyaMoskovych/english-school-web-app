@@ -1,2 +1,7 @@
-<?xml version="1.0" encoding="utf-8"?><!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools -->
-<svg width="800px" height="800px" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" class="iconify iconify--emojione" preserveAspectRatio="xMidYMid meet"><path d="M32 62c16.6 0 30-13.4 30-30H2c0 16.6 13.4 30 30 30z" fill="#ffe62e"></path><path d="M32 2C15.4 2 2 15.4 2 32h60C62 15.4 48.6 2 32 2z" fill="#428bc1"></path></svg>
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="72px" height="72px" viewBox="0 0 72 72" version="1.1">
+<g id="surface1">
+<path style=" stroke:none;fill-rule:nonzero;fill:rgb(100%,90.196078%,18.039216%);fill-opacity:1;" d="M 36 69.75 C 54.675781 69.75 69.75 54.675781 69.75 36 L 2.25 36 C 2.25 54.675781 17.324219 69.75 36 69.75 Z M 36 69.75 "/>
+<path style=" stroke:none;fill-rule:nonzero;fill:rgb(25.882353%,54.509804%,75.686275%);fill-opacity:1;" d="M 36 2.25 C 17.324219 2.25 2.25 17.324219 2.25 36 L 69.75 36 C 69.75 17.324219 54.675781 2.25 36 2.25 Z M 36 2.25 "/>
+</g>
+</svg>

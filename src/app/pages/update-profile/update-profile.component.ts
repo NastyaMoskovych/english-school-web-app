@@ -1,15 +1,26 @@
+import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 import { AuthError } from '@angular/fire/auth';
+import { TranslateModule } from '@ngx-translate/core';
+import { PageLayoutComponent } from '@shared/components';
 import { AuthService } from '../../services/auth.service';
 import { UserService } from '../../services/user.service';
-import { IChangePasswordPayload } from './components/change-password-form/change-password-form.component';
-import { IUpdateProfilePayload } from './components/update-profile-form/update-profile-form.component';
+import { ChangePasswordFormComponent, IChangePasswordPayload } from './components/change-password-form/change-password-form.component';
+import { IUpdateProfilePayload, UpdateProfileFormComponent } from './components/update-profile-form/update-profile-form.component';
 
 @Component({
   selector: 'app-update-profile',
   templateUrl: './update-profile.component.html',
   styleUrls: ['./update-profile.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: true,
+  imports: [
+    CommonModule,
+    PageLayoutComponent,
+    UpdateProfileFormComponent,
+    ChangePasswordFormComponent,
+    TranslateModule,
+  ],
 })
 export class UpdateProfileComponent {
   public authService = inject(AuthService);

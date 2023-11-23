@@ -1,10 +1,13 @@
+import { CommonModule } from '@angular/common';
 import { Component, Input, OnInit, inject } from '@angular/core';
-import { ControlContainer, FormControl } from '@angular/forms';
+import { ControlContainer, FormControl, ReactiveFormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-form-field',
   templateUrl: './form-field.component.html',
   styleUrls: ['./form-field.component.scss'],
+  standalone: true,
+  imports: [CommonModule, ReactiveFormsModule],
 })
 export class FormFieldComponent implements OnInit {
   @Input({ required: true }) controlName: string;

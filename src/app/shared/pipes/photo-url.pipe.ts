@@ -2,7 +2,8 @@ import { Pipe, PipeTransform } from '@angular/core';
 import { IUser } from '../../models/user.model';
 
 @Pipe({
-  name: 'photoUrl'
+  name: 'photoUrl',
+  standalone: true
 })
 export class PhotoUrlPipe implements PipeTransform {
 

@@ -1,5 +1,8 @@
+import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { RouterOutlet } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
+import { FooterComponent, HeaderComponent } from '@shared/components';
 import { Observable } from 'rxjs';
 import { IUser } from './models/user.model';
 import { AuthService } from './services/auth.service';
@@ -10,6 +13,13 @@ import { getDefaultLanguage } from './shared/components/language-selector/langua
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: true,
+  imports: [
+    CommonModule,
+    HeaderComponent,
+    RouterOutlet,
+    FooterComponent,
+  ],
 })
 export class AppComponent {
   public authService = inject(AuthService);

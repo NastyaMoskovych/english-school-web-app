@@ -1,7 +1,11 @@
+import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, inject, signal } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { TranslateModule } from '@ngx-translate/core';
+import { FormFieldComponent } from '@shared/components';
+import { PhotoUrlPipe } from '@shared/pipes';
+import { toBase64 } from '@shared/utils';
 import { IUser } from '../../../../models/user.model';
-import { toBase64 } from '../../../../shared/utils';
 
 export interface IUpdateProfilePayload extends IUser {
   file: File;
@@ -11,7 +15,15 @@ export interface IUpdateProfilePayload extends IUser {
   selector: 'app-update-profile-form',
   templateUrl: './update-profile-form.component.html',
   styleUrls: ['./update-profile-form.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: true,
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    FormFieldComponent,
+    TranslateModule,
+    PhotoUrlPipe,
+  ],
 })
 export class UpdateProfileFormComponent implements OnInit, OnChanges {
   @Input({ required: true }) user: IUser;

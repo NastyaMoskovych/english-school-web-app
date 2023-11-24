@@ -1,0 +1,10 @@
+<div *ngIf="message$ | async as data" class="snackbar">
+  <app-notification
+    *ngIf="data && shown()"
+    @lightSpeedAnimation
+    (closeEvent)="onClose()"
+    [closable]="true"
+    [message]="data.message"
+    [type]="data.type || 'success'"
+  />
+</div>

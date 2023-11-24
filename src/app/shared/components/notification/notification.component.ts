@@ -1,5 +1,11 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  EventEmitter,
+  Input,
+  Output,
+} from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
@@ -12,5 +18,7 @@ import { TranslateModule } from '@ngx-translate/core';
 })
 export class NotificationComponent {
   @Input({ required: true }) message: string;
-  @Input() icon: string;
+  @Input() type: 'success' | 'error' = 'error';
+  @Input() closable = false;
+  @Output() closeEvent = new EventEmitter<void>();
 }

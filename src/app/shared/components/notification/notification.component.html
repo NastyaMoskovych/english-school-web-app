@@ -1,6 +1,15 @@
-<div class="notification">
+<div class="notification" [ngClass]="type" [class.closable]="closable">
   <p class="flex align-items-center">
-    <span *ngIf="icon" class="material-symbols-outlined">{{ icon }}</span>
+    <span class="material-symbols-outlined">
+      {{ type === 'success' ? 'check_circle' : 'error' }}
+    </span>
     {{ message | translate }}
   </p>
+  <button
+    *ngIf="closable"
+    #closeBtn
+    (click)="closeEvent.emit(); closeBtn.blur()"
+  >
+    <span class="material-symbols-outlined">close</span>
+  </button>
 </div>

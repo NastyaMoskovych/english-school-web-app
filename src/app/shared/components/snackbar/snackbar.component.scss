@@ -1,0 +1,12 @@
+.snackbar {
+  bottom: 20px;
+  left: 50%;
+  position: fixed;
+  transform: translateX(-50%);
+  z-index: 1;
+
+  app-notification {
+    background-color: var(--palette-primary-color-5);
+    display: block;
+  }
+}

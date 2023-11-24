@@ -36,6 +36,11 @@
         }
       }
     },
+    "messages": {
+      "registerSuccess": "You have successfully registered. Please check your inbox for verification link",
+      "updateProfileSuccess": "You have successfully updated your profile",
+      "changePasswordSuccess": "You have successfully changed your password"
+    },
     "errors": {
       "invalidLoginCredentials": "Invalid email or password",
       "emailAlreadyInUse": "Email is already in use by another account",

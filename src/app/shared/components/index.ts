@@ -5,3 +5,4 @@ export * from './header/header.component';
 export * from './language-selector/language-selector.component';
 export * from './notification/notification.component';
 export * from './page-layout/page-layout.component';
+export * from './snackbar/snackbar.component';

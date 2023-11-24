@@ -6,9 +6,9 @@ import {
   Input,
   Output,
 } from '@angular/core';
+import { User } from '@angular/fire/auth';
 import { RouterLink } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
-import { IUser } from '../../../models/user.model';
 import { fadeAnimation } from '../../animations/fade.animation';
 import { PhotoUrlPipe } from '../../pipes/photo-url.pipe';
 import { LanguageSelectorComponent } from '../language-selector/language-selector.component';
@@ -29,7 +29,7 @@ import { LanguageSelectorComponent } from '../language-selector/language-selecto
   ],
 })
 export class HeaderComponent {
-  @Input() user: IUser | null;
+  @Input() user: User | null;
   @Output() signOut = new EventEmitter<void>();
 
   accountMenuVisible = false;

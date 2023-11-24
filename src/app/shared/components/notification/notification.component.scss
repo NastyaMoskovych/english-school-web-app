@@ -2,10 +2,31 @@
   background-color: rgba(0, 0, 0, 0.04);
   border: solid 1px rgba(0, 0, 0, 0.06);
   border-radius: 8px;
-  color: var(--palette-tertiary-color-1);
   font-weight: 500;
   padding: 12px;
+  position: relative;
   text-align: left;
+
+  &.success {
+    color: var(--palette-secondary-color-1);
+  }
+
+  &.error {
+    color: var(--palette-tertiary-color-1);
+  }
+
+  &.closable {
+    padding-right: 48px;
+  }
+
+  button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    position: absolute;
+    right: 0;
+    top: 8px;
+  }
 
   span {
     margin-right: 8px;

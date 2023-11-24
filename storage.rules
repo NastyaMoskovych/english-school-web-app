@@ -5,8 +5,24 @@ rules_version = '2';
 //    /databases/(default)/documents/users/$(request.auth.uid)).data.isAdmin;
 service firebase.storage {
   match /b/{bucket}/o {
-    match /{allPaths=**} {
-      allow read, write: if request.auth.uid != null;
+    // match /{allPaths=**} {
+    //   allow read, write: if true;
+    // }
+
+    match /images/users/{userId}/{allPaths=**} {
+      allow read, write: if isOwner(userId);
+    }
+
+    function isAuthorized() {
+    	return request.auth.uid != null;
+    }
+
+    function isOwner(userId) {
+     	return request.auth.uid == userId;
+    }
+
+    function emailVerified() {
+      return request.auth.token.email_verified;
     }
   }
 }

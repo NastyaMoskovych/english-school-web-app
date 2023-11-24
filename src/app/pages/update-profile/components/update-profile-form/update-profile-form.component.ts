@@ -11,6 +11,7 @@ import {
   inject,
   signal,
 } from '@angular/core';
+import { User } from '@angular/fire/auth';
 import {
   FormBuilder,
   FormGroup,
@@ -21,9 +22,8 @@ import { TranslateModule } from '@ngx-translate/core';
 import { FormFieldComponent } from '@shared/components';
 import { PhotoUrlPipe } from '@shared/pipes';
 import { toBase64 } from '@shared/utils';
-import { IUser } from '../../../../models/user.model';
 
-export interface IUpdateProfilePayload extends IUser {
+export interface IUpdateProfilePayload extends User {
   file: File;
 }
 
@@ -42,7 +42,7 @@ export interface IUpdateProfilePayload extends IUser {
   ],
 })
 export class UpdateProfileFormComponent implements OnInit, OnChanges {
-  @Input({ required: true }) user: IUser;
+  @Input({ required: true }) user: User;
   @Input({ required: true }) loading: boolean;
   @Output() submitEvent = new EventEmitter<IUpdateProfilePayload>();
 

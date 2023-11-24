@@ -3,37 +3,33 @@ import { FirebaseError } from '@angular/fire/app';
 import {
   Auth,
   AuthErrorCodes,
+  EmailAuthProvider,
   FacebookAuthProvider,
   GoogleAuthProvider,
   User,
   authState,
   createUserWithEmailAndPassword,
   getIdTokenResult,
+  reauthenticateWithCredential,
   sendEmailVerification,
   signInWithEmailAndPassword,
   signInWithPopup,
+  updatePassword,
+  updateProfile,
 } from '@angular/fire/auth';
+import { Firestore, doc, getDoc, setDoc } from '@angular/fire/firestore';
 import {
-  Firestore,
-  collection,
-  collectionData,
-  doc,
-  getDoc,
-  query,
-  where,
-} from '@angular/fire/firestore';
+  Storage,
+  getDownloadURL,
+  ref,
+  uploadBytes,
+} from '@angular/fire/storage';
 import { Router } from '@angular/router';
-import {
-  BehaviorSubject,
-  Observable,
-  map,
-  of,
-  shareReplay,
-  switchMap,
-} from 'rxjs';
-import { IUser } from '../models/user.model';
+import { BehaviorSubject, tap } from 'rxjs';
+import { IChangePasswordPayload } from '../pages/update-profile/components/change-password-form/change-password-form.component';
+import { IUpdateProfilePayload } from '../pages/update-profile/components/update-profile-form/update-profile-form.component';
 import { AuthForm } from '../shared/components/auth-form/auth-form.component';
-import { UserService } from './user.service';
+import { SnackbarMessages, SnackbarService } from './snackbar.service';
 
 @Injectable({
   providedIn: 'root',
@@ -43,31 +39,33 @@ export class AuthService {
 
   public readonly authState$ = authState(this.auth);
   public readonly canChangePassword$ = this.canChangePassword.asObservable();
-  public readonly user$: Observable<IUser | null>;
+  public readonly user$ = new BehaviorSubject<User | null>(null);
 
   constructor(
     private auth: Auth,
     private firestore: Firestore,
     private router: Router,
-    private userService: UserService,
+    private storage: Storage,
+    private snackbar: SnackbarService,
   ) {
-    this.user$ = authState(this.auth).pipe(
-      switchMap((user: User | null) => {
-        if (!user || !user.emailVerified) {
-          this.canChangePassword.next(false);
-          return of(null);
-        }
+    this.authState$
+      .pipe(
+        tap((user: User | null) => {
+          if (!user || !user.emailVerified) {
+            this.canChangePassword.next(false);
+            return this.user$.next(null);
+          }
 
-        if (!this.canChangePassword.value) {
-          getIdTokenResult(user).then(({ signInProvider }) =>
-            this.canChangePassword.next(signInProvider === 'password'),
-          );
-        }
+          if (!this.canChangePassword.value) {
+            getIdTokenResult(user).then(({ signInProvider }) =>
+              this.canChangePassword.next(signInProvider === 'password'),
+            );
+          }
 
-        return this.getCurrentUser(user.email as string);
-      }),
-      shareReplay(),
-    );
+          this.user$.next(user);
+        }),
+      )
+      .subscribe();
   }
 
   public async signUpWithEmailAndPassword({
@@ -88,7 +86,9 @@ export class AuthService {
     };
 
     await sendEmailVerification(userCredential.user);
-    await this.userService.updateUser(payload.uid, payload);
+    await updateProfile(userCredential.user, payload);
+    await this.updateUsersDocument(payload.uid, payload);
+    this.snackbar.show({ message: SnackbarMessages.REGISTER_SUCCESS });
 
     this.signOut();
   }
@@ -128,9 +128,9 @@ export class AuthService {
         email,
         displayName,
         uid,
-        photoURL: photoURL?.replaceAll('s96-c', 's256-c'),
-      } as IUser;
-      await this.userService.updateUser(payload.uid, payload);
+        photoURL,
+      };
+      await this.updateUsersDocument(payload.uid, payload);
     }
 
     this.router.navigate(['/']);
@@ -141,12 +141,53 @@ export class AuthService {
     return this.auth.signOut();
   }
 
-  public getCurrentUser(email: string): Observable<IUser> {
-    const q = query(
-      collection(this.firestore, 'users'),
-      where('email', '==', email),
-    );
-    return collectionData(q).pipe(map((u) => u[0])) as Observable<IUser>;
+  public async updateProfile({
+    displayName,
+    file,
+    uid,
+  }: IUpdateProfilePayload): Promise<void> {
+    const payload: Partial<User> = { displayName };
+    const user = this.auth.currentUser as User;
+
+    if (file) {
+      const storageRef = ref(
+        this.storage,
+        `images/users/${uid}/photo-${Date.now()}.${file.type.split('/').pop()}`,
+      );
+      await uploadBytes(storageRef, file);
+
+      Object.assign(payload, {
+        photoURL: await getDownloadURL(storageRef),
+      });
+    }
+
+    await updateProfile(user, payload);
+    await this.updateUsersDocument(uid, payload);
+    this.snackbar.show({ message: SnackbarMessages.UPDATE_PROFILE_SUCCESS });
+    this.user$.next({ ...(this.user$.value as User), ...payload });
+  }
+
+  public async updateUsersDocument(
+    uid: string,
+    user: Partial<User>,
+  ): Promise<void> {
+    await setDoc(doc(this.firestore, 'users', uid), user, { merge: true });
+  }
+
+  public async changePassword({
+    newPassword,
+    currentPassword,
+  }: IChangePasswordPayload): Promise<void> {
+    const user: User = this.auth.currentUser as User;
+
+    if (user) {
+      await reauthenticateWithCredential(
+        user,
+        EmailAuthProvider.credential(user.email as string, currentPassword),
+      );
+      await updatePassword(user, newPassword);
+      this.snackbar.show({ message: SnackbarMessages.CHANGE_PASSWORD_SUCCESS });
+    }
   }
 }
 

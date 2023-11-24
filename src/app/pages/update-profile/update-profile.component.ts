@@ -9,7 +9,6 @@ import { AuthError } from '@angular/fire/auth';
 import { TranslateModule } from '@ngx-translate/core';
 import { PageLayoutComponent } from '@shared/components';
 import { AuthService } from '../../services/auth.service';
-import { UserService } from '../../services/user.service';
 import {
   ChangePasswordFormComponent,
   IChangePasswordPayload,
@@ -35,7 +34,6 @@ import {
 })
 export class UpdateProfileComponent {
   public authService = inject(AuthService);
-  private userService = inject(UserService);
 
   updateProfileLoading = signal<boolean>(false);
   changePasswordLoading = signal<boolean>(false);
@@ -44,7 +42,7 @@ export class UpdateProfileComponent {
   onUpdateProfile(payload: IUpdateProfilePayload): void {
     this.updateProfileLoading.set(true);
 
-    this.userService
+    this.authService
       .updateProfile(payload)
       .finally(() => this.updateProfileLoading.set(false));
   }
@@ -52,7 +50,7 @@ export class UpdateProfileComponent {
   onChangePassword(payload: IChangePasswordPayload): void {
     this.changePasswordLoading.set(true);
 
-    this.userService
+    this.authService
       .changePassword(payload)
       .catch((error) => this.changePasswordError.set(error))
       .finally(() => this.changePasswordLoading.set(false));

@@ -5,6 +5,11 @@
         <li>
           <a routerLink="/">{{ 'footer.menu.home' | translate }}</a>
         </li>
+        <li *ngIf="user?.isAdmin">
+          <a routerLink="/admin-panel">
+            {{ 'footer.menu.adminPanel' | translate }}
+          </a>
+        </li>
         <li *ngIf="!user">
           <a routerLink="/signup">{{ 'footer.menu.signUp' | translate }}</a>
         </li>

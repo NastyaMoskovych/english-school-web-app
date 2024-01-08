@@ -36,9 +36,10 @@ import { SnackbarMessages, SnackbarService } from './snackbar.service';
 })
 export class AuthService {
   private readonly canChangePassword = new BehaviorSubject<boolean>(false);
-  private readonly isAdmin = new BehaviorSubject<boolean>(false);
+  private readonly isAdmin = new BehaviorSubject<boolean | null>(null);
 
   public readonly authState$ = authState(this.auth);
+  public readonly isAdmin$ = this.isAdmin.asObservable();
   public readonly user$ = new BehaviorSubject<IUser | null>(null);
 
   constructor(
@@ -53,7 +54,7 @@ export class AuthService {
         tap((user: User | null) => {
           if (!user || !user.emailVerified) {
             this.canChangePassword.next(false);
-            this.isAdmin.next(false);
+            this.isAdmin.next(null);
             return this.user$.next(null);
           }
 

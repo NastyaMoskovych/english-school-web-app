@@ -35,9 +35,9 @@
             <div class="flex align-items-center justify-content-end">
               <span>
                 {{ user.displayName }}
-                <span *ngIf="user.isAdmin" class="subtext"
-                  >({{ 'general.roles.admin' | translate }})</span
-                >
+                <span *ngIf="user.isAdmin" class="subtext">
+                  ({{ 'general.roles.admin' | translate }})
+                </span>
               </span>
               <img [src]="user | photoUrl" alt="" />
             </div>
@@ -47,25 +47,35 @@
               <li>
                 <a routerLink="/update-profile">
                   <span class="material-symbols-outlined">person</span>
-                  <span class="link-text">{{
-                    'header.menu.profile' | translate
-                  }}</span>
+                  <span class="link-text">
+                    {{ 'header.menu.profile' | translate }}
+                  </span>
+                </a>
+              </li>
+              <li *ngIf="user.isAdmin">
+                <a routerLink="/admin-panel">
+                  <span class="material-symbols-outlined">
+                    admin_panel_settings
+                  </span>
+                  <span class="link-text">
+                    {{ 'header.menu.adminPanel' | translate }}
+                  </span>
                 </a>
               </li>
               <li>
                 <a routerLink="/about-us">
                   <span class="material-symbols-outlined">info</span>
-                  <span class="link-text">{{
-                    'header.menu.aboutUs' | translate
-                  }}</span>
+                  <span class="link-text">
+                    {{ 'header.menu.aboutUs' | translate }}
+                  </span>
                 </a>
               </li>
               <li>
                 <a (click)="signOut.emit()">
                   <span class="material-symbols-outlined">logout</span>
-                  <span class="link-text">{{
-                    'header.menu.logout' | translate
-                  }}</span>
+                  <span class="link-text">
+                    {{ 'header.menu.logout' | translate }}
+                  </span>
                 </a>
               </li>
               <li class="separator"></li>

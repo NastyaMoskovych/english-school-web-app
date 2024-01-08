@@ -91,7 +91,8 @@
       "login": "Login",
       "aboutUs": "About us",
       "profile": "Update profile",
-      "logout": "Logout"
+      "logout": "Logout",
+      "adminPanel": "Admin Panel"
     }
   },
   "footer": {
@@ -99,7 +100,8 @@
       "home": "Home",
       "signUp": "Sign Up",
       "login": "Login",
-      "aboutUs": "About us"
+      "aboutUs": "About us",
+      "adminPanel": "Admin Panel"
     }
   },
   "authForm": {

@@ -36,10 +36,10 @@ import { SnackbarMessages, SnackbarService } from './snackbar.service';
 })
 export class AuthService {
   private readonly canChangePassword = new BehaviorSubject<boolean>(false);
+  private readonly isAdmin = new BehaviorSubject<boolean>(false);
 
   public readonly authState$ = authState(this.auth);
-  public readonly canChangePassword$ = this.canChangePassword.asObservable();
-  public readonly user$ = new BehaviorSubject<User | null>(null);
+  public readonly user$ = new BehaviorSubject<IUser | null>(null);
 
   constructor(
     private auth: Auth,
@@ -53,15 +53,28 @@ export class AuthService {
         tap((user: User | null) => {
           if (!user || !user.emailVerified) {
             this.canChangePassword.next(false);
+            this.isAdmin.next(false);
             return this.user$.next(null);
           }
 
           if (!this.canChangePassword.value) {
-            getIdTokenResult(user).then(({ signInProvider }) =>
-              this.canChangePassword.next(signInProvider === 'password'),
-            );
+            getIdTokenResult(user).then(({ signInProvider }) => {
+              const canChangePassword = signInProvider === 'password';
+              this.canChangePassword.next(canChangePassword);
+              this.user$.next({
+                ...(this.user$.value as IUser),
+                canChangePassword,
+              });
+            });
           }
 
+          if (!this.isAdmin.value) {
+            this.getUserMetadata(user).then(({ role }) => {
+              const isAdmin = role === 'ADMIN';
+              this.isAdmin.next(isAdmin);
+              this.user$.next({ ...(this.user$.value as IUser), isAdmin });
+            });
+          }
           this.user$.next(user);
         }),
       )
@@ -189,9 +202,23 @@ export class AuthService {
       this.snackbar.show({ message: SnackbarMessages.CHANGE_PASSWORD_SUCCESS });
     }
   }
+
+  private async getUserMetadata(user: User): Promise<UserMetadata> {
+    const document = await getDoc(doc(this.firestore, 'metadata', user.uid));
+    return (document.data() as UserMetadata) || {};
+  }
 }
 
 export enum SignInProviders {
   GOOGLE = 'google',
   FACEBOOK = 'facebook',
+}
+
+export interface UserMetadata {
+  role?: 'ADMIN' | null;
+}
+
+export interface IUser extends User {
+  isAdmin?: boolean;
+  canChangePassword?: boolean;
 }

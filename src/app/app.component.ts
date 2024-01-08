@@ -1,6 +1,5 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
-import { User } from '@angular/fire/auth';
 import { RouterOutlet } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import {
@@ -9,7 +8,7 @@ import {
   SnackbarComponent,
 } from '@shared/components';
 import { Observable } from 'rxjs';
-import { AuthService } from './services/auth.service';
+import { AuthService, IUser } from './services/auth.service';
 import { getDefaultLanguage } from './shared/components/language-selector/language-selector.component';
 
 @Component({
@@ -28,7 +27,7 @@ import { getDefaultLanguage } from './shared/components/language-selector/langua
 })
 export class AppComponent {
   public authService = inject(AuthService);
-  public user$: Observable<User | null> = this.authService.user$;
+  public user$: Observable<IUser | null> = this.authService.user$;
 
   constructor(private translate: TranslateService) {
     translate.addLangs(['en', 'uk']);

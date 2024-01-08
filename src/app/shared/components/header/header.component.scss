@@ -129,6 +129,11 @@
         position: relative;
         text-decoration: none;
 
+        span.subtext {
+          font-weight: 500;
+          font-size: 15px;
+        }
+
         &::before {
           content: "";
           position: absolute;

@@ -49,6 +49,9 @@
     },
     "buttons": {
       "saveChanges": "Save changes"
+    },
+    "roles": {
+      "admin": "Admin"
     }
   },
   "home": {

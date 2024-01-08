@@ -33,7 +33,12 @@
         >
           <a>
             <div class="flex align-items-center justify-content-end">
-              <span>{{ user.displayName }}</span>
+              <span>
+                {{ user.displayName }}
+                <span *ngIf="user.isAdmin" class="subtext"
+                  >({{ 'general.roles.admin' | translate }})</span
+                >
+              </span>
               <img [src]="user | photoUrl" alt="" />
             </div>
           </a>

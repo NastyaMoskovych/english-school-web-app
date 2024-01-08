@@ -49,6 +49,9 @@
     },
     "buttons": {
       "saveChanges": "Зберегти зміни"
+    },
+    "roles": {
+      "admin": "Адміністратор"
     }
   },
   "home": {

@@ -1,12 +1,15 @@
+:host {
+  position: sticky;
+  top: 0;
+  width: 100%;
+  z-index: 2;
+}
+
 .header {
   background-color: var(--palette-primary-color-1);
   border-bottom-left-radius: 16px;
   border-bottom-right-radius: 16px;
   padding: 5px 10px;
-  position: fixed;
-  top: 0;
-  width: 100%;
-  z-index: 1;
 
   &__logo {
     color: inherit;
@@ -64,7 +67,7 @@
             background: var(--palette-primary-color-5);
             border-bottom-left-radius: 6px;
             border-bottom-right-radius: 6px;
-            box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+            box-shadow: var(--primary-box-shadow);
             left: 0;
             padding: 10px;
             position: absolute;
@@ -96,7 +99,7 @@
 
           &.opened {
             background: var(--palette-primary-color-5);
-            box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+            box-shadow: var(--primary-box-shadow);
           }
         }
 

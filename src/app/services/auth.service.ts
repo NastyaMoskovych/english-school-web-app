@@ -25,6 +25,7 @@ import {
   uploadBytes,
 } from '@angular/fire/storage';
 import { Router } from '@angular/router';
+import { IUser, UserMetadata } from '@shared/models';
 import { BehaviorSubject, tap } from 'rxjs';
 import { IChangePasswordPayload } from '../pages/update-profile/components/change-password-form/change-password-form.component';
 import { IUpdateProfilePayload } from '../pages/update-profile/components/update-profile-form/update-profile-form.component';
@@ -204,7 +205,7 @@ export class AuthService {
     }
   }
 
-  private async getUserMetadata(user: User): Promise<UserMetadata> {
+  public async getUserMetadata(user: User): Promise<UserMetadata> {
     const document = await getDoc(doc(this.firestore, 'metadata', user.uid));
     return (document.data() as UserMetadata) || {};
   }
@@ -213,13 +214,4 @@ export class AuthService {
 export enum SignInProviders {
   GOOGLE = 'google',
   FACEBOOK = 'facebook',
-}
-
-export interface UserMetadata {
-  role?: 'ADMIN' | null;
-}
-
-export interface IUser extends User {
-  isAdmin?: boolean;
-  canChangePassword?: boolean;
 }

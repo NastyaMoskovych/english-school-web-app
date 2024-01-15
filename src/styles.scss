@@ -33,3 +33,22 @@ input,
 textarea {
   font-family: inherit;
 }
+
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--palette-primary-color-6);
+  border-radius: 20px;
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
+
+  &:hover {
+    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.2);
+  }
+}
+
+::-webkit-scrollbar-track {
+  background: var(--palette-primary-color-5);
+  border-radius: 20px;
+}

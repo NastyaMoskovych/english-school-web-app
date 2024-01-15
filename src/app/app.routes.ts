@@ -32,9 +32,9 @@ export const routes: Routes = [
   },
   {
     path: 'admin-panel',
-    loadComponent: () =>
-      import('./pages/admin-panel/admin-panel.component').then(
-        (c) => c.AdminPanelComponent,
+    loadChildren: () =>
+      import('./pages/admin-panel/admin-panel.routes').then(
+        (c) => c.ADMIN_PANEL_ROUTES,
       ),
     canActivate: [authGuard, adminGuard],
   },

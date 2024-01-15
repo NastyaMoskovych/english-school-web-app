@@ -6,10 +6,11 @@ import {
   FooterComponent,
   HeaderComponent,
   SnackbarComponent,
+  getDefaultLanguage,
 } from '@shared/components';
+import { IUser } from '@shared/models';
 import { Observable } from 'rxjs';
-import { AuthService, IUser } from './services/auth.service';
-import { getDefaultLanguage } from './shared/components/language-selector/language-selector.component';
+import { AuthService } from './services/auth.service';
 
 @Component({
   selector: 'app-root',

@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
-import { IUser } from '../../../services/auth.service';
+import { IUser } from '@shared/models';
 import { PageLayoutComponent } from '../page-layout/page-layout.component';
 
 @Component({

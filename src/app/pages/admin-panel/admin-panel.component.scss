@@ -1,0 +1,53 @@
+.admin-panel {
+  max-width: 740px;
+  margin: 0 auto;
+  padding: 0 16px;
+
+  &__blocks-wrapper {
+    gap: 32px;
+
+    @media screen and (max-width: 768px) {
+      gap: 16px;
+    }
+  }
+
+  &__block {
+    background-color: var(--palette-primary-color-3);
+    border-radius: 8px;
+    box-shadow: var(--primary-box-shadow);
+    cursor: pointer;
+    color: inherit;
+    padding: 24px;
+    text-align: center;
+    transition: .3s;
+    text-decoration: none;
+    width: 100%;
+
+    &:hover {
+      transform: scale(1.05);
+    }
+
+    &:active {
+      transform: scale(0.95);
+    }
+
+    &-title {
+      font-size: 17px;
+      text-transform: uppercase;
+
+      p {
+        font-weight: 500;
+        margin-left: 8px;
+      }
+    }
+
+    &-content {
+      border-top: 1px solid var(--palette-primary-color-6);
+      padding: 24px 16px;
+    }
+
+    &:last-of-type {
+      background-color: var(--palette-primary-color-4);
+    }
+  }
+}

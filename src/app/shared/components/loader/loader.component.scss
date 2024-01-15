@@ -1,0 +1,31 @@
+.box {
+  font-size: 30px;
+  color: var(--palette-tertiary-color-1);
+  padding: 16px;
+  position: relative;
+  text-align: center;
+}
+
+.loader {
+  animation: 1s loader linear infinite;
+  border: .2em solid transparent;
+  border-left-color: currentcolor;
+  border-radius: 50%;
+  border-right-color: currentcolor;
+  color: inherit;
+  display: inline-block;
+  height: 1em;
+  pointer-events: none;
+  vertical-align: middle;
+  width: 1em;
+}
+
+@keyframes loader {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}

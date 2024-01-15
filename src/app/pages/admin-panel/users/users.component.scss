@@ -1,0 +1,14 @@
+.users {
+  padding: 0 16px 48px;
+
+  &__filters {
+    max-width: 300px;
+    margin-left: auto;
+  }
+
+  table {
+    img {
+      margin-right: 8px;
+    }
+  }
+}

@@ -6,18 +6,4 @@
 
 main {
   flex: 1;
-  margin-top: 75px;
-}
-
-
-@media screen and (max-width: 768px) {
-  main {
-    margin-top: 30px;
-  }
-}
-
-@media screen and (max-width: 480px) {
-  main {
-    margin-top: 70px;
-  }
 }

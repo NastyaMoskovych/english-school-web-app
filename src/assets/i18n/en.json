@@ -51,7 +51,22 @@
       "saveChanges": "Save changes"
     },
     "roles": {
-      "admin": "Admin"
+      "admin": "Admin",
+      "user": "User"
+    },
+    "dropdown": {
+      "defaultPlaceholder": "Select an option",
+      "noResults": "No results found",
+      "roles": {
+        "all": "All",
+        "admins": "Admins",
+        "users": "Users"
+      }
+    },
+    "breadcrumbs": {
+      "home": "Home",
+      "admin-panel": "Admin Panel",
+      "users": "Users"
     }
   },
   "home": {
@@ -122,5 +137,23 @@
   "updateProfile": {
     "title1": "Update Profile",
     "title2": "Change Password"
+  },
+  "adminPanel": {
+    "title": "Admin Panel",
+    "lessonsManagement": {
+      "title": "Lessons Management",
+      "content": "Effortlessly manage lessons. Create, edit, and remove with ease. Quiz setup made simple."
+    },
+    "users": {
+      "title": "All Users",
+      "content": "Seamlessly oversee users. View, modify, and track progress effortlessly.",
+      "filter": "Filter by role",
+      "table": {
+        "id": "Id",
+        "name": "Name",
+        "email": "Email",
+        "role": "Role"
+      }
+    }
   }
 }

@@ -7,11 +7,16 @@ service cloud.firestore {
     // }
 
     match /metadata/{userId} {
-      allow read: if isOwner(userId);
+      allow read: if isOwner(userId) || isAdmin();
     }
 
   	match /users/{userId} {
-      allow read, write: if isOwner(userId);
+      allow read: if isOwner(userId) || isAdmin();
+      allow write: if isOwner(userId);
+    }
+
+    function isAdmin() {
+    	return get(/databases/$(database)/documents/metadata/$(request.auth.uid)).data.role == 'ADMIN';
     }
 
     function isAuthorized() {

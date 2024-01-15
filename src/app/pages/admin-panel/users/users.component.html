@@ -1,0 +1,65 @@
+<app-page-layout
+  backgroundColor="var(--palette-primary-color-4)"
+  [breadcrumbs]="true"
+  [title]="'adminPanel.users.title' | translate"
+>
+  <div class="users">
+    <div class="users__filters">
+      <app-dropdown
+        (selectEvent)="onRoleSelect($event)"
+        backgroundColor="var(--palette-primary-color-4)"
+        [options]="'general.dropdown.roles' | translate | dropdownOptions"
+        [placeholder]="'adminPanel.users.filter' | translate"
+      />
+    </div>
+
+    <div class="table-responsive">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>{{ 'adminPanel.users.table.id' | translate }}</th>
+            <th>{{ 'adminPanel.users.table.name' | translate }}</th>
+            <th>{{ 'adminPanel.users.table.email' | translate }}</th>
+            <th>{{ 'adminPanel.users.table.role' | translate }}</th>
+          </tr>
+        </thead>
+        <tbody>
+          @if (users$ | async; as users) {
+            @for (user of users; track user.uid) {
+              <tr>
+                <td>{{ user.uid }}</td>
+                <td>
+                  <div class="flex-box justify-content-start">
+                    <img
+                      class="rounded"
+                      [ngSrc]="user | photoUrl"
+                      alt=""
+                      width="36"
+                      height="36"
+                    />
+                    <span>{{ user.displayName }}</span>
+                  </div>
+                </td>
+                <td>{{ user.email }}</td>
+                <td>
+                  {{
+                    (user.isAdmin
+                      ? 'general.roles.admin'
+                      : 'general.roles.user'
+                    ) | translate
+                  }}
+                </td>
+              </tr>
+            }
+          } @else {
+            <tr>
+              <td colspan="4">
+                <app-loader />
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  </div>
+</app-page-layout>

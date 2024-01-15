@@ -1,0 +1,55 @@
+<div
+  class="dropdown"
+  [class.opened]="opened"
+  #dropdown
+  tabindex="0"
+  (focusout)="onFocusOut($event, dropdown)"
+>
+  <div class="input-wrapper">
+    <label class="input-field">
+      <input
+        placeholder=""
+        type="text"
+        [(ngModel)]="searchTerm"
+        [readonly]="!opened"
+        (click)="toggleDropdown(!opened)"
+      />
+      <span>
+        @if (selectedOption) {
+          {{ selectedOption.label }}
+        } @else {
+          {{
+            placeholder || ('general.dropdown.defaultPlaceholder' | translate)
+          }}
+        }
+      </span>
+      <span
+        (click)="toggleDropdown(!opened, $event)"
+        class="visibility-icon material-symbols-outlined"
+      >
+        arrow_drop_down
+      </span>
+    </label>
+  </div>
+  <ul
+    *ngIf="opened"
+    @slideAnimation
+    class="dropdown-list"
+    [style.background-color]="backgroundColor"
+  >
+    @for (option of filteredOptions; track option) {
+      <li
+        (click)="onSelect(option)"
+        [class.selected]="
+          selectedOption && selectedOption.value === option.value
+        "
+      >
+        {{ option.label }}
+      </li>
+    } @empty {
+      <li>
+        {{ 'general.dropdown.noResults' | translate }}
+      </li>
+    }
+  </ul>
+</div>

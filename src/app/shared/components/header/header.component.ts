@@ -8,9 +8,9 @@ import {
 } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
-import { IUser } from '../../../services/auth.service';
-import { fadeAnimation } from '../../animations/fade.animation';
-import { PhotoUrlPipe } from '../../pipes/photo-url.pipe';
+import { fadeAnimation } from '@shared/animations';
+import { IUser } from '@shared/models';
+import { PhotoUrlPipe } from '@shared/pipes';
 import { LanguageSelectorComponent } from '../language-selector/language-selector.component';
 
 @Component({

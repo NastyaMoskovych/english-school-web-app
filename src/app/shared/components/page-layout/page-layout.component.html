@@ -1,6 +1,10 @@
 <div class="page-layout" [style.background-color]="backgroundColor">
   <div *ngIf="separator" class="page-layout__separator"></div>
+  <app-breadcrumb *ngIf="breadcrumbs" />
   <div class="page-layout__content">
+    <h1 *ngIf="title" class="page-layout__title">
+      {{ title }}
+    </h1>
     <ng-content></ng-content>
   </div>
 </div>

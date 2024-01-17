@@ -1,0 +1,25 @@
+<div class="modal">
+  <div
+    class="modal__overlay"
+    *ngIf="opened"
+    @fadeAnimation
+    (click)="onClose()"
+  ></div>
+  <div *ngIf="opened" @transformAnimation class="modal__wrapper">
+    <div class="modal__title">
+      <div class="modal__title-text">
+        {{ title }}
+      </div>
+      <button class="modal__title-close-icon" (click)="onClose()">
+        <span class="material-symbols-outlined"> close </span>
+      </button>
+    </div>
+    <div class="modal__content">
+      <ng-content select="[body]"></ng-content>
+    </div>
+    <hr class="modal__divider" />
+    <div class="modal__actions">
+      <ng-content select="[actions]"></ng-content>
+    </div>
+  </div>
+</div>

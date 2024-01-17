@@ -1,6 +1,6 @@
 import { Routes } from '@angular/router';
 import { AdminPanelComponent } from './admin-panel.component';
-import { DataManagementComponent } from './data-management/data-management.component';
+import { LessonsManagementComponent } from './lessons-management/lessons-management.component';
 import { UsersComponent } from './users/users.component';
 
 export const ADMIN_PANEL_ROUTES: Routes = [
@@ -9,8 +9,8 @@ export const ADMIN_PANEL_ROUTES: Routes = [
     component: AdminPanelComponent,
   },
   {
-    path: 'data-management',
-    component: DataManagementComponent,
+    path: 'lessons-management',
+    component: LessonsManagementComponent,
   },
   {
     path: 'users',

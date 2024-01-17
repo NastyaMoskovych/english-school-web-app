@@ -1,0 +1,97 @@
+<app-page-layout
+  backgroundColor="var(--palette-primary-color-3)"
+  [breadcrumbs]="true"
+  [title]="'adminPanel.lessonsManagement.title' | translate"
+>
+  <div class="lessons-management">
+    <div class="lessons-management__actions flex-box">
+      <app-dropdown
+        (selectEvent)="onLevelSelect($event)"
+        backgroundColor="var(--palette-primary-color-3)"
+        class="w-100"
+        [options]="levelsOptions"
+        [placeholder]="'adminPanel.lessonsManagement.selectLevel' | translate"
+      />
+
+      <button
+        [disabled]="!selectedLevel$.value"
+        class="submit-btn"
+        (click)="openAddLessonModal()"
+      >
+        {{ 'adminPanel.lessonsManagement.addLesson' | translate }}
+      </button>
+    </div>
+
+    <div class="table-responsive">
+      <table class="table clickable">
+        <thead>
+          <tr>
+            <th>№</th>
+            <th>ID</th>
+            <th>Title</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          @if (lessons$ | async; as lessons) {
+            @for (lesson of lessons; track lesson.id; let index = $index) {
+              <tr>
+                <td>{{ index + 1 }}</td>
+                <td>{{ lesson.id }}</td>
+                <td class="text-semibold">{{ lesson.title }}</td>
+                <td>
+                  <div class="flex-box justify-content-start">
+                    <button
+                      class="icon-btn"
+                      (click)="openEditLessonModal(lesson)"
+                    >
+                      <span class="material-symbols-outlined"> edit </span>
+                    </button>
+                    <button
+                      class="icon-btn icon-btn-danger"
+                      (click)="openRemoveLessonModal(lesson)"
+                    >
+                      <span class="material-symbols-outlined"> delete </span>
+                    </button>
+                  </div>
+                </td>
+              </tr>
+            } @empty {
+              <tr>
+                <td colspan="4">
+                  <p class="text-center text-danger">
+                    {{
+                      'adminPanel.lessonsManagement.emptyResults' | translate
+                    }}
+                  </p>
+                </td>
+              </tr>
+            }
+          } @else {
+            <tr>
+              <td colspan="4">
+                @if (!selectedLevel$.value) {
+                  <p class="text-center text-danger">
+                    {{ 'adminPanel.lessonsManagement.notSelected' | translate }}
+                  </p>
+                } @else {
+                  <app-loader />
+                }
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  </div>
+</app-page-layout>
+
+@defer (when lessonModalData$ | async) {
+  <app-lesson-modal
+    *ngIf="lessonModalData$ | async as lessonModalData"
+    (closeEvent)="onLessonModalClose()"
+    (submitEvent)="onSubmitLesson($event)"
+    [data]="lessonModalData"
+    [opened]="!!lessonModalData"
+  />
+}

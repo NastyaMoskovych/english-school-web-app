@@ -22,6 +22,14 @@
   text-align: center;
 }
 
+.text-danger {
+  color: var(--palette-tertiary-color-1);
+}
+
+.text-semibold {
+  font-weight: 600;
+}
+
 .align-items-center {
   align-items: center;
 }
@@ -56,4 +64,8 @@
 
 .rounded {
   border-radius: 50%;
+}
+
+.w-100 {
+  width: 100%;
 }

@@ -34,6 +34,13 @@
           "required": "New password is required",
           "minlength": "New password must be at least 6 characters long"
         }
+      },
+      "lessonTitle": {
+        "label": "Lesson title",
+        "errors": {
+          "required": "Lesson title is required",
+          "minlength": "Lesson title must be at least 4 characters long"
+        }
       }
     },
     "messages": {
@@ -48,7 +55,8 @@
       "generalError": "Something went wrong. Please try again later"
     },
     "buttons": {
-      "saveChanges": "Save changes"
+      "saveChanges": "Save changes",
+      "confirm": "Yes"
     },
     "roles": {
       "admin": "Admin",
@@ -66,6 +74,7 @@
     "breadcrumbs": {
       "home": "Home",
       "admin-panel": "Admin Panel",
+      "lessons-management": "Lessons Management",
       "users": "Users"
     }
   },
@@ -142,7 +151,11 @@
     "title": "Admin Panel",
     "lessonsManagement": {
       "title": "Lessons Management",
-      "content": "Effortlessly manage lessons. Create, edit, and remove with ease. Quiz setup made simple."
+      "content": "Effortlessly manage lessons. Create, edit, and remove with ease. Quiz setup made simple.",
+      "selectLevel": "Select English level",
+      "addLesson": "Add new lesson",
+      "notSelected": "Please select a level to see lessons",
+      "emptyResults": "No lessons found"
     },
     "users": {
       "title": "All Users",
@@ -155,5 +168,13 @@
         "role": "Role"
       }
     }
+  },
+  "lessonModal": {
+    "title": {
+      "add": "Add new lesson",
+      "edit": "Edit lesson",
+      "delete": "Delete lesson"
+    },
+    "confirmRemoval": "Are you sure you want to remove {{ lesson }}?"
   }
 }

@@ -1,0 +1,15 @@
+.lessons-management {
+  padding: 0 16px 48px;
+
+  &__actions {
+    margin-bottom: 24px;
+
+    app-dropdown {
+      max-width: 300px;
+    }
+
+    .submit-btn {
+      margin: 0 0 16px;
+    }
+  }
+}

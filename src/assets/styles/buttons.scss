@@ -27,13 +27,47 @@
     }
   }
 
-  &:hover:not(:disabled) {
+  &:disabled {
+    cursor: not-allowed;
+  }
+
+  &:hover:not(:disabled):not(.loading) {
     background-color: transparent;
     color: var(--palette-tertiary-color-1);
   }
 
-  &:active {
+  &:active:not(:disabled) {
     transform: scale(.9);
+  }
+}
+
+.icon-btn {
+  background: none;
+  border-radius: 50%;
+  border: 0;
+  height: 36px;
+  color: var(--palette-secondary-color-1);
+  position: relative;
+  transition: .3s;
+  width: 36px;
+
+  span {
+    left: 50%;
+    position: absolute;
+    top: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  &:hover {
+    background: rgba(#497D91, 0.2);
+  }
+}
+
+.icon-btn-danger {
+  color: var(--palette-tertiary-color-1);
+
+  &:hover {
+    background: rgba(#984800, 0.2);
   }
 }
 

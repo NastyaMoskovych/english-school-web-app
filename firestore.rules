@@ -6,6 +6,11 @@ service cloud.firestore {
     //   allow read, write: if emailVerified();
     // }
 
+    match /lessons/{lessonId} {
+      allow read;
+      allow write: if isAdmin();
+    }
+
     match /metadata/{userId} {
       allow read: if isOwner(userId) || isAdmin();
     }

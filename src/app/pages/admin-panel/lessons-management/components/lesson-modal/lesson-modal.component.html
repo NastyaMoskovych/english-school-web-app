@@ -1,0 +1,33 @@
+<app-modal
+  [title]="modalTitleKey | translate"
+  [opened]="opened"
+  (closeEvent)="closeEvent.emit()"
+>
+  <ng-container body>
+    @if (data.mode !== 'delete') {
+      <form [formGroup]="form" (ngSubmit)="onSubmit()">
+        <app-form-field
+          controlName="title"
+          [label]="'general.form.lessonTitle.label' | translate"
+          [errorMessages]="'general.form.lessonTitle.errors' | translate"
+        />
+      </form>
+    } @else {
+      <p>
+        {{
+          'lessonModal.confirmRemoval'
+            | translate: { lesson: data.lesson?.title }
+        }}
+      </p>
+    }
+  </ng-container>
+  <ng-container actions>
+    <button class="submit-btn" [class.loading]="loading" (click)="onSubmit()">
+      @if (data.mode === 'delete') {
+        {{ 'general.buttons.confirm' | translate }}
+      } @else {
+        {{ 'general.buttons.saveChanges' | translate }}
+      }
+    </button>
+  </ng-container>
+</app-modal>

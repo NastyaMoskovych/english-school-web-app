@@ -1,5 +1,11 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  Input,
+  inject,
+} from '@angular/core';
 import { BreadcrumbComponent } from '../breadcrumb/breadcrumb.component';
 
 @Component({
@@ -15,4 +21,11 @@ export class PageLayoutComponent {
   @Input() separator = false;
   @Input() breadcrumbs = false;
   @Input() title: string;
+
+  private cdr = inject(ChangeDetectorRef);
+
+  setTitle(title: string): void {
+    this.title = title;
+    this.cdr.markForCheck();
+  }
 }

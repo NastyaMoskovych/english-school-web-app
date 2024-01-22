@@ -1,0 +1,40 @@
+<div class="lesson-video" (click)="toggleModal()" [class.has-video]="videoURL">
+  @if (videoURL) {
+    <app-iframe-video [videoURL]="videoURL" />
+    <div class="text-right">
+      <button class="submit-btn">
+        {{ 'general.buttons.edit' | translate }}
+      </button>
+    </div>
+  } @else {
+    <ng-content></ng-content>
+  }
+</div>
+
+@defer (when modalOpened()) {
+  <app-modal
+    *ngIf="modalOpened() as state"
+    [title]="'general.form.videoURL.label' | translate"
+    (closeEvent)="toggleModal()"
+    [opened]="state"
+  >
+    <ng-container body>
+      <form [formGroup]="form" (ngSubmit)="onSubmit()">
+        <app-form-field
+          controlName="videoURL"
+          [label]="'general.form.videoURL.label' | translate"
+          [errorMessages]="'general.form.videoURL.errors' | translate"
+        />
+      </form>
+    </ng-container>
+    <ng-container actions>
+      <button
+        class="submit-btn"
+        [class.loading]="loading()"
+        (click)="onSubmit()"
+      >
+        {{ 'general.buttons.saveChanges' | translate }}
+      </button>
+    </ng-container>
+  </app-modal>
+}

@@ -6,7 +6,7 @@ import {
   orderBy,
   query,
 } from '@angular/fire/firestore';
-import { IUser, UserMetadata } from '@shared/models';
+import { Collections, IUser, UserMetadata } from '@shared/models';
 import { Observable, forkJoin, from, map, mergeMap, take } from 'rxjs';
 import { AuthService } from './auth.service';
 
@@ -20,7 +20,7 @@ export class UsersService {
   ) {}
 
   getAllUsers(): Observable<IUser[]> {
-    const usersCollectionRef = collection(this.firestore, 'users');
+    const usersCollectionRef = collection(this.firestore, Collections.USERS);
     const usersQueryRef = query(
       usersCollectionRef,
       orderBy('displayName', 'asc'),

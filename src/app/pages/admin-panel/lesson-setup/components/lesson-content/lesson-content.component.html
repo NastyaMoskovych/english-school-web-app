@@ -1,0 +1,11 @@
+<div class="lesson-content">
+  <quill-editor
+    [(ngModel)]="content"
+    [placeholder]="'lessonContent.editorPlaceholder' | translate"
+  />
+  <div *ngIf="content?.length" class="text-right">
+    <button (click)="onContentSave()" class="submit-btn" [disabled]="loading()">
+      {{ 'general.buttons.saveChanges' | translate }}
+    </button>
+  </div>
+</div>

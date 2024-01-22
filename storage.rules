@@ -9,6 +9,10 @@ service firebase.storage {
     //   allow read, write: if true;
     // }
 
+    match /images/lessons/{lessonId}/{allPaths=**} {
+      allow read, write: if isAdmin();
+    }
+
     match /images/users/{userId}/{allPaths=**} {
       allow read, write: if isOwner(userId);
     }
@@ -23,6 +27,10 @@ service firebase.storage {
 
     function emailVerified() {
       return request.auth.token.email_verified;
+    }
+
+    function isAdmin() {
+    	return firestore.get(/databases/(default)/documents/metadata/$(request.auth.uid)).data.role == 'ADMIN';
     }
   }
 }

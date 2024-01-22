@@ -55,12 +55,22 @@ export class BreadcrumbComponent implements OnInit {
         .join('/');
 
       if (routeURL !== '') {
+        const labelKey = `general.breadcrumbs.${routeURL}`;
         url += `/${routeURL}`;
 
-        breadcrumbs.push({
-          labelKey: `general.breadcrumbs.${routeURL}`,
-          url,
-        });
+        if (/\d/.test(labelKey)) {
+          labelKey.split('/').forEach((key, index) => {
+            breadcrumbs.push({
+              labelKey: key,
+              url: index === 0 ? url.split('/').slice(0, -1).join('/') : url,
+            });
+          });
+        } else {
+          breadcrumbs.push({
+            labelKey,
+            url,
+          });
+        }
       }
 
       return this.createBreadcrumbs(child, url, breadcrumbs);

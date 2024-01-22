@@ -5,6 +5,7 @@ export enum SnackbarMessages {
   REGISTER_SUCCESS = 'general.messages.registerSuccess',
   UPDATE_PROFILE_SUCCESS = 'general.messages.updateProfileSuccess',
   CHANGE_PASSWORD_SUCCESS = 'general.messages.changePasswordSuccess',
+  UPDATE_SUCCESS = 'general.messages.updateSuccess',
 }
 
 export interface ISnackbarPayload {

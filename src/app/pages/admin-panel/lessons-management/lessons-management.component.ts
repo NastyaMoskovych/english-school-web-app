@@ -5,6 +5,7 @@ import {
   OnInit,
   inject,
 } from '@angular/core';
+import { RouterLinkWithHref } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import {
   DropdownComponent,
@@ -12,13 +13,15 @@ import {
   LoaderComponent,
   PageLayoutComponent,
 } from '@shared/components';
+import { ENGLISH_LEVELS } from '@shared/constants';
 import { Lesson } from '@shared/models';
 import { BehaviorSubject, Observable, filter, switchMap } from 'rxjs';
-import { DataManagementService } from '../../../services/data-management.service';
+import { LessonsService } from '../../../services/lessons.service';
 import {
   LessonModalComponent,
   LessonModalData,
 } from './components/lesson-modal/lesson-modal.component';
+import { LessonsManagementService } from './lessons-management.service';
 
 @Component({
   selector: 'app-lessons-management',
@@ -31,51 +34,57 @@ import {
     DropdownComponent,
     LessonModalComponent,
     LoaderComponent,
+    RouterLinkWithHref,
   ],
   templateUrl: './lessons-management.component.html',
   styleUrl: './lessons-management.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LessonsManagementComponent implements OnInit {
-  private dataManagementService = inject(DataManagementService);
+  private lessonsManagementService = inject(LessonsManagementService);
+  private lessonsService = inject(LessonsService);
 
-  levelsOptions = DataManagementService.levels.map((level) => ({
+  levelsOptions = ENGLISH_LEVELS.map((level) => ({
     value: level,
     label: level,
   }));
 
   lessons$: Observable<Lesson[]>;
-  selectedLevel$ = new BehaviorSubject<DropdownOption | undefined>(undefined);
   lessonModalData$ = new BehaviorSubject<LessonModalData | undefined>(
     undefined,
   );
 
+  get selectedLevelOption(): DropdownOption {
+    return this.lessonsManagementService.selectedLevel$.getValue() as DropdownOption;
+  }
+
   get selectedLevel(): string {
-    return this.selectedLevel$.getValue()?.value as string;
+    return this.lessonsManagementService.selectedLevel$.getValue()
+      ?.value as string;
   }
 
   ngOnInit(): void {
-    this.lessons$ = this.selectedLevel$.pipe(
+    this.lessons$ = this.lessonsManagementService.selectedLevel$.pipe(
       filter(Boolean),
-      switchMap(({ value }) =>
-        this.dataManagementService.getLesssonsByLevel(value),
-      ),
+      switchMap(({ value }) => this.lessonsService.getLesssonsByLevel(value)),
     );
   }
 
   onLevelSelect(level: DropdownOption): void {
-    this.selectedLevel$.next(level);
+    this.lessonsManagementService.selectedLevel$.next(level);
   }
 
   openAddLessonModal(): void {
     this.lessonModalData$.next({ mode: 'add' });
   }
 
-  openEditLessonModal(lesson: Lesson): void {
+  openEditLessonModal(event: MouseEvent, lesson: Lesson): void {
+    event.stopPropagation();
     this.lessonModalData$.next({ mode: 'edit', lesson });
   }
 
-  openRemoveLessonModal(lesson: Lesson): void {
+  openRemoveLessonModal(event: MouseEvent, lesson: Lesson): void {
+    event.stopPropagation();
     this.lessonModalData$.next({ mode: 'delete', lesson });
   }
 
@@ -91,14 +100,14 @@ export class LessonsManagementComponent implements OnInit {
     }
 
     if (mode === 'add') {
-      await this.dataManagementService.addLesson({
+      await this.lessonsService.addLesson({
         title: lesson.title,
         level: this.selectedLevel,
       });
     } else if (mode === 'edit') {
-      await this.dataManagementService.updateLesson(lesson);
+      await this.lessonsService.updateLesson(lesson);
     } else if (mode === 'delete') {
-      await this.dataManagementService.deleteLesson(lesson);
+      await this.lessonsService.deleteLesson(lesson.id);
     }
 
     this.lessonModalData$.next(undefined);

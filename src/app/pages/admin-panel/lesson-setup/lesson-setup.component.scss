@@ -1,0 +1,22 @@
+.lesson-setup {
+  padding: 0 16px 48px;
+
+  &__content-block {
+    background-color: var(--palette-primary-color-5);
+    cursor: pointer;
+    border-radius: 8px;
+    box-shadow: var(--secondary-box-shadow);
+    min-height: 200px;
+    margin: 24px 0;
+    position: relative;
+
+    p {
+      font-weight: 500;
+      left: 50%;
+      position: absolute;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      text-transform: uppercase;
+    }
+  }
+}

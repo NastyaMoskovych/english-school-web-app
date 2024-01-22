@@ -1,0 +1,9 @@
+<div class="lesson-image" (click)="uploadImage()">
+  @if (loading()) {
+    <app-loader></app-loader>
+  } @else if (imageURL) {
+    <img alt="" [src]="imageURL" />
+  } @else {
+    <ng-content></ng-content>
+  }
+</div>

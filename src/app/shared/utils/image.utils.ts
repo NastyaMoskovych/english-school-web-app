@@ -5,3 +5,7 @@ export const toBase64 = (file: File): Promise<string | ArrayBuffer | null> =>
     reader.onload = () => resolve(reader.result);
     reader.onerror = reject;
   });
+
+export const getTypeFromBase64 = (base64: string): string => {
+  return base64.match(/[^:]\w+\/[\w-+\d.]+(?=;|,)/)?.[0] as string;
+};

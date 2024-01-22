@@ -1,0 +1,42 @@
+<app-page-layout
+  backgroundColor="var(--palette-primary-color-3)"
+  [breadcrumbs]="true"
+>
+  <div
+    *ngIf="{ lesson: lesson$ | async, content: lessonContent$ | async } as obs"
+    class="lesson-setup"
+  >
+    <div class="lesson-setup__content-block">
+      <app-lesson-image
+        (uploadImageEvent)="onUploadImage($event)"
+        [imageURL]="obs.content?.imageURL"
+      >
+        <p class="text-center text-danger">
+          {{ 'lessonSetup.imagePlaceholder' | translate }}
+        </p>
+      </app-lesson-image>
+    </div>
+
+    <div class="lesson-setup__content-block">
+      <app-lesson-content
+        (saveContentEvent)="onSaveContent($event)"
+        [content]="obs.content?.contentHTML || ''"
+      />
+    </div>
+
+    <div class="lesson-setup__content-block">
+      <app-lesson-video
+        (saveVideoEvent)="onSaveVideo($event)"
+        [videoURL]="obs.content?.videoURL || ''"
+      >
+        <p class="text-center text-danger">
+          {{ 'lessonSetup.videoPlaceholder' | translate }}
+        </p>
+      </app-lesson-video>
+    </div>
+
+    <div class="lesson-setup__content-block">
+      <p class="text-center text-danger">Quiz Placeholder</p>
+    </div>
+  </div>
+</app-page-layout>

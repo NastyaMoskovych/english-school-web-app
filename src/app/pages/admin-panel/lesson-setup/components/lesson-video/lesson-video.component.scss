@@ -1,0 +1,26 @@
+.lesson-video {
+  padding: 24px;
+
+  &.has-video::after {
+    display: none;
+  }
+
+  &:hover {
+    &::after {
+      opacity: 1;
+    }
+  }
+
+  &::after {
+    background: rgba(0, 0, 0, 0.4) url('../../../../../../assets/images/upload.svg') no-repeat 50%;
+    border-radius: 8px;
+    content: "";
+    height: 100%;
+    left: 0;
+    opacity: 0;
+    position: absolute;
+    top: 0;
+    transition: .3s;
+    width: 100%;
+  }
+}

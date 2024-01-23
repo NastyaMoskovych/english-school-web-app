@@ -43,9 +43,7 @@ export class LessonContentService {
       this.storage,
       `images/lessons/${lessonId}/image-${Date.now()}.${getTypeFromBase64(
         base64,
-      )
-        .split('/')
-        .pop()}`,
+      )}`,
     );
 
     await uploadString(storageRef, base64, 'data_url');

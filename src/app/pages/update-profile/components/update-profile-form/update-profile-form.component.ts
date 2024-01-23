@@ -21,10 +21,10 @@ import {
 import { TranslateModule } from '@ngx-translate/core';
 import { FormFieldComponent } from '@shared/components';
 import { PhotoUrlPipe } from '@shared/pipes';
-import { toBase64 } from '@shared/utils';
+import { NgxImageCompressService } from 'ngx-image-compress';
 
 export interface IUpdateProfilePayload extends User {
-  file: File;
+  imageData: string;
 }
 
 @Component({
@@ -47,7 +47,8 @@ export class UpdateProfileFormComponent implements OnInit, OnChanges {
   @Output() submitEvent = new EventEmitter<IUpdateProfilePayload>();
 
   private formBuilder = inject(FormBuilder);
-  private file: File | null;
+  private imageCompress = inject(NgxImageCompressService);
+  private imageData: string | null;
 
   imagePreview = signal<string | ArrayBuffer | null>(null);
   form: FormGroup;
@@ -59,14 +60,14 @@ export class UpdateProfileFormComponent implements OnInit, OnChanges {
         [Validators.required, Validators.minLength(4)],
       ],
       email: [this.user.email, [Validators.required, Validators.email]],
-      file: [null],
+      imageData: [null],
     });
   }
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['loading'] && !changes['loading'].currentValue) {
       this.imagePreview.set(null);
-      this.file = null;
+      this.imageData = null;
     }
   }
 
@@ -75,7 +76,7 @@ export class UpdateProfileFormComponent implements OnInit, OnChanges {
       this.submitEvent.emit({
         ...this.form.value,
         uid: this.user.uid,
-        file: this.file,
+        imageData: this.imageData,
       });
     }
   }
@@ -85,13 +86,16 @@ export class UpdateProfileFormComponent implements OnInit, OnChanges {
     this.imagePreview.set(null);
   }
 
-  async onImageUpload(event: Event): Promise<void> {
-    const file = (event.target as HTMLInputElement).files?.[0];
-
-    if (file && file.type.includes('image')) {
-      this.form.patchValue({ file });
-      this.imagePreview.set(await toBase64(file));
-      this.file = file;
-    }
+  onImageUpload(): void {
+    this.imageCompress.uploadFile().then(({ image, orientation }) => {
+      this.imageCompress
+        .compressFile(image, orientation)
+        .then((compressedImage) => {
+          if (compressedImage) {
+            this.imagePreview.set(compressedImage);
+            this.imageData = compressedImage;
+          }
+        });
+    });
   }
 }

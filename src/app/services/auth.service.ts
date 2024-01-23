@@ -22,7 +22,7 @@ import {
   Storage,
   getDownloadURL,
   ref,
-  uploadBytes,
+  uploadString,
 } from '@angular/fire/storage';
 import { Router } from '@angular/router';
 import { Collections, IUser, UserMetadata } from '@shared/models';
@@ -30,6 +30,7 @@ import { BehaviorSubject, tap } from 'rxjs';
 import { IChangePasswordPayload } from '../pages/update-profile/components/change-password-form/change-password-form.component';
 import { IUpdateProfilePayload } from '../pages/update-profile/components/update-profile-form/update-profile-form.component';
 import { AuthForm } from '../shared/components/auth-form/auth-form.component';
+import { getTypeFromBase64 } from '../shared/utils';
 import { SnackbarMessages, SnackbarService } from './snackbar.service';
 
 @Injectable({
@@ -160,18 +161,20 @@ export class AuthService {
 
   public async updateProfile({
     displayName,
-    file,
+    imageData,
     uid,
   }: IUpdateProfilePayload): Promise<void> {
     const payload: Partial<User> = { displayName };
     const user = this.auth.currentUser as User;
 
-    if (file) {
+    if (imageData) {
       const storageRef = ref(
         this.storage,
-        `images/users/${uid}/photo-${Date.now()}.${file.type.split('/').pop()}`,
+        `images/users/${uid}/photo-${Date.now()}.${getTypeFromBase64(
+          imageData,
+        )}`,
       );
-      await uploadBytes(storageRef, file);
+      await uploadString(storageRef, imageData, 'data_url');
 
       Object.assign(payload, {
         photoURL: await getDownloadURL(storageRef),

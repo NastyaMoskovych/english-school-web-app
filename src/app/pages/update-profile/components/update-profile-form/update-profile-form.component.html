@@ -3,7 +3,7 @@
   [formGroup]="form"
   (ngSubmit)="onSubmit()"
 >
-  <div class="update-profile-form__photo" (click)="fileInput.click()">
+  <div class="update-profile-form__photo" (click)="onImageUpload()">
     <div class="update-profile-form__photo-wrapper rounded">
       <img alt="" class="rounded" [src]="imagePreview() || (user | photoUrl)" />
     </div>
@@ -11,18 +11,10 @@
     <button
       *ngIf="imagePreview()"
       class="rounded"
-      (click)="onPreviewRemove($event); fileInput.value = ''"
+      (click)="onPreviewRemove($event)"
     >
       <span class="material-symbols-outlined">close</span>
     </button>
-
-    <input
-      #fileInput
-      accept="image/*"
-      hidden
-      type="file"
-      (change)="onImageUpload($event)"
-    />
   </div>
   <div class="update-profile-form__data">
     <app-form-field

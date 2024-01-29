@@ -5,11 +5,8 @@ import {
   inject,
   signal,
 } from '@angular/core';
+import { ISnackbarPayload, SnackbarService } from '@app/services';
 import { tap } from 'rxjs/operators';
-import {
-  ISnackbarPayload,
-  SnackbarService,
-} from '../../../services/snackbar.service';
 import { lightSpeedAnimation } from '../../animations';
 import { NotificationComponent } from '../notification/notification.component';
 

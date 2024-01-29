@@ -13,9 +13,10 @@ import {
   updateDoc,
   where,
 } from '@angular/fire/firestore';
+import { Collections, Lesson } from '@shared/models';
 import { Observable } from 'rxjs';
-import { Collections, Lesson, LessonPayload } from '../shared/models';
 import { LessonContentService } from './lesson-content.service';
+import { QuizService } from './quiz.service';
 
 @Injectable({
   providedIn: 'root',
@@ -24,9 +25,10 @@ export class LessonsService {
   constructor(
     private firestore: Firestore,
     private lessonContentService: LessonContentService,
+    private quizService: QuizService,
   ) {}
 
-  async addLesson(lesson: LessonPayload): Promise<void> {
+  async addLesson(lesson: Partial<Lesson>): Promise<void> {
     const docRef = doc(collection(this.firestore, Collections.LESSONS));
     await setDoc(docRef, {
       ...lesson,
@@ -44,6 +46,7 @@ export class LessonsService {
   async deleteLesson(id: string): Promise<void> {
     await deleteDoc(doc(this.firestore, Collections.LESSONS, id));
     await this.lessonContentService.deleteLessonContent(id);
+    await this.quizService.deleteQuizByReferenceId(id);
   }
 
   getLesssonsByLevel(level: string): Observable<Lesson[]> {

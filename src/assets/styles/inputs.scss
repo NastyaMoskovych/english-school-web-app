@@ -61,6 +61,10 @@
   }
 }
 
+.input-field>textarea {
+  resize: vertical;
+}
+
 /* Span */
 .input-field>input+span,
 .input-field>textarea+span {

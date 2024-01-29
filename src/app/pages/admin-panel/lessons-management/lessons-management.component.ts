@@ -6,6 +6,7 @@ import {
   inject,
 } from '@angular/core';
 import { RouterLinkWithHref } from '@angular/router';
+import { LessonsService } from '@app/services';
 import { TranslateModule } from '@ngx-translate/core';
 import {
   DropdownComponent,
@@ -16,7 +17,6 @@ import {
 import { ENGLISH_LEVELS } from '@shared/constants';
 import { Lesson } from '@shared/models';
 import { BehaviorSubject, Observable, filter, switchMap } from 'rxjs';
-import { LessonsService } from '../../../services/lessons.service';
 import {
   LessonModalComponent,
   LessonModalData,

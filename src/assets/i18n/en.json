@@ -48,6 +48,20 @@
           "required": "Video URL is required",
           "pattern": "Video URL must be a valid URL"
         }
+      },
+      "question": {
+        "label": "Question",
+        "errors": {
+          "required": "Question is required",
+          "minlength": "Question must be at least 4 characters long"
+        }
+      },
+      "answer": {
+        "label": "Answer",
+        "errors": {
+          "required": "Answer is required",
+          "minlength": "Answer must be at least 4 characters long"
+        }
       }
     },
     "messages": {
@@ -169,6 +183,41 @@
         "id": "Id",
         "title": "Title",
         "actions": "Actions"
+      },
+      "lessonModal": {
+        "title": {
+          "add": "Add new lesson",
+          "edit": "Edit lesson",
+          "delete": "Delete lesson"
+        },
+        "confirmRemoval": "Are you sure you want to remove {{ lesson }}?"
+      },
+      "lessonSetup": {
+        "imagePlaceholder": "Image Placeholder",
+        "videoPlaceholder": "Video Placeholder"
+      },
+      "lessonContent": {
+        "editorPlaceholder": "Enter text here..."
+      },
+      "quizModal": {
+        "title": {
+          "add": "Add new quiz",
+          "edit": "Edit quiz",
+          "delete": "Delete quiz"
+        },
+        "confirmRemoval": "Are you sure you want to remove {{ quiz }}?",
+        "addAnswer": "Add Answer",
+        "addQuestion": "Add Question",
+        "selectCorrectAnswer": "Select correct answer",
+        "requiredAnswer": "Please select at least one answer",
+        "JSONformat": "JSON format"
+      },
+      "quizTable": {
+        "question": "Question",
+        "options": "Options",
+        "answer": "Answer",
+        "actions": "Actions",
+        "addButton": "Add new question"
       }
     },
     "users": {
@@ -182,20 +231,5 @@
         "role": "Role"
       }
     }
-  },
-  "lessonModal": {
-    "title": {
-      "add": "Add new lesson",
-      "edit": "Edit lesson",
-      "delete": "Delete lesson"
-    },
-    "confirmRemoval": "Are you sure you want to remove {{ lesson }}?"
-  },
-  "lessonSetup": {
-    "imagePlaceholder": "Image Placeholder",
-    "videoPlaceholder": "Video Placeholder"
-  },
-  "lessonContent": {
-    "editorPlaceholder": "Enter text here..."
   }
 }

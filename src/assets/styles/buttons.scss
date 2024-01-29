@@ -58,6 +58,7 @@
     transform: translate(-50%, -50%);
   }
 
+  &.active,
   &:hover {
     background: rgba(#497D91, 0.2);
   }

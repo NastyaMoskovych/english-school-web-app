@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { AuthError } from '@angular/fire/auth';
+import { AuthService } from '@app/services';
 import {
   AuthForm,
   AuthFormComponent,
@@ -8,7 +9,6 @@ import {
   PageLayoutComponent,
 } from '@shared/components';
 import { BehaviorSubject } from 'rxjs';
-import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-sign-in',

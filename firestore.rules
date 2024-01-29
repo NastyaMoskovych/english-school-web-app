@@ -6,6 +6,16 @@ service cloud.firestore {
     //   allow read, write: if emailVerified();
     // }
 
+    match /quizzes/{id} {
+      allow read;
+      allow write: if isAdmin();
+    }
+
+    match /lesson-resources/{id} {
+      allow read;
+      allow write: if isAdmin();
+    }
+
     match /lessons/{lessonId} {
       allow read;
       allow write: if isAdmin();

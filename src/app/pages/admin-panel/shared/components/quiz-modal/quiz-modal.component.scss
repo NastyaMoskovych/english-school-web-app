@@ -1,0 +1,19 @@
+.answer-wrapper {
+  position: relative;
+
+  app-form-field ::ng-deep .input-wrapper {
+    margin: 8px 0;
+  }
+
+  .remove-btn {
+    position: absolute;
+    top: 16px;
+    right: 6px;
+  }
+}
+
+.global-errors {
+  .input-wrapper {
+    margin: 0;
+  }
+}

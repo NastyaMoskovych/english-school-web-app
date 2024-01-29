@@ -14,8 +14,8 @@
 @defer (when modalOpened()) {
   <app-modal
     *ngIf="modalOpened() as state"
-    [title]="'general.form.videoURL.label' | translate"
     (closeEvent)="toggleModal()"
+    [title]="'general.form.videoURL.label' | translate"
     [opened]="state"
   >
     <ng-container body>

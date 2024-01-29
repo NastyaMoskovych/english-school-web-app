@@ -1,0 +1,67 @@
+<div class="lesson-quiz">
+  <div class="table-responsive">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>№</th>
+          <th>
+            {{ 'adminPanel.lessonsManagement.quizTable.question' | translate }}
+          </th>
+          <th>
+            {{ 'adminPanel.lessonsManagement.quizTable.options' | translate }}
+          </th>
+          <th>
+            {{ 'adminPanel.lessonsManagement.quizTable.answer' | translate }}
+          </th>
+          <th>
+            {{ 'adminPanel.lessonsManagement.quizTable.actions' | translate }}
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (quiz of quizList$ | async; track quiz.id; let idx = $index) {
+          <tr>
+            <td>{{ idx + 1 }}</td>
+            <td>{{ quiz.question }}</td>
+            <td>{{ quiz.answers.join(', ') }}</td>
+            <td>{{ quiz.correctAnswer }}</td>
+            <td>
+              <div class="flex-box justify-content-start">
+                <button class="icon-btn" (click)="openEditQuizModal(quiz)">
+                  <span class="material-symbols-outlined"> edit </span>
+                </button>
+                <button
+                  class="icon-btn icon-btn-danger"
+                  (click)="openRemoveQuizModal(quiz)"
+                >
+                  <span class="material-symbols-outlined"> delete </span>
+                </button>
+              </div>
+            </td>
+          </tr>
+        }
+        <tr>
+          <td colspan="5">
+            <div class="text-center">
+              <button (click)="onAddQuiz()" class="submit-btn">
+                {{
+                  'adminPanel.lessonsManagement.quizTable.addButton' | translate
+                }}
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+@defer (when quizModalData$ | async) {
+  <app-quiz-modal
+    *ngIf="quizModalData$ | async as data"
+    (closeEvent)="closeModal()"
+    (submitQuizEvent)="onSubmitQuiz($event)"
+    [data]="data"
+    [opened]="!!data"
+  />
+}

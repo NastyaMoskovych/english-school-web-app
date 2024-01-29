@@ -17,9 +17,9 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
+import { SignInProviders } from '@app/services';
 import { TranslateModule } from '@ngx-translate/core';
 import { AuthErrorPipe } from '@shared/pipes';
-import { SignInProviders } from '../../../services/auth.service';
 import { FormFieldComponent } from '../form-field/form-field.component';
 import { NotificationComponent } from '../notification/notification.component';
 

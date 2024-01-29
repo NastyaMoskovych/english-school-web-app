@@ -1,0 +1,143 @@
+<app-modal
+  (closeEvent)="closeEvent.emit()"
+  [title]="modalTitleKey | translate"
+  [opened]="opened"
+>
+  <ng-container body>
+    @if (!isDeleteMode) {
+      <form [formGroup]="form" (ngSubmit)="onSubmit()" [hidden]="isJsonView">
+        <app-form-field
+          controlName="question"
+          [label]="'general.form.question.label' | translate"
+          [errorMessages]="'general.form.question.errors' | translate"
+        />
+
+        <div class="select-wrapper">
+          @if (answersOptions$ | async; as options) {
+            <app-dropdown
+              (selectEvent)="onAnswerSelect($event)"
+              backgroundColor="var(--palette-primary-color-5)"
+              class="w-100"
+              [selectedOption]="selectedOption"
+              [options]="options"
+              [placeholder]="
+                'adminPanel.lessonsManagement.quizModal.selectCorrectAnswer'
+                  | translate
+              "
+            />
+          }
+        </div>
+
+        <div class="flex-box justify-content-start">
+          <span>
+            {{ 'adminPanel.lessonsManagement.quizModal.addAnswer' | translate }}
+          </span>
+          <button
+            (click)="onAddAnswer()"
+            type="button"
+            class="icon-btn"
+            [disabled]="answers.length >= maxAnswersCount"
+          >
+            <span class="material-symbols-outlined">add</span>
+          </button>
+        </div>
+
+        <ng-container formArrayName="answers">
+          @for (answer of answers.controls; track answer; let idx = $index) {
+            <div [formGroupName]="idx" class="flex-box answer-wrapper">
+              <app-form-field
+                class="w-100"
+                controlName="answer"
+                [label]="'general.form.answer.label' | translate"
+                [errorMessages]="'general.form.answer.errors' | translate"
+              />
+              <button
+                (click)="onRemoveAnswer(idx)"
+                type="button"
+                class="icon-btn icon-btn-danger remove-btn"
+              >
+                <span class="material-symbols-outlined">remove</span>
+              </button>
+            </div>
+          }
+        </ng-container>
+      </form>
+      <div [hidden]="!isJsonView">
+        <div class="input-wrapper">
+          <label class="input-field">
+            <textarea
+              class="ng-touched"
+              [class.ng-invalid]="form.invalid || !answers.length"
+              [ngModel]="form.value | json"
+              rows="10"
+              (ngModelChange)="onModelChange($event)"
+            ></textarea>
+            <span>
+              {{
+                'adminPanel.lessonsManagement.quizModal.JSONformat' | translate
+              }}
+            </span>
+          </label>
+        </div>
+      </div>
+    } @else {
+      <p>
+        {{
+          'adminPanel.lessonsManagement.quizModal.confirmRemoval'
+            | translate: { quiz: data.quiz?.question }
+        }}
+      </p>
+    }
+  </ng-container>
+  <ng-container actions>
+    @if (!isDeleteMode && correctAnswer.invalid && correctAnswer.touched) {
+      <div class="global-errors">
+        <div class="input-wrapper error">
+          <span class="input-error">
+            {{
+              'adminPanel.lessonsManagement.quizModal.requiredAnswer'
+                | translate
+            }}
+          </span>
+        </div>
+      </div>
+    }
+
+    @if (isDeleteMode) {
+      <button
+        (click)="onSubmit()"
+        class="submit-btn"
+        [class.loading]="loading()"
+      >
+        {{ 'general.buttons.confirm' | translate }}
+      </button>
+    } @else {
+      <div class="flex-box">
+        <div>
+          <button
+            class="icon-btn"
+            [class.active]="!isJsonView"
+            (click)="isJsonView = false"
+          >
+            <span class="material-symbols-outlined">wysiwyg</span>
+          </button>
+          <button
+            class="icon-btn"
+            [class.active]="isJsonView"
+            (click)="isJsonView = true"
+          >
+            <span class="material-symbols-outlined">code</span>
+          </button>
+        </div>
+
+        <button
+          (click)="onSubmit()"
+          class="submit-btn"
+          [class.loading]="loading()"
+        >
+          {{ 'general.buttons.saveChanges' | translate }}
+        </button>
+      </div>
+    }
+  </ng-container>
+</app-modal>

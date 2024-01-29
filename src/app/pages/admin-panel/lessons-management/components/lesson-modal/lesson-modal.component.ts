@@ -47,7 +47,7 @@ export class LessonModalComponent implements OnInit {
   loading = false;
 
   get modalTitleKey(): string {
-    return `lessonModal.title.${this.data.mode}`;
+    return `adminPanel.lessonsManagement.lessonModal.title.${this.data.mode}`;
   }
 
   ngOnInit(): void {

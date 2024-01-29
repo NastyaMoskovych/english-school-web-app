@@ -1,16 +1,13 @@
-export interface LessonPayload {
-  title: string;
-  level: string;
-}
-
-export interface Lesson extends LessonPayload {
-  id: string;
+export interface Lesson {
   createdAt: Date;
+  id: string;
+  level: string;
+  title: string;
 }
 
 export interface LessonContent {
-  imageURL: string;
-  videoURL: string;
   contentHTML: string;
+  imageURL: string;
   lessonId: string;
+  videoURL: string;
 }

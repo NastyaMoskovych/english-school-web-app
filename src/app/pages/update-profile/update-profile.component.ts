@@ -6,9 +6,9 @@ import {
   signal,
 } from '@angular/core';
 import { AuthError } from '@angular/fire/auth';
+import { AuthService } from '@app/services';
 import { TranslateModule } from '@ngx-translate/core';
 import { PageLayoutComponent } from '@shared/components';
-import { AuthService } from '../../services/auth.service';
 import {
   ChangePasswordFormComponent,
   IChangePasswordPayload,

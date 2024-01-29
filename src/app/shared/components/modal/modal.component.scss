@@ -63,6 +63,8 @@
   }
 
   &__content {
+    max-height: 470px;
+    overflow: auto;
     padding: 20px;
   }
 

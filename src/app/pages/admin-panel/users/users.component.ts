@@ -5,6 +5,7 @@ import {
   OnInit,
   inject,
 } from '@angular/core';
+import { UsersService } from '@app/services';
 import { TranslateModule } from '@ngx-translate/core';
 import {
   DropdownComponent,
@@ -15,7 +16,6 @@ import {
 import { IUser } from '@shared/models';
 import { DropdownOptionsPipe, PhotoUrlPipe } from '@shared/pipes';
 import { BehaviorSubject, Observable, combineLatest, map } from 'rxjs';
-import { UsersService } from '../../../services/users.service';
 
 @Component({
   selector: 'app-users',

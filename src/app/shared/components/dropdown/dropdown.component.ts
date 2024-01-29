@@ -27,7 +27,7 @@ export interface DropdownOption {
 export class DropdownComponent {
   @Input({ required: true }) options: DropdownOption[];
   @Input() placeholder: string;
-  @Input() selectedOption: DropdownOption;
+  @Input() selectedOption: DropdownOption | null;
   @Input() backgroundColor = 'inherit';
   @Output() selectEvent = new EventEmitter<DropdownOption>();
 

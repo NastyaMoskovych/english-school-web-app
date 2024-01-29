@@ -48,6 +48,20 @@
           "required": "Посилання на відео не може бути порожнім",
           "pattern": "Невірний формат посилання на відео"
         }
+      },
+      "question": {
+        "label": "Запитання",
+        "errors": {
+          "required": "Запитання не може бути порожнім",
+          "minlength": "Запитання повинно містити не менше 4 символів"
+        }
+      },
+      "answer": {
+        "label": "Відповідь",
+        "errors": {
+          "required": "Відповідь не може бути порожньою",
+          "minlength": "Відповідь повинна містити не менше 4 символів"
+        }
       }
     },
     "messages": {
@@ -169,6 +183,41 @@
         "id": "Id",
         "title": "Назва",
         "actions": "Дії"
+      },
+      "lessonModal": {
+        "title": {
+          "add": "Додати урок",
+          "edit": "Редагувати урок",
+          "delete": "Видалити урок"
+        },
+        "confirmRemoval": "Ви дійсно хочете видалити {{ lesson }}?"
+      },
+      "lessonSetup": {
+        "imagePlaceholder": "Місце для зображення",
+        "videoPlaceholder": "Місце для відео"
+      },
+      "lessonContent": {
+        "editorPlaceholder": "Введіть текст уроку"
+      },
+      "quizModal": {
+        "title": {
+          "add": "Додати тест",
+          "edit": "Редагувати тест",
+          "delete": "Видалити тест"
+        },
+        "confirmRemoval": "Ви дійсно хочете видалити тест {{ quiz }}?",
+        "addAnswer": "Додати відповідь",
+        "addQuestion": "Додати запитання",
+        "selectCorrectAnswer": "Виберіть правильну відповідь",
+        "requiredAnswer": "Ви повинні ввести хоча б одну відповідь",
+        "JSONformat": "JSON формат"
+      },
+      "quizTable": {
+        "question": "Запитання",
+        "options": "Варіанти відповідей",
+        "answer": "Правильна відповідь",
+        "actions": "Дії",
+        "addButton": "Додати тест"
       }
     },
     "users": {
@@ -182,20 +231,5 @@
         "role": "Роль"
       }
     }
-  },
-  "lessonModal": {
-    "title": {
-      "add": "Додати урок",
-      "edit": "Редагувати урок",
-      "delete": "Видалити урок"
-    },
-    "confirmRemoval": "Ви дійсно хочете видалити {{ lesson }}?"
-  },
-  "lessonSetup": {
-    "imagePlaceholder": "Місце для зображення",
-    "videoPlaceholder": "Місце для відео"
-  },
-  "lessonContent": {
-    "editorPlaceholder": "Введіть текст уроку"
   }
 }

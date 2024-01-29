@@ -12,7 +12,10 @@
         [imageURL]="obs.content?.imageURL"
       >
         <p class="text-center text-danger">
-          {{ 'lessonSetup.imagePlaceholder' | translate }}
+          {{
+            'adminPanel.lessonsManagement.lessonSetup.imagePlaceholder'
+              | translate
+          }}
         </p>
       </app-lesson-image>
     </div>
@@ -30,13 +33,16 @@
         [videoURL]="obs.content?.videoURL || ''"
       >
         <p class="text-center text-danger">
-          {{ 'lessonSetup.videoPlaceholder' | translate }}
+          {{
+            'adminPanel.lessonsManagement.lessonSetup.videoPlaceholder'
+              | translate
+          }}
         </p>
       </app-lesson-video>
     </div>
 
-    <div class="lesson-setup__content-block">
-      <p class="text-center text-danger">Quiz Placeholder</p>
+    <div class="lesson-setup__content-block lesson-setup__content-block--fluid">
+      <app-quiz-table [referenceId]="id" />
     </div>
   </div>
 </app-page-layout>

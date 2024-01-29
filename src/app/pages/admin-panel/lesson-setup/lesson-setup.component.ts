@@ -7,12 +7,12 @@ import {
   ViewChild,
   inject,
 } from '@angular/core';
+import { LessonContentService, LessonsService } from '@app/services';
 import { TranslateModule } from '@ngx-translate/core';
 import { PageLayoutComponent } from '@shared/components';
 import { Lesson, LessonContent } from '@shared/models';
 import { Observable, tap } from 'rxjs';
-import { LessonContentService } from '../../../services/lesson-content.service';
-import { LessonsService } from '../../../services/lessons.service';
+import { QuizTableComponent } from '../shared/components';
 import {
   LessonContentComponent,
   SaveContentEvent,
@@ -36,6 +36,7 @@ import {
     LessonImageComponent,
     LessonContentComponent,
     LessonVideoComponent,
+    QuizTableComponent,
   ],
   templateUrl: './lesson-setup.component.html',
   styleUrl: './lesson-setup.component.scss',

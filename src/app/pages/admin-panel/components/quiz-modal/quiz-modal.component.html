@@ -6,6 +6,20 @@
   <ng-container body>
     @if (!isDeleteMode) {
       <form [formGroup]="form" (ngSubmit)="onSubmit()" [hidden]="isJsonView">
+        @if (!data.level) {
+          <app-dropdown
+            backgroundColor="var(--palette-primary-color-5)"
+            class="w-100"
+            controlName="level"
+            [selectedOption]="selectedLevel"
+            [errorMessages]="'general.form.level.errors' | translate"
+            [options]="levelsOptions"
+            [placeholder]="
+              'adminPanel.lessonsManagement.selectLevel' | translate
+            "
+          />
+        }
+
         <app-form-field
           controlName="question"
           [label]="'general.form.question.label' | translate"
@@ -16,9 +30,11 @@
           @if (answersOptions$ | async; as options) {
             <app-dropdown
               (selectEvent)="onAnswerSelect($event)"
+              controlName="correctAnswer"
               backgroundColor="var(--palette-primary-color-5)"
               class="w-100"
-              [selectedOption]="selectedOption"
+              [errorMessages]="'general.form.answer.errors' | translate"
+              [selectedOption]="selectedAnswer"
               [options]="options"
               [placeholder]="
                 'adminPanel.lessonsManagement.quizModal.selectCorrectAnswer'
@@ -90,19 +106,6 @@
     }
   </ng-container>
   <ng-container actions>
-    @if (!isDeleteMode && correctAnswer.invalid && correctAnswer.touched) {
-      <div class="global-errors">
-        <div class="input-wrapper error">
-          <span class="input-error">
-            {{
-              'adminPanel.lessonsManagement.quizModal.requiredAnswer'
-                | translate
-            }}
-          </span>
-        </div>
-      </div>
-    }
-
     @if (isDeleteMode) {
       <button
         (click)="onSubmit()"

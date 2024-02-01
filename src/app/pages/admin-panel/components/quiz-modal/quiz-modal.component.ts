@@ -25,6 +25,7 @@ import {
   FormFieldComponent,
   ModalComponent,
 } from '@shared/components';
+import { ENGLISH_LEVELS_OPTIONS } from '@shared/constants';
 import { Quiz } from '@shared/models';
 import { Observable, debounceTime, map, startWith } from 'rxjs';
 
@@ -33,6 +34,7 @@ const MAX_ANSWERS = 8;
 export interface QuizModalData {
   mode: 'add' | 'edit' | 'delete';
   quiz?: Quiz;
+  level?: string;
 }
 
 export interface SubmitQuizEvent extends QuizModalData {
@@ -70,10 +72,24 @@ export class QuizModalComponent implements OnInit {
 
   isJsonView = false;
   answersOptions$: Observable<DropdownOption[]>;
+  levelsOptions = ENGLISH_LEVELS_OPTIONS;
   form: FormGroup;
   loading = signal<boolean>(false);
   maxAnswersCount = MAX_ANSWERS;
-  selectedOption: DropdownOption | null;
+  selectedAnswer: DropdownOption | null;
+
+  get selectedLevel(): DropdownOption | null {
+    const { level } = this.form.value;
+
+    if (!level) {
+      return null;
+    }
+
+    return {
+      label: level,
+      value: level,
+    };
+  }
 
   get modalTitleKey(): string {
     return `adminPanel.lessonsManagement.quizModal.title.${this.data.mode}`;
@@ -92,16 +108,29 @@ export class QuizModalComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    const { quiz } = this.data;
+    const { quiz, level } = this.data;
 
     this.form = this.formBuilder.group({
       question: [
         quiz?.question || '',
         [Validators.required, Validators.minLength(4)],
       ],
+      level: [quiz?.level || level || '', [Validators.required]],
       answers: this.formBuilder.array([]),
       correctAnswer: [quiz?.correctAnswer || '', Validators.required],
     });
+
+    if (quiz) {
+      const { correctAnswer } = quiz;
+      quiz.answers.forEach((answer: string) =>
+        this.answers.push(this.addAnswerField(answer)),
+      );
+
+      this.selectedAnswer = {
+        value: correctAnswer,
+        label: correctAnswer,
+      };
+    }
 
     this.answersOptions$ = this.answers.valueChanges.pipe(
       startWith(this.answers.value),
@@ -112,18 +141,6 @@ export class QuizModalComponent implements OnInit {
           .map(({ answer: value }: AnswerItem) => ({ value, label: value })),
       ),
     );
-
-    if (quiz) {
-      const { correctAnswer } = quiz;
-      quiz.answers.forEach((answer: string) =>
-        this.answers.push(this.addAnswerField(answer)),
-      );
-
-      this.selectedOption = {
-        value: correctAnswer,
-        label: correctAnswer,
-      };
-    }
   }
 
   onAddAnswer(): void {
@@ -141,14 +158,13 @@ export class QuizModalComponent implements OnInit {
 
       if (!selectedAnswer) {
         this.correctAnswer.setValue('');
-        this.selectedOption = null;
+        this.selectedAnswer = null;
       }
     }
   }
 
   onAnswerSelect(option: DropdownOption): void {
-    this.selectedOption = option;
-    this.correctAnswer.setValue(option.value);
+    this.selectedAnswer = option;
   }
 
   onModelChange(value: string): void {
@@ -157,7 +173,7 @@ export class QuizModalComponent implements OnInit {
       this.form.patchValue(parsedValue);
 
       if (parsedValue.correctAnswer) {
-        this.selectedOption = {
+        this.selectedAnswer = {
           label: parsedValue.correctAnswer,
           value: parsedValue.correctAnswer,
         };
@@ -198,7 +214,7 @@ export class QuizModalComponent implements OnInit {
 
   private addAnswerField(value = ''): FormGroup {
     return this.formBuilder.group({
-      answer: [value, [Validators.required, Validators.minLength(4)]],
+      answer: [value, [Validators.required]],
     });
   }
 }

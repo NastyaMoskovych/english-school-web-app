@@ -1,12 +1,20 @@
 import { CommonModule } from '@angular/common';
 import {
-  ChangeDetectionStrategy,
   Component,
+  ElementRef,
   EventEmitter,
   Input,
+  OnInit,
+  Optional,
   Output,
+  ViewChild,
 } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import {
+  ControlContainer,
+  FormControl,
+  FormsModule,
+  ReactiveFormsModule,
+} from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
 import { slideAnimation } from '@shared/animations';
 
@@ -18,19 +26,22 @@ export interface DropdownOption {
 @Component({
   selector: 'app-dropdown',
   standalone: true,
-  imports: [CommonModule, FormsModule, TranslateModule],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, TranslateModule],
   templateUrl: './dropdown.component.html',
   styleUrl: './dropdown.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush,
   animations: [slideAnimation],
 })
-export class DropdownComponent {
+export class DropdownComponent implements OnInit {
   @Input({ required: true }) options: DropdownOption[];
+  @Input() controlName: string;
   @Input() placeholder: string;
   @Input() selectedOption: DropdownOption | null;
   @Input() backgroundColor = 'inherit';
+  @Input() errorMessages: { [key: string]: string };
   @Output() selectEvent = new EventEmitter<DropdownOption>();
+  @ViewChild('input') inputRef: ElementRef<HTMLInputElement>;
 
+  formControl: FormControl;
   opened = false;
   searchTerm = '';
 
@@ -40,11 +51,37 @@ export class DropdownComponent {
     );
   }
 
+  get errorMesage(): string {
+    const errors = this.formControl.errors;
+
+    if (!errors) {
+      return '';
+    }
+
+    return this.errorMessages[Object.keys(errors)[0]];
+  }
+
+  constructor(@Optional() private controlContainer: ControlContainer) {}
+
+  ngOnInit(): void {
+    if (this.controlName && this.controlContainer) {
+      this.formControl = this.controlContainer.control?.get(
+        this.controlName,
+      ) as FormControl;
+    } else {
+      this.formControl = new FormControl();
+    }
+  }
+
   toggleDropdown(state: boolean, event?: MouseEvent): void {
     this.opened = state;
+    this.searchTerm = '';
 
     if (!state) {
-      this.searchTerm = '';
+      this.formControl.setValue(this.selectedOption?.value || '');
+      this.inputRef.nativeElement.value = this.selectedOption?.label || '';
+    } else {
+      this.inputRef.nativeElement.value = '';
     }
 
     if (event) {

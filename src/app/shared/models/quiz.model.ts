@@ -3,6 +3,7 @@ export interface Quiz {
   correctAnswer: string;
   createdAt: Date;
   id: string;
+  level: string;
   question: string;
   referenceId: string;
 }

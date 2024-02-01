@@ -39,7 +39,7 @@ export class LessonImageComponent {
     this.imageCompress.uploadFile().then(({ image, orientation }) => {
       this.loading.set(true);
       this.imageCompress
-        .compressFile(image, orientation, 50, 100, 0, 250)
+        .compressFile(image, orientation)
         .then((compressedImage) => {
           if (compressedImage) {
             this.uploadImageEvent.emit({

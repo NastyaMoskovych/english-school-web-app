@@ -1,3 +1,4 @@
+export * from './answers.pipe';
 export * from './auth-error.pipe';
 export * from './dropdown-options.pipe';
 export * from './first-name.pipe';

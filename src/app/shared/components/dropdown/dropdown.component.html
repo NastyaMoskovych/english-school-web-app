@@ -5,23 +5,23 @@
   tabindex="0"
   (focusout)="onFocusOut($event, dropdown)"
 >
-  <div class="input-wrapper">
+  <div
+    class="input-wrapper"
+    [class.error]="formControl.invalid && formControl.touched"
+  >
     <label class="input-field">
       <input
-        placeholder=""
+        #input
         type="text"
-        [(ngModel)]="searchTerm"
+        [class.has-value]="selectedOption?.value"
+        [placeholder]="selectedOption?.label || ''"
+        [formControl]="formControl"
         [readonly]="!opened"
         (click)="toggleDropdown(!opened)"
+        (ngModelChange)="searchTerm = $event"
       />
       <span>
-        @if (selectedOption) {
-          {{ selectedOption.label }}
-        } @else {
-          {{
-            placeholder || ('general.dropdown.defaultPlaceholder' | translate)
-          }}
-        }
+        {{ placeholder || ('general.dropdown.defaultPlaceholder' | translate) }}
       </span>
       <span
         (click)="toggleDropdown(!opened, $event)"
@@ -30,6 +30,9 @@
         arrow_drop_down
       </span>
     </label>
+    <span *ngIf="formControl.errors && !opened" class="input-error">
+      {{ errorMesage }}
+    </span>
   </div>
   <ul
     *ngIf="opened"

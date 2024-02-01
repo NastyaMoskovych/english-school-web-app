@@ -1,4 +1,4 @@
-<div class="lesson-quiz">
+<div class="quiz-table">
   <div class="table-responsive">
     <table class="table">
       <thead>
@@ -13,6 +13,9 @@
           <th>
             {{ 'adminPanel.lessonsManagement.quizTable.answer' | translate }}
           </th>
+          <th *ngIf="!level">
+            {{ 'adminPanel.lessonsManagement.quizTable.level' | translate }}
+          </th>
           <th>
             {{ 'adminPanel.lessonsManagement.quizTable.actions' | translate }}
           </th>
@@ -23,8 +26,15 @@
           <tr>
             <td>{{ idx + 1 }}</td>
             <td>{{ quiz.question }}</td>
-            <td>{{ quiz.answers.join(', ') }}</td>
+            <td>
+              <ul>
+                @for (answer of quiz.answers | answers; track answer) {
+                  <li>{{ answer }}</li>
+                }
+              </ul>
+            </td>
             <td>{{ quiz.correctAnswer }}</td>
+            <td *ngIf="!level">{{ quiz.level }}</td>
             <td>
               <div class="flex-box justify-content-start">
                 <button class="icon-btn" (click)="openEditQuizModal(quiz)">
@@ -40,9 +50,11 @@
             </td>
           </tr>
         }
+      </tbody>
+      <tfoot>
         <tr>
-          <td colspan="5">
-            <div class="text-center">
+          <td colspan="100%">
+            <div class="text-right">
               <button (click)="onAddQuiz()" class="submit-btn">
                 {{
                   'adminPanel.lessonsManagement.quizTable.addButton' | translate
@@ -51,7 +63,7 @@
             </div>
           </td>
         </tr>
-      </tbody>
+      </tfoot>
     </table>
   </div>
 </div>

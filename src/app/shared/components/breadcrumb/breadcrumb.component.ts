@@ -58,7 +58,7 @@ export class BreadcrumbComponent implements OnInit {
         const labelKey = `general.breadcrumbs.${routeURL}`;
         url += `/${routeURL}`;
 
-        if (/\d/.test(labelKey)) {
+        if (labelKey.includes('/')) {
           labelKey.split('/').forEach((key, index) => {
             breadcrumbs.push({
               labelKey: key,

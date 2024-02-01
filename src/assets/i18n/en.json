@@ -59,8 +59,13 @@
       "answer": {
         "label": "Answer",
         "errors": {
-          "required": "Answer is required",
-          "minlength": "Answer must be at least 4 characters long"
+          "required": "Answer is required"
+        }
+      },
+      "level": {
+        "label": "Level",
+        "errors": {
+          "required": "Level is required"
         }
       }
     },
@@ -98,6 +103,7 @@
       "home": "Home",
       "admin-panel": "Admin Panel",
       "lessons-management": "Lessons Management",
+      "level-test-setup": "Global Proficiency Quiz",
       "users": "Users"
     }
   },
@@ -209,16 +215,20 @@
         "addAnswer": "Add Answer",
         "addQuestion": "Add Question",
         "selectCorrectAnswer": "Select correct answer",
-        "requiredAnswer": "Please select at least one answer",
         "JSONformat": "JSON format"
       },
       "quizTable": {
         "question": "Question",
         "options": "Options",
         "answer": "Answer",
+        "level": "Level",
         "actions": "Actions",
         "addButton": "Add new question"
       }
+    },
+    "levelTestSetup": {
+      "title": "Global Proficiency Quiz",
+      "content": "Easily set up a comprehensive English proficiency quiz that serves as a global level check."
     },
     "users": {
       "title": "All Users",

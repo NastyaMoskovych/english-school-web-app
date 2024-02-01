@@ -14,7 +14,7 @@ import {
   LoaderComponent,
   PageLayoutComponent,
 } from '@shared/components';
-import { ENGLISH_LEVELS } from '@shared/constants';
+import { ENGLISH_LEVELS_OPTIONS } from '@shared/constants';
 import { Lesson } from '@shared/models';
 import { BehaviorSubject, Observable, filter, switchMap } from 'rxjs';
 import {
@@ -44,11 +44,7 @@ export class LessonsManagementComponent implements OnInit {
   private lessonsManagementService = inject(LessonsManagementService);
   private lessonsService = inject(LessonsService);
 
-  levelsOptions = ENGLISH_LEVELS.map((level) => ({
-    value: level,
-    label: level,
-  }));
-
+  levelsOptions = ENGLISH_LEVELS_OPTIONS;
   lessons$: Observable<Lesson[]>;
   lessonModalData$ = new BehaviorSubject<LessonModalData | undefined>(
     undefined,

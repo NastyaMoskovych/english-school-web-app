@@ -4,7 +4,7 @@
 >
   <div
     *ngIf="{ lesson: lesson$ | async, content: lessonContent$ | async } as obs"
-    class="lesson-setup"
+    class="lesson-setup inner-page-wrapper"
   >
     <div class="lesson-setup__content-block">
       <app-lesson-image
@@ -42,7 +42,11 @@
     </div>
 
     <div class="lesson-setup__content-block lesson-setup__content-block--fluid">
-      <app-quiz-table [referenceId]="id" />
+      <app-quiz-table
+        *ngIf="obs.lesson as lesson"
+        [level]="lesson.level"
+        [referenceId]="id"
+      />
     </div>
   </div>
 </app-page-layout>

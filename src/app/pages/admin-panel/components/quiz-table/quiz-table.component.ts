@@ -9,6 +9,7 @@ import {
 import { QuizService } from '@app/services';
 import { TranslateModule } from '@ngx-translate/core';
 import { Quiz } from '@shared/models';
+import { AnswersPipe } from '@shared/pipes';
 import { BehaviorSubject, Observable } from 'rxjs';
 import {
   QuizModalComponent,
@@ -19,13 +20,14 @@ import {
 @Component({
   selector: 'app-quiz-table',
   standalone: true,
-  imports: [CommonModule, QuizModalComponent, TranslateModule],
+  imports: [CommonModule, QuizModalComponent, TranslateModule, AnswersPipe],
   templateUrl: './quiz-table.component.html',
   styleUrl: './quiz-table.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class QuizTableComponent implements OnInit {
   @Input({ required: true }) referenceId: string;
+  @Input() level: string;
 
   private quizService = inject(QuizService);
   quizModalData$ = new BehaviorSubject<QuizModalData | undefined>(undefined);
@@ -38,11 +40,11 @@ export class QuizTableComponent implements OnInit {
   }
 
   onAddQuiz(): void {
-    this.quizModalData$.next({ mode: 'add' });
+    this.quizModalData$.next({ mode: 'add', level: this.level });
   }
 
   openEditQuizModal(quiz: Quiz): void {
-    this.quizModalData$.next({ mode: 'edit', quiz });
+    this.quizModalData$.next({ mode: 'edit', quiz, level: this.level });
   }
 
   openRemoveQuizModal(quiz: Quiz): void {

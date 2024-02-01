@@ -19,6 +19,8 @@ import { Observable, lastValueFrom, take } from 'rxjs';
   providedIn: 'root',
 })
 export class QuizService {
+  static readonly EXAM_REFERENCE_ID = 'exam';
+
   constructor(private firestore: Firestore) {}
 
   async addQuiz(quiz: Quiz): Promise<void> {
@@ -51,6 +53,7 @@ export class QuizService {
     const collectionRef = collection(this.firestore, Collections.QUIZZES);
     const collectionQueryRef = query(
       collectionRef,
+      orderBy('level', 'asc'),
       orderBy('createdAt', 'asc'),
       where('referenceId', '==', referenceId),
     );

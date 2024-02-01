@@ -28,29 +28,36 @@
     vertical-align: middle;
   }
 
+  thead th,
+  tfoot td {
+    background-color: var(--palette-primary-color-5);
+    position: sticky;
+    z-index: 1;
+
+    &::after {
+      background-color: var(--palette-primary-color-6);
+      content: '';
+      display: block;
+      height: 1px;
+      left: 0;
+      position: absolute;
+      width: 100%;
+    }
+  }
+
   thead {
     th {
-      background-color: var(--palette-primary-color-5);
       border-bottom-width: 1px;
       border-top: 0;
       font-weight: 500;
       padding: 16px;
-      position: sticky;
       text-align: left;
       top: 0;
       text-transform: uppercase;
       vertical-align: bottom;
-      z-index: 1;
 
       &::after {
-        background-color: var(--palette-primary-color-6);
         bottom: 0;
-        content: '';
-        display: block;
-        height: 1px;
-        left: 0;
-        position: absolute;
-        width: 100%;
       }
     }
   }
@@ -59,6 +66,17 @@
     tr {
       &:hover {
         background-color: rgba(white, 0.2);
+      }
+    }
+  }
+
+  tfoot {
+    tr td {
+      bottom: 0;
+      padding: 24px 16px;
+
+      &::after {
+        top: 0;
       }
     }
   }

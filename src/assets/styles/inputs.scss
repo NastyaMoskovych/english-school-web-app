@@ -108,7 +108,7 @@
 }
 
 /* Placeholder-shown */
-.input-field>input:not(:focus):placeholder-shown+span,
+.input-field>input:not(:focus):not(.has-value):placeholder-shown+span,
 .input-field>textarea:not(:focus):placeholder-shown+span {
   font-size: inherit;
   line-height: 44px;

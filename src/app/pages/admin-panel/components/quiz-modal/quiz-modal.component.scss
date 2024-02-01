@@ -12,8 +12,6 @@
   }
 }
 
-.global-errors {
-  .input-wrapper {
-    margin: 0;
-  }
+app-dropdown ::ng-deep .dropdown-list {
+  max-height: 220px;
 }

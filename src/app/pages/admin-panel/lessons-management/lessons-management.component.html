@@ -3,7 +3,7 @@
   [breadcrumbs]="true"
   [title]="'adminPanel.lessonsManagement.title' | translate"
 >
-  <div class="lessons-management">
+  <div class="lessons-management inner-page-wrapper">
     <div class="lessons-management__actions flex-box">
       <app-dropdown
         (selectEvent)="onLevelSelect($event)"
@@ -15,7 +15,7 @@
       />
 
       <button
-        [disabled]="!selectedLevel"
+        *ngIf="selectedLevel"
         class="submit-btn"
         (click)="openAddLessonModal()"
       >

@@ -12,7 +12,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { PageLayoutComponent } from '@shared/components';
 import { Lesson, LessonContent } from '@shared/models';
 import { Observable, tap } from 'rxjs';
-import { QuizTableComponent } from '../shared/components';
+import { QuizTableComponent } from '../components';
 import {
   LessonContentComponent,
   SaveContentEvent,

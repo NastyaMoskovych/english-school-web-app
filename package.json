@@ -4,6 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
+    "start:api": "npm run start:dev --prefix @firebase-api",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",

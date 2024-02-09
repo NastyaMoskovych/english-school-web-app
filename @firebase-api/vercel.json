@@ -1,0 +1,14 @@
+{
+  "functions": {
+    "api/index.js": {
+      "runtime": "@vercel/node@3.0.1",
+      "includeFiles": "dist/**"
+    }
+  },
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "api/index.js"
+    }
+  ]
+}

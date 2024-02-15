@@ -13,7 +13,7 @@ import {
   updateDoc,
   where,
 } from '@angular/fire/firestore';
-import { Collections, Lesson } from '@shared/models';
+import { Collections, Lesson } from '@firebase-api/models';
 import { Observable } from 'rxjs';
 import { LessonContentService } from './lesson-content.service';
 import { QuizService } from './quiz.service';

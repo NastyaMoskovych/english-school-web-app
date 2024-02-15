@@ -18,6 +18,7 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
+import { QuizExtended } from '@firebase-api/models';
 import { TranslateModule } from '@ngx-translate/core';
 import {
   DropdownComponent,
@@ -26,19 +27,18 @@ import {
   ModalComponent,
 } from '@shared/components';
 import { ENGLISH_LEVELS_OPTIONS } from '@shared/constants';
-import { Quiz } from '@shared/models';
 import { Observable, debounceTime, map, startWith } from 'rxjs';
 
 const MAX_ANSWERS = 8;
 
 export interface QuizModalData {
   mode: 'add' | 'edit' | 'delete';
-  quiz?: Quiz;
+  quiz?: QuizExtended;
   level?: string;
 }
 
 export interface SubmitQuizEvent extends QuizModalData {
-  quiz: Quiz;
+  quiz: QuizExtended;
   doneCb: () => void;
 }
 

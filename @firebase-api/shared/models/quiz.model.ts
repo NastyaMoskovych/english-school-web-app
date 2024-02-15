@@ -10,3 +10,8 @@ export interface QuizExtended extends Quiz {
   level: string;
   referenceId: string;
 }
+
+export interface UserAnswer {
+  answer: string;
+  id: string;
+}

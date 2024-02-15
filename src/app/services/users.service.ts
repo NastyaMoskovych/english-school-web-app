@@ -6,7 +6,8 @@ import {
   orderBy,
   query,
 } from '@angular/fire/firestore';
-import { Collections, IUser, UserMetadata } from '@shared/models';
+import { Collections } from '@firebase-api/models';
+import { IUser, UserMetadata } from '@shared/models';
 import { Observable, forkJoin, from, map, mergeMap, take } from 'rxjs';
 import { AuthService } from './auth.service';
 

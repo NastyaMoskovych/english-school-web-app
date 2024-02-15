@@ -1,4 +1,3 @@
-import { CommonModule } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -19,7 +18,7 @@ export interface UploadImageEvent {
 @Component({
   selector: 'app-lesson-image',
   standalone: true,
-  imports: [CommonModule, LoaderComponent],
+  imports: [LoaderComponent],
   templateUrl: './lesson-image.component.html',
   styleUrl: './lesson-image.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

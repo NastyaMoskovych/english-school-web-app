@@ -23,6 +23,13 @@ export const routes: Routes = [
       ),
   },
   {
+    path: 'level-check',
+    loadComponent: () =>
+      import('./pages/level-check/level-check.component').then(
+        (c) => c.LevelCheckComponent,
+      ),
+  },
+  {
     path: 'update-profile',
     loadComponent: () =>
       import('./pages/update-profile/update-profile.component').then(

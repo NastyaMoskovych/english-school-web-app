@@ -7,8 +7,8 @@ import {
   inject,
 } from '@angular/core';
 import { QuizService } from '@app/services';
+import { QuizExtended } from '@firebase-api/models';
 import { TranslateModule } from '@ngx-translate/core';
-import { Quiz } from '@shared/models';
 import { AnswersPipe } from '@shared/pipes';
 import { BehaviorSubject, Observable } from 'rxjs';
 import {
@@ -31,7 +31,7 @@ export class QuizTableComponent implements OnInit {
 
   private quizService = inject(QuizService);
   quizModalData$ = new BehaviorSubject<QuizModalData | undefined>(undefined);
-  quizList$: Observable<Quiz[]>;
+  quizList$: Observable<QuizExtended[]>;
 
   ngOnInit(): void {
     this.quizList$ = this.quizService.getQuizListByReferenceId(
@@ -43,11 +43,11 @@ export class QuizTableComponent implements OnInit {
     this.quizModalData$.next({ mode: 'add', level: this.level });
   }
 
-  openEditQuizModal(quiz: Quiz): void {
+  openEditQuizModal(quiz: QuizExtended): void {
     this.quizModalData$.next({ mode: 'edit', quiz, level: this.level });
   }
 
-  openRemoveQuizModal(quiz: Quiz): void {
+  openRemoveQuizModal(quiz: QuizExtended): void {
     this.quizModalData$.next({ mode: 'delete', quiz });
   }
 

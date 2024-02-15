@@ -7,7 +7,7 @@ service cloud.firestore {
     // }
 
     match /quizzes/{id} {
-      allow read;
+      allow read: if isAdmin();
       allow write: if isAdmin();
     }
 

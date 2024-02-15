@@ -14,7 +14,7 @@ import {
   ref,
   uploadString,
 } from '@angular/fire/storage';
-import { Collections, LessonContent } from '@shared/models';
+import { Collections, LessonContent } from '@firebase-api/models';
 import { Observable } from 'rxjs';
 import { getTypeFromBase64 } from '../shared/utils';
 import { SnackbarMessages, SnackbarService } from './snackbar.service';

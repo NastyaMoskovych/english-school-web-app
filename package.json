@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
+    "start": "concurrently \"npm:start:*\"",
+    "start:client": "ng serve",
     "start:api": "npm run start:dev --prefix @firebase-api",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
@@ -46,6 +47,7 @@
     "@types/quill": "^1.3.10",
     "@typescript-eslint/eslint-plugin": "^6.10.0",
     "@typescript-eslint/parser": "^6.10.0",
+    "concurrently": "^8.2.2",
     "eslint": "^8.53.0",
     "eslint-config-prettier": "^9.0.0",
     "eslint-plugin-prettier": "^5.0.1",

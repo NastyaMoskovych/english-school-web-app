@@ -25,7 +25,8 @@ import {
   uploadString,
 } from '@angular/fire/storage';
 import { Router } from '@angular/router';
-import { Collections, IUser, UserMetadata } from '@shared/models';
+import { Collections } from '@firebase-api/models';
+import { IUser, UserMetadata } from '@shared/models';
 import { BehaviorSubject, tap } from 'rxjs';
 import { IChangePasswordPayload } from '../pages/update-profile/components/change-password-form/change-password-form.component';
 import { IUpdateProfilePayload } from '../pages/update-profile/components/update-profile-form/update-profile-form.component';

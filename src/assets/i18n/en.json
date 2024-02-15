@@ -113,6 +113,11 @@
       "subtitle": "Make your studying easier with us",
       "button": "Become a Student"
     },
+    "secondaryBanner": {
+      "title": "Test your English level",
+      "subtitle": "Take our level check to assess your proficiency",
+      "button": "Start the test"
+    },
     "mainBlock": {
       "mainInformation": {
         "title": "Learn English together with us",
@@ -241,5 +246,11 @@
         "role": "Role"
       }
     }
+  },
+  "levelCheck": {
+    "title": "English level test"
+  },
+  "quizJourney": {
+    "submitBtn": "Finish test"
   }
 }

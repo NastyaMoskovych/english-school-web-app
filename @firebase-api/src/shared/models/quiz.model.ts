@@ -1,3 +1,7 @@
+import { ENGLISH_LEVELS } from '../constants';
+
+type EnglishLevel = (typeof ENGLISH_LEVELS)[number];
+
 export interface Quiz {
   answers: string[];
   id: string;
@@ -7,11 +11,17 @@ export interface Quiz {
 export interface QuizExtended extends Quiz {
   correctAnswer: string;
   createdAt: Date;
-  level: string;
+  level: EnglishLevel;
   referenceId: string;
 }
 
 export interface UserAnswer {
   answer: string;
   id: string;
+}
+
+export interface QuizResult {
+  answerCount: number;
+  correctAnswers: number;
+  level: EnglishLevel;
 }

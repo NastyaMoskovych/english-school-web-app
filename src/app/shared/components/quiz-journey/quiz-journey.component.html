@@ -1,0 +1,68 @@
+<div class="quiz-journey">
+  <form [formGroup]="quizForm" (ngSubmit)="onQuizSubmit()">
+    <div class="quiz-journey__wrapper inner-page-wrapper">
+      @for (
+        item of quiz | slice: sliceStart : sliceEnd;
+        track item.id;
+        let idx = $index
+      ) {
+        <div class="quiz-journey__item">
+          <p class="quiz-journey__item-title">
+            {{ idx + sliceStart + 1 }}. {{ item.question }}
+          </p>
+          <div formArrayName="answers" class="quiz-journey__item-options">
+            @for (
+              option of item.answers;
+              track option;
+              let answerIdx = $index
+            ) {
+              <div [formGroupName]="idx + sliceStart" class="radio-wrapper">
+                <label>
+                  {{ option | answerFormat: answerIdx }}
+                  <input
+                    formControlName="answer"
+                    [attr.name]="item.id"
+                    type="radio"
+                    [value]="option"
+                  />
+                  <span class="checkmark"></span>
+                </label>
+              </div>
+            }
+          </div>
+        </div>
+      }
+    </div>
+    @if (submitShown) {
+      <div class="text-center w-100">
+        <button class="submit-btn">
+          {{ 'quizJourney.submitBtn' | translate }}
+        </button>
+      </div>
+    }
+
+    <div
+      class="quiz-journey__actions"
+      [class.quiz-journey__actions--with-submit]="submitShown"
+    >
+      <button
+        (click)="onPreviousPage()"
+        type="button"
+        class="icon-btn icon-btn--large"
+        [disabled]="previousDisabled"
+      >
+        <span class="material-symbols-outlined"> arrow_back_ios </span>
+      </button>
+
+      @if (!submitShown) {
+        <button
+          (click)="onNextPage()"
+          type="button"
+          class="icon-btn icon-btn--large"
+        >
+          <span class="material-symbols-outlined"> arrow_forward_ios </span>
+        </button>
+      }
+    </div>
+  </form>
+</div>

@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import {
   Firestore,
@@ -12,8 +13,14 @@ import {
   updateDoc,
   where,
 } from '@angular/fire/firestore';
-import { Collections, Quiz } from '@shared/models';
+import {
+  Collections,
+  Quiz,
+  QuizExtended,
+  UserAnswer,
+} from '@firebase-api/models';
 import { Observable, lastValueFrom, take } from 'rxjs';
+import { environment } from '../../environments/environment.development';
 
 @Injectable({
   providedIn: 'root',
@@ -21,9 +28,12 @@ import { Observable, lastValueFrom, take } from 'rxjs';
 export class QuizService {
   static readonly EXAM_REFERENCE_ID = 'exam';
 
-  constructor(private firestore: Firestore) {}
+  constructor(
+    private firestore: Firestore,
+    private http: HttpClient,
+  ) {}
 
-  async addQuiz(quiz: Quiz): Promise<void> {
+  async addQuiz(quiz: QuizExtended): Promise<void> {
     const docRef = doc(collection(this.firestore, Collections.QUIZZES));
     await setDoc(docRef, {
       ...quiz,
@@ -32,7 +42,7 @@ export class QuizService {
     });
   }
 
-  async editQuiz(quiz: Quiz): Promise<void> {
+  async editQuiz(quiz: QuizExtended): Promise<void> {
     await updateDoc(doc(this.firestore, Collections.QUIZZES, quiz.id), {
       ...quiz,
     });
@@ -49,15 +59,26 @@ export class QuizService {
     await Promise.all(quizList.map((quiz) => this.deleteQuiz(quiz.id)));
   }
 
-  getQuizListByReferenceId(referenceId: string): Observable<Quiz[]> {
+  getQuizListByReferenceId(referenceId: string): Observable<QuizExtended[]> {
     const collectionRef = collection(this.firestore, Collections.QUIZZES);
     const collectionQueryRef = query(
       collectionRef,
+      where('referenceId', '==', referenceId),
       orderBy('level', 'asc'),
       orderBy('createdAt', 'asc'),
-      where('referenceId', '==', referenceId),
     );
 
-    return collectionData(collectionQueryRef) as Observable<Quiz[]>;
+    return collectionData(collectionQueryRef) as Observable<QuizExtended[]>;
+  }
+
+  getQuizForLevelCheck(): Observable<Quiz[]> {
+    return this.http.get<Quiz[]>(`${environment.firebaseApi}/quiz/level-check`);
+  }
+
+  checkUserLevel(userAnswers: UserAnswer[]) {
+    return this.http.post(
+      `${environment.firebaseApi}/quiz/level-check`,
+      userAnswers,
+    );
   }
 }

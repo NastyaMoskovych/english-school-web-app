@@ -1,0 +1,15 @@
+<app-page-layout
+  backgroundColor="var(--palette-primary-color-4)"
+  [title]="'levelCheck.title' | translate"
+>
+  <div class="level-check inner-page-wrapper">
+    @if (quiz$ | async; as quiz) {
+      <app-quiz-journey
+        (submitEvent)="onLevelCheckSubmit($event)"
+        [quiz]="quiz"
+      />
+    } @else {
+      <app-loader />
+    }
+  </div>
+</app-page-layout>

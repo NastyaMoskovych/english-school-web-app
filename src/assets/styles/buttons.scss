@@ -48,8 +48,19 @@
   height: 36px;
   color: var(--palette-secondary-color-1);
   position: relative;
-  transition: .3s;
+  transition: all .3s, transform 0s;
   width: 36px;
+
+  &--large {
+    background: rgba(#497D91, 0.1);
+    box-shadow: var(--secondary-box-shadow);
+    height: 72px;
+    width: 72px;
+
+    &:active:not(:disabled) {
+      transform: scale(.9);
+    }
+  }
 
   span {
     left: 50%;
@@ -61,6 +72,10 @@
   &.active,
   &:hover {
     background: rgba(#497D91, 0.2);
+  }
+
+  &:disabled {
+    cursor: not-allowed;
   }
 }
 

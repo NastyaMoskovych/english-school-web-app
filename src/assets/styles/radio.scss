@@ -1,0 +1,62 @@
+.radio-wrapper {
+  margin: 16px 0;
+  position: relative;
+  text-align: left;
+  user-select: none;
+
+  label {
+    display: block;
+    cursor: pointer;
+    font-size: 14px;
+    padding-top: 1px;
+    padding-left: 35px;
+
+    &:hover input~span.checkmark {
+      background-color: rgba(0, 0, 0, 0.08);
+      box-shadow: 0 0 2px 1px rgb(0, 33, 150);
+    }
+  }
+
+  input {
+    cursor: pointer;
+    height: 0;
+    opacity: 0;
+    position: absolute;
+    width: 0;
+
+    &:checked~span.checkmark {
+      box-shadow: 0 0 2px 1px rgb(0, 33, 150);
+
+      &::after {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1, 1);
+      }
+    }
+  }
+
+  span.checkmark {
+    background-color: rgba(0, 0, 0, 0.04);
+    border-radius: 50%;
+    height: 24px;
+    left: 0;
+    position: absolute;
+    top: 0;
+    transition: .3s;
+    width: 24px;
+
+    &::after {
+      background-color: rgb(0, 33, 150, 243);
+      border-radius: 50%;
+      content: "";
+      display: block;
+      opacity: 0;
+      height: 38%;
+      left: 50%;
+      position: absolute;
+      top: 50%;
+      transition: all .2s cubic-bezier(0.64, 0.57, 0.67, 1.53);
+      transform: translate(-50%, -50%) scale(0, 0);
+      width: 38%;
+    }
+  }
+}

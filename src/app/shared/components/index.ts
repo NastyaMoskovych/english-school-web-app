@@ -10,4 +10,5 @@ export * from './loader/loader.component';
 export * from './modal/modal.component';
 export * from './notification/notification.component';
 export * from './page-layout/page-layout.component';
+export * from './quiz-journey/quiz-journey.component';
 export * from './snackbar/snackbar.component';

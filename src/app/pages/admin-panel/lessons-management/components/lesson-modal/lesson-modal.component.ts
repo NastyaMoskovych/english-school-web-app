@@ -13,9 +13,9 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
+import { Lesson } from '@firebase-api/models';
 import { TranslateModule } from '@ngx-translate/core';
 import { FormFieldComponent, ModalComponent } from '@shared/components';
-import { Lesson } from '@shared/models';
 
 export interface LessonModalData {
   mode: 'add' | 'edit' | 'delete';

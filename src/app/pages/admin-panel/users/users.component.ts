@@ -1,4 +1,4 @@
-import { CommonModule, NgOptimizedImage } from '@angular/common';
+import { AsyncPipe, NgOptimizedImage } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -21,7 +21,7 @@ import { BehaviorSubject, Observable, combineLatest, map } from 'rxjs';
   selector: 'app-users',
   standalone: true,
   imports: [
-    CommonModule,
+    AsyncPipe,
     TranslateModule,
     PageLayoutComponent,
     PhotoUrlPipe,

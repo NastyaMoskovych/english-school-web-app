@@ -7,6 +7,7 @@ import {
 } from '@angular/core';
 import { RouterLinkWithHref } from '@angular/router';
 import { LessonsService } from '@app/services';
+import { Lesson } from '@firebase-api/models';
 import { TranslateModule } from '@ngx-translate/core';
 import {
   DropdownComponent,
@@ -15,7 +16,6 @@ import {
   PageLayoutComponent,
 } from '@shared/components';
 import { ENGLISH_LEVELS_OPTIONS } from '@shared/constants';
-import { Lesson } from '@shared/models';
 import { BehaviorSubject, Observable, filter, switchMap } from 'rxjs';
 import {
   LessonModalComponent,

@@ -8,9 +8,9 @@ import {
   inject,
 } from '@angular/core';
 import { LessonContentService, LessonsService } from '@app/services';
+import { Lesson, LessonContent } from '@firebase-api/models';
 import { TranslateModule } from '@ngx-translate/core';
 import { PageLayoutComponent } from '@shared/components';
-import { Lesson, LessonContent } from '@shared/models';
 import { Observable, tap } from 'rxjs';
 import { QuizTableComponent } from '../components';
 import {

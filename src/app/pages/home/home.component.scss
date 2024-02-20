@@ -3,13 +3,17 @@
     padding: 24px 0;
 
     &--primary {
-      justify-content: center;
+      justify-content: space-between;
+      max-width: 940px;
+      margin: 0 auto;
 
       &>div {
         margin: 0 5px;
+        text-align: center;
       }
 
-      h1 {
+      h1,
+      h2 {
         font-size: 36px;
         margin: 0;
       }
@@ -110,6 +114,7 @@
   .home {
     &__section {
       &--primary {
+        justify-content: center;
         padding: 100px 0;
         text-align: center;
 

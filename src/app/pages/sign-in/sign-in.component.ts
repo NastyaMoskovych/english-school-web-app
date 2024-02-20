@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { AuthError } from '@angular/fire/auth';
 import { AuthService } from '@app/services';
@@ -16,7 +16,7 @@ import { BehaviorSubject } from 'rxjs';
   styleUrls: ['./sign-in.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
-  imports: [CommonModule, PageLayoutComponent, AuthFormComponent],
+  imports: [AsyncPipe, PageLayoutComponent, AuthFormComponent],
 })
 export class SignInComponent {
   authType = AuthType.Login;

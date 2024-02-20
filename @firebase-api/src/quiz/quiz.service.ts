@@ -1,12 +1,18 @@
 import { Injectable } from '@nestjs/common';
 import { shuffle } from 'lodash';
-import { FirestoreService } from '../firebase/firestore.service';
-import { Collections, Quiz, QuizExtended, QuizResult, UserAnswer } from '../shared/models';
+import { FirebaseService } from '../firebase/firebase.service';
+import {
+  Collections,
+  Quiz,
+  QuizExtended,
+  QuizResult,
+  UserAnswer,
+} from '../shared/models';
 import { calculateUserLevel } from './utils/quiz.utils';
 
 @Injectable()
 export class QuizService {
-  constructor(private firestoreService: FirestoreService) {}
+  constructor(private firebaseService: FirebaseService) {}
 
   async getQuizByReferenceId(referenceId: string): Promise<QuizExtended[]> {
     const snapshot = await this.getBaseQuery(referenceId).get();
@@ -35,7 +41,8 @@ export class QuizService {
   }
 
   private getBaseQuery(referenceId: string): FirebaseFirestore.Query<Quiz> {
-    return this.firestoreService
+    return this.firebaseService
+      .firestore()
       .collection(Collections.QUIZZES)
       .where('referenceId', '==', referenceId)
       .orderBy('level', 'asc')

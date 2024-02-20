@@ -8,6 +8,11 @@
   box-sizing: border-box;
 }
 
+html,
+body {
+  scroll-behavior: smooth;
+}
+
 body {
   background-color: var(--palette-primary-color-2);
   color: var(--palette-secondary-color-3);

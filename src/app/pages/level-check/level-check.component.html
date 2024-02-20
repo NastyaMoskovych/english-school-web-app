@@ -1,5 +1,6 @@
 <app-page-layout
   backgroundColor="var(--palette-primary-color-4)"
+  [class.blurred]="quizResult$ | async"
   [title]="'levelCheck.title' | translate"
 >
   <div class="level-check inner-page-wrapper">
@@ -13,3 +14,9 @@
     }
   </div>
 </app-page-layout>
+
+<app-level-check-results-modal
+  *ngIf="quizResult$ | async as quizResult"
+  (closeEvent)="onModalClose($event)"
+  [quizResult]="quizResult"
+/>

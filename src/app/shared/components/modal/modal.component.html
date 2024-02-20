@@ -7,9 +7,13 @@
   ></div>
   <div *ngIf="opened" @transformAnimation class="modal__wrapper">
     <div class="modal__title">
-      <div class="modal__title-text">
-        {{ title }}
-      </div>
+      @if (title) {
+        <div class="modal__title-text">
+          {{ title }}
+        </div>
+      } @else {
+        <div></div>
+      }
       <button class="modal__title-close-icon" (click)="onClose()">
         <span class="material-symbols-outlined"> close </span>
       </button>

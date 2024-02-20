@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { shuffle } from 'lodash';
 import { FirestoreService } from '../firebase/firestore.service';
-import { Collections, Quiz, QuizExtended, UserAnswer } from '../shared/models';
+import { Collections, Quiz, QuizExtended, QuizResult, UserAnswer } from '../shared/models';
 import { calculateUserLevel } from './utils/quiz.utils';
 
 @Injectable()
@@ -13,7 +13,7 @@ export class QuizService {
     return snapshot.docs.map((doc) => doc.data() as QuizExtended);
   }
 
-  async levelCheck(userAnswers: UserAnswer[]) {
+  async levelCheck(userAnswers: UserAnswer[]): Promise<QuizResult> {
     const snapshot = await this.getBaseQuery('exam').get();
     const quizzes = snapshot.docs.map((doc) => doc.data() as QuizExtended);
     return calculateUserLevel(quizzes, userAnswers);

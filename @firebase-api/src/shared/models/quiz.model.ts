@@ -1,6 +1,6 @@
 import { ENGLISH_LEVELS } from '../constants';
 
-type EnglishLevel = (typeof ENGLISH_LEVELS)[number];
+export type EnglishLevel = (typeof ENGLISH_LEVELS)[number];
 
 export interface Quiz {
   answers: string[];

@@ -17,6 +17,7 @@ import {
   Collections,
   Quiz,
   QuizExtended,
+  QuizResult,
   UserAnswer,
 } from '@firebase-api/models';
 import { Observable, lastValueFrom, take } from 'rxjs';
@@ -75,8 +76,8 @@ export class QuizService {
     return this.http.get<Quiz[]>(`${environment.firebaseApi}/quiz/level-check`);
   }
 
-  checkUserLevel(userAnswers: UserAnswer[]) {
-    return this.http.post(
+  checkUserLevel(userAnswers: UserAnswer[]): Observable<QuizResult> {
+    return this.http.post<QuizResult>(
       `${environment.firebaseApi}/quiz/level-check`,
       userAnswers,
     );

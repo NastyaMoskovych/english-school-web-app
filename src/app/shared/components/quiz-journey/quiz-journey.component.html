@@ -35,7 +35,11 @@
     </div>
     @if (submitShown) {
       <div class="text-center w-100">
-        <button class="submit-btn">
+        <button
+          class="submit-btn"
+          [class.loading]="loading()"
+          [disabled]="loading()"
+        >
           {{ 'quizJourney.submitBtn' | translate }}
         </button>
       </div>

@@ -248,7 +248,18 @@
     }
   },
   "levelCheck": {
-    "title": "English level test"
+    "title": "English level test",
+    "modal": {
+      "failureFlow": {
+        "text": "Unfortunately, you have not passed the test.\n Please try again or close the modal.",
+        "submitBtn": "Try again"
+      },
+      "successFlow": {
+        "title": "Congratulations!",
+        "text": "You have successfully passed the test.\n You answered {{ answers }} out of {{ total }} questions correctly.",
+        "submitBtn": "Save result"
+      }
+    }
   },
   "quizJourney": {
     "submitBtn": "Finish test"

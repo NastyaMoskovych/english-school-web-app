@@ -18,7 +18,7 @@ import { fadeAnimation, transformAnimation } from '../../animations';
   animations: [fadeAnimation, transformAnimation],
 })
 export class ModalComponent {
-  @Input({ required: true }) title: string;
+  @Input() title: string;
   @Input() backgroundColor = 'inherit';
   @Input() opened = false;
   @Output() closeEvent = new EventEmitter<void>();

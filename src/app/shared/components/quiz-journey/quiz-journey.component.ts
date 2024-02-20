@@ -7,6 +7,7 @@ import {
   OnInit,
   Output,
   inject,
+  signal,
 } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { Quiz, UserAnswer } from '@firebase-api/models';
@@ -14,6 +15,11 @@ import { TranslateModule } from '@ngx-translate/core';
 import { AnswerFormatPipe } from '../../pipes';
 
 const ITEMS_PER_PAGE = 6;
+
+export interface SubmitAnswersEvent {
+  answers: UserAnswer[];
+  doneCb: () => void;
+}
 
 @Component({
   selector: 'app-quiz-journey',
@@ -25,11 +31,12 @@ const ITEMS_PER_PAGE = 6;
 })
 export class QuizJourneyComponent implements OnInit {
   @Input({ required: true }) quiz: Quiz[];
-  @Output() submitEvent = new EventEmitter<UserAnswer[]>();
+  @Output() submitEvent = new EventEmitter<SubmitAnswersEvent>();
 
   private formBuilder = inject(FormBuilder);
 
   quizForm: FormGroup;
+  loading = signal<boolean>(false);
   sliceStart = 0;
   sliceEnd = ITEMS_PER_PAGE + 1;
   currentPage = 1;
@@ -68,7 +75,14 @@ export class QuizJourneyComponent implements OnInit {
   }
 
   onQuizSubmit(): void {
-    this.submitEvent.emit(this.quizForm.value.answers);
+    this.loading.set(true);
+
+    this.submitEvent.emit({
+      answers: this.quizForm.value.answers,
+      doneCb: () => {
+        this.loading.set(false);
+      },
+    });
   }
 
   private paginate(): void {

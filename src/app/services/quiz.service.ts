@@ -21,7 +21,7 @@ import {
   UserAnswer,
 } from '@firebase-api/models';
 import { Observable, lastValueFrom, take } from 'rxjs';
-import { environment } from '../../environments/environment.development';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root',

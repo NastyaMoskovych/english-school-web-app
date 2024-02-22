@@ -13,8 +13,13 @@ import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { Quiz, UserAnswer } from '@firebase-api/models';
 import { TranslateModule } from '@ngx-translate/core';
 import { AnswerFormatPipe } from '../../pipes';
+import { getWindowWidth } from '../../utils';
 
-const ITEMS_PER_PAGE = 6;
+enum ITEMS_PER_PAGE {
+  SMALL = 2,
+  MEDIUM = 3,
+  LARGE = 6,
+}
 
 export interface SubmitAnswersEvent {
   answers: UserAnswer[];
@@ -34,12 +39,13 @@ export class QuizJourneyComponent implements OnInit {
   @Output() submitEvent = new EventEmitter<SubmitAnswersEvent>();
 
   private formBuilder = inject(FormBuilder);
+  private currentPage = 1;
+  private itemsPerPage = 6;
 
-  quizForm: FormGroup;
   loading = signal<boolean>(false);
-  sliceStart = 0;
-  sliceEnd = ITEMS_PER_PAGE + 1;
-  currentPage = 1;
+  quizForm: FormGroup;
+  sliceEnd: number;
+  sliceStart: number;
 
   get previousDisabled(): boolean {
     return this.currentPage <= 1;
@@ -50,18 +56,8 @@ export class QuizJourneyComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.quizForm = this.formBuilder.group({
-      answers: this.formBuilder.array(
-        this.quiz.map(({ id }) =>
-          this.formBuilder.group({
-            id,
-            answer: '',
-          }),
-        ),
-      ),
-    });
-
-    this.paginate();
+    this.initForm();
+    this.initPagination();
   }
 
   onPreviousPage(): void {
@@ -85,16 +81,43 @@ export class QuizJourneyComponent implements OnInit {
     });
   }
 
+  private initForm(): void {
+    this.quizForm = this.formBuilder.group({
+      answers: this.formBuilder.array(
+        this.quiz.map(({ id }) =>
+          this.formBuilder.group({
+            id,
+            answer: '',
+          }),
+        ),
+      ),
+    });
+  }
+
+  private initPagination(): void {
+    const windowWidth = getWindowWidth();
+
+    if (windowWidth <= 768) {
+      this.itemsPerPage = ITEMS_PER_PAGE.SMALL;
+    } else if (windowWidth <= 1024) {
+      this.itemsPerPage = ITEMS_PER_PAGE.MEDIUM;
+    } else {
+      this.itemsPerPage = ITEMS_PER_PAGE.LARGE;
+    }
+
+    this.paginate();
+  }
+
   private paginate(): void {
-    const pages = Math.ceil(this.quiz.length / ITEMS_PER_PAGE);
+    const pages = Math.ceil(this.quiz.length / this.itemsPerPage);
 
     if (this.currentPage > pages && pages !== 0) {
       this.currentPage = pages;
     }
 
-    this.sliceStart = (this.currentPage - 1) * ITEMS_PER_PAGE + 1 - 1;
+    this.sliceStart = (this.currentPage - 1) * this.itemsPerPage;
     this.sliceEnd = Math.min(
-      this.currentPage * ITEMS_PER_PAGE,
+      this.currentPage * this.itemsPerPage,
       this.quiz.length,
     );
   }

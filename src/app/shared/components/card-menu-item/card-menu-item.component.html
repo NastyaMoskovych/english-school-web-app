@@ -1,0 +1,25 @@
+<a
+  class="card-menu-item"
+  [routerLink]="menuItem.url"
+  [style.backgroundColor]="menuItem.backgroundColor"
+>
+  <h3
+    class="card-menu-item__title flex align-items-center justify-content-center"
+  >
+    <span class="material-symbols-outlined">
+      {{ menuItem.icon }}
+    </span>
+    <p>
+      {{ menuItem.title | translate }}
+    </p>
+  </h3>
+  <div class="card-menu-item__content">
+    @if (menuItem.content) {
+      <p>
+        {{ menuItem.content | translate }}
+      </p>
+    } @else {
+      <ng-content></ng-content>
+    }
+  </div>
+</a>

@@ -104,6 +104,8 @@
       "admin-panel": "Admin Panel",
       "lessons-management": "Lessons Management",
       "level-test-setup": "Global Proficiency Quiz",
+      "my-account": "My Account",
+      "update-profile": "Update Profile",
       "users": "Users"
     }
   },
@@ -148,7 +150,7 @@
       "registration": "Become a student",
       "login": "Login",
       "aboutUs": "About us",
-      "profile": "Update profile",
+      "myAccount": "My account",
       "logout": "Logout",
       "adminPanel": "Admin Panel"
     }
@@ -176,10 +178,6 @@
   },
   "languageSelector": {
     "changeLang": "Change language"
-  },
-  "updateProfile": {
-    "title1": "Update Profile",
-    "title2": "Change Password"
   },
   "adminPanel": {
     "title": "Admin Panel",
@@ -259,6 +257,18 @@
         "text": "You have successfully passed the test.\n You answered {{ answers }} out of {{ total }} questions correctly.",
         "submitBtn": "Save result"
       }
+    }
+  },
+  "myAccount": {
+    "title": "My Account",
+    "updateProfile": {
+      "title1": "Update Profile",
+      "title2": "Change Password",
+      "content": "Easily update your profile data by changing a name or uploading a new photo avatar."
+    },
+    "levelCheck": {
+      "title": "Level test",
+      "content": "Before starting the course, take a level test to assess your proficiency."
     }
   },
   "quizJourney": {

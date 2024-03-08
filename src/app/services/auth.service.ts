@@ -28,8 +28,8 @@ import { Router } from '@angular/router';
 import { Collections } from '@firebase-api/models';
 import { IUser, UserMetadata } from '@shared/models';
 import { BehaviorSubject, tap } from 'rxjs';
-import { IChangePasswordPayload } from '../pages/update-profile/components/change-password-form/change-password-form.component';
-import { IUpdateProfilePayload } from '../pages/update-profile/components/update-profile-form/update-profile-form.component';
+import { IChangePasswordPayload } from '../pages/my-account/update-profile/components/change-password-form/change-password-form.component';
+import { IUpdateProfilePayload } from '../pages/my-account/update-profile/components/update-profile-form/update-profile-form.component';
 import { AuthForm } from '../shared/components/auth-form/auth-form.component';
 import { getTypeFromBase64 } from '../shared/utils';
 import { SnackbarMessages, SnackbarService } from './snackbar.service';
@@ -152,7 +152,7 @@ export class AuthService {
       await this.updateUsersDocument(payload.uid, payload);
     }
 
-    this.router.navigate(['/']);
+    this.router.navigate(['/my-account']);
   }
 
   public signOut(): Promise<void> {

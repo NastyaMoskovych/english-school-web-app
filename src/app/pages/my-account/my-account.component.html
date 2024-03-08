@@ -1,11 +1,11 @@
 <app-page-layout
   backgroundColor="var(--palette-primary-color-5)"
   [breadcrumbs]="true"
-  [title]="'adminPanel.title' | translate"
+  [title]="'myAccount.title' | translate"
 >
-  <div class="admin-panel">
+  <div class="my-account">
     <div
-      class="admin-panel__blocks-wrapper align-items-stretch flex-box flex-box-mobile"
+      class="my-account__blocks-wrapper align-items-stretch flex-box flex-box-mobile"
     >
       @for (menuItem of menuItems; track menuItem.title) {
         <app-card-menu-item [menuItem]="menuItem" />

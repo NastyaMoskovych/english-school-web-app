@@ -30,20 +30,20 @@ export const routes: Routes = [
       ),
   },
   {
-    path: 'update-profile',
-    loadComponent: () =>
-      import('./pages/update-profile/update-profile.component').then(
-        (c) => c.UpdateProfileComponent,
-      ),
-    canActivate: [authGuard],
-  },
-  {
     path: 'admin-panel',
     loadChildren: () =>
       import('./pages/admin-panel/admin-panel.routes').then(
         (c) => c.ADMIN_PANEL_ROUTES,
       ),
     canActivate: [authGuard, adminGuard],
+  },
+  {
+    path: 'my-account',
+    loadChildren: () =>
+      import('./pages/my-account/my-account.routes').then(
+        (c) => c.MY_ACCOUNT_ROUTES,
+      ),
+    canActivate: [authGuard],
   },
   {
     path: 'about-us',

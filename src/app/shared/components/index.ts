@@ -1,5 +1,6 @@
 export * from './auth-form/auth-form.component';
 export * from './breadcrumb/breadcrumb.component';
+export * from './card-menu-item/card-menu-item.component';
 export * from './dropdown/dropdown.component';
 export * from './footer/footer.component';
 export * from './form-field/form-field.component';

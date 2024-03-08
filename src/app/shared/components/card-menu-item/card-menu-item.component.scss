@@ -1,0 +1,40 @@
+:host {
+  width: 100%;
+}
+
+.card-menu-item {
+  background-color: var(--palette-primary-color-3);
+  border-radius: 8px;
+  box-shadow: var(--secondary-box-shadow);
+  cursor: pointer;
+  color: inherit;
+  display: block;
+  height: 100%;
+  padding: 24px;
+  text-align: center;
+  transition: .3s;
+  text-decoration: none;
+
+  &:hover {
+    transform: scale(1.05);
+  }
+
+  &:active {
+    transform: scale(0.95);
+  }
+
+  &__title {
+    font-size: 17px;
+    text-transform: uppercase;
+
+    p {
+      font-weight: 500;
+      margin-left: 8px;
+    }
+  }
+
+  &__content {
+    border-top: 1px solid var(--palette-primary-color-6);
+    padding: 24px 16px;
+  }
+}

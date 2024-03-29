@@ -15,26 +15,39 @@
         </p>
       </div>
     } @else {
-      <div class="flex-box justify-content-center">
-        <div class="results-modal__success-icon-outer">
-          <div class="results-modal__success-icon-inner">
-            <p>{{ quizResult.level }}</p>
-          </div>
-        </div>
-      </div>
+      <app-level-status [level]="quizResult.level" />
+
       <div class="text-center">
         <h3>
-          {{ 'levelCheck.modal.successFlow.title' | translate }}
+          @if (user && user.displayName) {
+            {{
+              'levelCheck.modal.successFlowUser.title'
+                | translate: { username: (user.displayName | firstName) }
+            }}
+          } @else {
+            {{ 'levelCheck.modal.successFlowGuest.title' | translate }}
+          }
         </h3>
         <p class="text-pre-wrap">
-          {{
-            'levelCheck.modal.successFlow.text'
-              | translate
-                : {
-                    answers: quizResult.correctAnswers,
-                    total: quizResult.answerCount
-                  }
-          }}
+          @if (user) {
+            {{
+              'levelCheck.modal.successFlowUser.text'
+                | translate
+                  : {
+                      answers: quizResult.correctAnswers,
+                      total: quizResult.answerCount
+                    }
+            }}
+          } @else {
+            {{
+              'levelCheck.modal.successFlowGuest.text'
+                | translate
+                  : {
+                      answers: quizResult.correctAnswers,
+                      total: quizResult.answerCount
+                    }
+            }}
+          }
         </p>
       </div>
     }
@@ -46,7 +59,11 @@
       </button>
     } @else {
       <button class="submit-btn" (click)="onClose('CONFIRM')">
-        {{ 'levelCheck.modal.successFlow.submitBtn' | translate }}
+        @if (user) {
+          {{ 'levelCheck.modal.successFlowUser.submitBtn' | translate }}
+        } @else {
+          {{ 'levelCheck.modal.successFlowGuest.submitBtn' | translate }}
+        }
       </button>
     }
   </ng-container>

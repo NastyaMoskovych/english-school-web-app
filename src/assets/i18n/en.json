@@ -252,10 +252,15 @@
         "text": "Unfortunately, you have not passed the test.\n Please try again or close the modal.",
         "submitBtn": "Try again"
       },
-      "successFlow": {
+      "successFlowGuest": {
         "title": "Congratulations!",
-        "text": "You have successfully passed the test.\n You answered {{ answers }} out of {{ total }} questions correctly.",
-        "submitBtn": "Save result"
+        "text": "You have successfully passed the test.\n You answered {{ answers }} out of {{ total }} questions correctly.\n Please register or login to save your result.",
+        "submitBtn": "Create an account"
+      },
+      "successFlowUser": {
+        "title": "Congratulations, {{ username }}!",
+        "text": "You have successfully passed the test.\n You answered {{ answers }} out of {{ total }} questions correctly.\n Your result has been saved.",
+        "submitBtn": "Go to my account"
       }
     }
   },
@@ -269,6 +274,10 @@
     "levelCheck": {
       "title": "Level test",
       "content": "Before starting the course, take a level test to assess your proficiency."
+    },
+    "continueLearning": {
+      "title": "Continue Learning",
+      "content": "Continue your learning journey by exploring new lessons and quizzes."
     }
   },
   "quizJourney": {

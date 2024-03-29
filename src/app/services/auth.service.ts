@@ -44,6 +44,7 @@ export class AuthService {
   public readonly authState$ = authState(this.auth);
   public readonly isAdmin$ = this.isAdmin.asObservable();
   public readonly user$ = new BehaviorSubject<IUser | null>(null);
+  public readonly currentUser$ = new BehaviorSubject<IUser | null>(null);
 
   constructor(
     private auth: Auth,
@@ -58,6 +59,7 @@ export class AuthService {
           if (!user || !user.emailVerified) {
             this.canChangePassword.next(false);
             this.isAdmin.next(null);
+            this.currentUser$.next(null);
             return this.user$.next(null);
           }
 
@@ -79,6 +81,11 @@ export class AuthService {
               this.user$.next({ ...(this.user$.value as IUser), isAdmin });
             });
           }
+
+          this.getCurrentUser(user.uid).then((user: IUser | null) => {
+            this.currentUser$.next(user);
+          });
+
           this.user$.next(user);
         }),
       )
@@ -218,6 +225,11 @@ export class AuthService {
       doc(this.firestore, Collections.METADATA, user.uid),
     );
     return (document.data() as UserMetadata) || {};
+  }
+
+  private async getCurrentUser(uid: string): Promise<IUser | null> {
+    const document = await getDoc(doc(this.firestore, Collections.USERS, uid));
+    return document.data() as IUser;
   }
 }
 

@@ -17,8 +17,8 @@ import {
   Collections,
   Quiz,
   QuizExtended,
+  QuizPayload,
   QuizResult,
-  UserAnswer,
 } from '@firebase-api/models';
 import { Observable, lastValueFrom, take } from 'rxjs';
 import { environment } from '../../environments/environment';
@@ -76,10 +76,10 @@ export class QuizService {
     return this.http.get<Quiz[]>(`${environment.firebaseApi}/quiz/level-check`);
   }
 
-  checkUserLevel(userAnswers: UserAnswer[]): Observable<QuizResult> {
+  checkUserLevel(payload: QuizPayload): Observable<QuizResult> {
     return this.http.post<QuizResult>(
       `${environment.firebaseApi}/quiz/level-check`,
-      userAnswers,
+      payload,
     );
   }
 }

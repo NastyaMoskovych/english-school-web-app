@@ -4,12 +4,20 @@
   [title]="'myAccount.title' | translate"
 >
   <div class="my-account">
-    <div
-      class="my-account__blocks-wrapper align-items-stretch flex-box flex-box-mobile"
-    >
-      @for (menuItem of menuItems; track menuItem.title) {
-        <app-card-menu-item [menuItem]="menuItem" />
-      }
-    </div>
+    @if (currentUser$ | async; as user) {
+      <div
+        class="my-account__blocks-wrapper align-items-stretch flex-box flex-box-mobile"
+      >
+        @if (user.level) {
+          <app-card-menu-item [menuItem]="menuItems['continueLearning']">
+            <app-level-status [level]="user.level" />
+          </app-card-menu-item>
+        } @else {
+          <app-card-menu-item [menuItem]="menuItems['checkLevel']" />
+        }
+
+        <app-card-menu-item [menuItem]="menuItems['updateProfile']" />
+      </div>
+    }
   </div>
 </app-page-layout>

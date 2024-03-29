@@ -3,10 +3,12 @@ import { shuffle } from 'lodash';
 import { FirebaseService } from '../firebase/firebase.service';
 import {
   Collections,
+  EnglishLevel,
+  MINIMUM_CORRECT_ANSWERS,
   Quiz,
   QuizExtended,
+  QuizPayload,
   QuizResult,
-  UserAnswer,
 } from '../shared/models';
 import { calculateUserLevel } from './utils/quiz.utils';
 
@@ -19,10 +21,16 @@ export class QuizService {
     return snapshot.docs.map((doc) => doc.data() as QuizExtended);
   }
 
-  async levelCheck(userAnswers: UserAnswer[]): Promise<QuizResult> {
+  async levelCheck(payload: QuizPayload): Promise<QuizResult> {
     const snapshot = await this.getBaseQuery('exam').get();
     const quizzes = snapshot.docs.map((doc) => doc.data() as QuizExtended);
-    return calculateUserLevel(quizzes, userAnswers);
+    const userLevel = calculateUserLevel(quizzes, payload.answers);
+
+    if (userLevel.correctAnswers > MINIMUM_CORRECT_ANSWERS) {
+      this.saveQuizResults(payload, userLevel.level);
+    }
+
+    return userLevel;
   }
 
   async getQuizForLevelCheck(): Promise<Quiz[]> {
@@ -47,5 +55,18 @@ export class QuizService {
       .where('referenceId', '==', referenceId)
       .orderBy('level', 'asc')
       .orderBy('createdAt', 'asc');
+  }
+
+  private async saveQuizResults(
+    payload: QuizPayload,
+    level: EnglishLevel,
+  ): Promise<void> {
+    if (payload.uid) {
+      this.firebaseService
+        .firestore()
+        .collection(Collections.USERS)
+        .doc(payload.uid)
+        .update({ level });
+    }
   }
 }

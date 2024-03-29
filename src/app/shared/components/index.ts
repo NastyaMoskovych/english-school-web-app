@@ -7,6 +7,7 @@ export * from './form-field/form-field.component';
 export * from './header/header.component';
 export * from './iframe-video/iframe-video.component';
 export * from './language-selector/language-selector.component';
+export * from './level-status/level-status.component';
 export * from './loader/loader.component';
 export * from './modal/modal.component';
 export * from './notification/notification.component';

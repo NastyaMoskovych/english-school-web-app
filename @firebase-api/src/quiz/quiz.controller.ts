@@ -1,5 +1,5 @@
 import { Body, Controller, Get, Post } from '@nestjs/common';
-import { Quiz, QuizResult, UserAnswer } from '../shared/models';
+import { Quiz, QuizPayload, QuizResult } from '../shared/models';
 import { QuizService } from './quiz.service';
 
 @Controller('quiz')
@@ -12,7 +12,7 @@ export class QuizController {
   }
 
   @Post('/level-check')
-  levelCheck(@Body() payload: UserAnswer[]): Promise<QuizResult> {
+  levelCheck(@Body() payload: QuizPayload): Promise<QuizResult> {
     return this.quizService.levelCheck(payload);
   }
 

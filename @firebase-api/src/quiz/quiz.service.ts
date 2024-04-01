@@ -10,11 +10,15 @@ import {
   QuizPayload,
   QuizResult,
 } from '../shared/models';
+import { UserService } from '../user/user.service';
 import { calculateUserLevel } from './utils/quiz.utils';
 
 @Injectable()
 export class QuizService {
-  constructor(private firebaseService: FirebaseService) {}
+  constructor(
+    private firebaseService: FirebaseService,
+    private userService: UserService,
+  ) {}
 
   async getQuizByReferenceId(referenceId: string): Promise<QuizExtended[]> {
     const snapshot = await this.getBaseQuery(referenceId).get();
@@ -48,7 +52,9 @@ export class QuizService {
     );
   }
 
-  private getBaseQuery(referenceId: string): FirebaseFirestore.Query<Quiz> {
+  private getBaseQuery(
+    referenceId: string,
+  ): FirebaseFirestore.Query<Quiz, Document> {
     return this.firebaseService
       .firestore()
       .collection(Collections.QUIZZES)
@@ -62,11 +68,7 @@ export class QuizService {
     level: EnglishLevel,
   ): Promise<void> {
     if (payload.uid) {
-      this.firebaseService
-        .firestore()
-        .collection(Collections.USERS)
-        .doc(payload.uid)
-        .update({ level });
+      await this.userService.updateUser({ level }, payload.uid);
     }
   }
 }

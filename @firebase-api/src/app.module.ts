@@ -6,9 +6,15 @@ import { FirebaseModule } from './firebase/firebase.module';
 import { AuthGuard } from './guards/auth/auth.guard';
 import { CorsGuard } from './guards/cors/cors.guard';
 import { QuizModule } from './quiz/quiz.module';
+import { UserModule } from './user/user.module';
 
 @Module({
-  imports: [FirebaseModule, ConfigModule.forRoot({ cache: true }), QuizModule],
+  imports: [
+    FirebaseModule,
+    ConfigModule.forRoot({ cache: true }),
+    QuizModule,
+    UserModule,
+  ],
   controllers: [AppController],
   providers: [
     {

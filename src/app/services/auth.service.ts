@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { FirebaseError } from '@angular/fire/app';
 import {
@@ -17,7 +18,7 @@ import {
   updatePassword,
   updateProfile,
 } from '@angular/fire/auth';
-import { Firestore, doc, getDoc, setDoc } from '@angular/fire/firestore';
+import { Firestore, doc, docData, getDoc } from '@angular/fire/firestore';
 import {
   Storage,
   getDownloadURL,
@@ -27,7 +28,9 @@ import {
 import { Router } from '@angular/router';
 import { Collections } from '@firebase-api/models';
 import { IUser, UserMetadata } from '@shared/models';
-import { BehaviorSubject, tap } from 'rxjs';
+import { BehaviorSubject, EMPTY, Observable, switchMap, tap } from 'rxjs';
+import { lastValueFrom } from 'rxjs/internal/lastValueFrom';
+import { environment } from '../../environments/environment';
 import { IChangePasswordPayload } from '../pages/my-account/update-profile/components/change-password-form/change-password-form.component';
 import { IUpdateProfilePayload } from '../pages/my-account/update-profile/components/update-profile-form/update-profile-form.component';
 import { AuthForm } from '../shared/components/auth-form/auth-form.component';
@@ -49,6 +52,7 @@ export class AuthService {
   constructor(
     private auth: Auth,
     private firestore: Firestore,
+    private http: HttpClient,
     private router: Router,
     private storage: Storage,
     private snackbar: SnackbarService,
@@ -82,11 +86,15 @@ export class AuthService {
             });
           }
 
-          this.getCurrentUser(user.uid).then((user: IUser | null) => {
-            this.currentUser$.next(user);
-          });
-
           this.user$.next(user);
+        }),
+        switchMap((user: User | null) => {
+          if (!user || !user.emailVerified) {
+            return EMPTY;
+          }
+          return this.getCurrentUser(user.uid).pipe(
+            tap((user) => this.currentUser$.next(user)),
+          );
         }),
       )
       .subscribe();
@@ -199,9 +207,9 @@ export class AuthService {
     uid: string,
     user: Partial<User>,
   ): Promise<void> {
-    await setDoc(doc(this.firestore, Collections.USERS, uid), user, {
-      merge: true,
-    });
+    await lastValueFrom(
+      this.http.put<void>(`${environment.firebaseApi}/user/${uid}`, user),
+    );
   }
 
   public async changePassword({
@@ -227,9 +235,9 @@ export class AuthService {
     return (document.data() as UserMetadata) || {};
   }
 
-  private async getCurrentUser(uid: string): Promise<IUser | null> {
-    const document = await getDoc(doc(this.firestore, Collections.USERS, uid));
-    return document.data() as IUser;
+  private getCurrentUser(uid: string): Observable<IUser> {
+    const docRef = doc(this.firestore, Collections.USERS, uid);
+    return docData(docRef) as Observable<IUser>;
   }
 }
 

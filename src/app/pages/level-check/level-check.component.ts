@@ -16,7 +16,7 @@ import {
   QuizJourneyComponent,
   SubmitAnswersEvent,
 } from '@shared/components';
-import { BehaviorSubject, Observable, tap } from 'rxjs';
+import { BehaviorSubject, Observable, finalize, tap } from 'rxjs';
 import {
   CloseEvent,
   LevelCheckResultsModalComponent,
@@ -55,10 +55,8 @@ export class LevelCheckComponent implements OnInit {
     this.quizService
       .checkUserLevel({ answers, uid })
       .pipe(
-        tap((response: QuizResult) => {
-          this.quizResult$.next(response);
-          doneCb();
-        }),
+        tap((response: QuizResult) => this.quizResult$.next(response)),
+        finalize(() => doneCb()),
       )
       .subscribe();
   }

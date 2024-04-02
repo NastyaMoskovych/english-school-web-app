@@ -31,7 +31,7 @@ export class QuizService {
     const userLevel = calculateUserLevel(quizzes, payload.answers);
 
     if (userLevel.correctAnswers > MINIMUM_CORRECT_ANSWERS) {
-      this.saveQuizResults(payload, userLevel.level);
+      await this.saveQuizResults(payload, userLevel.level);
     }
 
     return userLevel;
@@ -68,7 +68,7 @@ export class QuizService {
     level: EnglishLevel,
   ): Promise<void> {
     if (payload.uid) {
-      await this.userService.updateUser({ level }, payload.uid);
+      await this.userService.updateUserLevel(level, payload.uid);
     }
   }
 }

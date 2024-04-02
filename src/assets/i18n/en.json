@@ -73,7 +73,8 @@
       "registerSuccess": "You have successfully registered. Please check your inbox for verification link",
       "updateProfileSuccess": "You have successfully updated your profile",
       "changePasswordSuccess": "You have successfully changed your password",
-      "updateSuccess": "You have successfully updated the record"
+      "updateSuccess": "You have successfully updated the record",
+      "userAlreadyPassedQuiz": "You have already passed the quiz"
     },
     "errors": {
       "invalidLoginCredentials": "Invalid email or password",

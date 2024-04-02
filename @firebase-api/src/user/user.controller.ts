@@ -6,7 +6,7 @@ import {
   UsePipes,
   ValidationPipe,
 } from '@nestjs/common';
-import { IUser, UserDto } from './user.model';
+import { UserDto } from './user.model';
 import { UserService } from './user.service';
 
 @Controller('user')
@@ -18,7 +18,7 @@ export class UserController {
   updateUser(
     @Param('uid') uid: string,
     @Body() payload: UserDto,
-  ): Promise<IUser> {
+  ): Promise<void> {
     return this.userService.updateUser(payload, uid);
   }
 }

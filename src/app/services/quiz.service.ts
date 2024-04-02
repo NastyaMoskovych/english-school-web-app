@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import {
   Firestore,
@@ -20,8 +20,9 @@ import {
   QuizPayload,
   QuizResult,
 } from '@firebase-api/models';
-import { Observable, lastValueFrom, take } from 'rxjs';
+import { Observable, catchError, lastValueFrom, take, throwError } from 'rxjs';
 import { environment } from '../../environments/environment';
+import { SnackbarMessages, SnackbarService } from './snackbar.service';
 
 @Injectable({
   providedIn: 'root',
@@ -32,6 +33,7 @@ export class QuizService {
   constructor(
     private firestore: Firestore,
     private http: HttpClient,
+    private snackbar: SnackbarService,
   ) {}
 
   async addQuiz(quiz: QuizExtended): Promise<void> {
@@ -77,9 +79,16 @@ export class QuizService {
   }
 
   checkUserLevel(payload: QuizPayload): Observable<QuizResult> {
-    return this.http.post<QuizResult>(
-      `${environment.firebaseApi}/quiz/level-check`,
-      payload,
-    );
+    return this.http
+      .post<QuizResult>(`${environment.firebaseApi}/quiz/level-check`, payload)
+      .pipe(
+        catchError((e: HttpErrorResponse) => {
+          this.snackbar.show({
+            type: 'error',
+            message: SnackbarMessages.SUBMIT_QUIZ_FAILED,
+          });
+          return throwError(() => e);
+        }),
+      );
   }
 }

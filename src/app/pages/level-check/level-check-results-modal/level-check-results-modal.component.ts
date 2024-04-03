@@ -16,6 +16,7 @@ type Action = 'CANCEL' | 'RETRY' | 'CONFIRM';
 
 export interface CloseEvent {
   action: Action;
+  quizResult: QuizResult;
   user: IUser | null;
 }
 
@@ -43,6 +44,10 @@ export class LevelCheckResultsModalComponent {
   }
 
   onClose(action: Action): void {
-    this.closeEvent.emit({ action, user: this.user });
+    this.closeEvent.emit({
+      action,
+      user: this.user,
+      quizResult: this.quizResult,
+    });
   }
 }

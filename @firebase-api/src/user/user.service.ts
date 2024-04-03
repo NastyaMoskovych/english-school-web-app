@@ -17,7 +17,37 @@ export class UserService {
     return snapshot.data() as IUser;
   }
 
-  async updateUser(payload: Partial<IUser>, uid: string): Promise<void> {
+  async getGuestLevel(sessionId: string): Promise<EnglishLevel> {
+    const ref = this.firebaseService
+      .firestore()
+      .collection(Collections.SESSION)
+      .doc(sessionId);
+
+    const snapshot = await ref.get();
+
+    if (snapshot.exists) {
+      const level = snapshot.data().level;
+
+      await ref.delete();
+      return level;
+    }
+
+    return null;
+  }
+
+  async updateUser(
+    payload: Partial<IUser>,
+    uid: string,
+    sessionId?: string,
+  ): Promise<void> {
+    if (sessionId) {
+      const level = await this.getGuestLevel(sessionId);
+
+      if (level) {
+        Object.assign(payload, { level });
+      }
+    }
+
     await this.firebaseService
       .firestore()
       .collection(Collections.USERS)
@@ -33,5 +63,14 @@ export class UserService {
     } else {
       throw new BadRequestException(`${uid} user cannot retake the test.`);
     }
+  }
+
+  async saveLevelForGuest(level: EnglishLevel): Promise<string> {
+    const docRef = await this.firebaseService
+      .firestore()
+      .collection(Collections.SESSION)
+      .add({ level, type: 'GUEST' });
+
+    return docRef.id;
   }
 }

@@ -29,6 +29,7 @@ export interface QuizResult {
   answerCount: number;
   correctAnswers: number;
   level: EnglishLevel;
+  sessionId?: string;
 }
 
 export const MINIMUM_CORRECT_ANSWERS = 5;

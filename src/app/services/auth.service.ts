@@ -25,7 +25,7 @@ import {
   ref,
   uploadString,
 } from '@angular/fire/storage';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Collections } from '@firebase-api/models';
 import { IUser, UserMetadata } from '@shared/models';
 import { BehaviorSubject, EMPTY, Observable, switchMap, tap } from 'rxjs';
@@ -51,6 +51,7 @@ export class AuthService {
 
   constructor(
     private auth: Auth,
+    private activatedRoute: ActivatedRoute,
     private firestore: Firestore,
     private http: HttpClient,
     private router: Router,
@@ -105,6 +106,7 @@ export class AuthService {
     email,
     password,
   }: AuthForm): Promise<void> {
+    const { sessionId } = this.activatedRoute.snapshot.queryParams;
     const userCredential = await createUserWithEmailAndPassword(
       this.auth,
       email,
@@ -119,7 +121,11 @@ export class AuthService {
 
     await sendEmailVerification(userCredential.user);
     await updateProfile(userCredential.user, payload);
-    await this.updateUsersDocument(payload.uid, payload);
+    await this.updateUsersDocument(
+      payload.uid,
+      payload,
+      new URLSearchParams({ sessionId }),
+    );
     this.snackbar.show({ message: SnackbarMessages.REGISTER_SUCCESS });
 
     this.signOut();
@@ -206,9 +212,13 @@ export class AuthService {
   public async updateUsersDocument(
     uid: string,
     user: Partial<User>,
+    params?: URLSearchParams,
   ): Promise<void> {
     await lastValueFrom(
-      this.http.put<void>(`${environment.firebaseApi}/user/${uid}`, user),
+      this.http.put<void>(
+        `${environment.firebaseApi}/user/${uid}?${params}`,
+        user,
+      ),
     );
   }
 

@@ -61,7 +61,7 @@ export class LevelCheckComponent implements OnInit {
       .subscribe();
   }
 
-  onModalClose({ action, user }: CloseEvent): void {
+  onModalClose({ action, user, quizResult }: CloseEvent): void {
     switch (action) {
       case 'RETRY': {
         this.getQuizForLevelCheck();
@@ -72,7 +72,9 @@ export class LevelCheckComponent implements OnInit {
         break;
       }
       case 'CONFIRM': {
-        this.router.navigate([this.getConfirmRedirectUrl(user)]);
+        this.router.navigate([this.getConfirmRedirectUrl(user)], {
+          queryParams: { sessionId: quizResult.sessionId },
+        });
         break;
       }
     }
@@ -89,7 +91,7 @@ export class LevelCheckComponent implements OnInit {
       return '/my-account';
     }
 
-    return '/register';
+    return '/signup';
   }
 
   private getCancelRedirectUrl(user: IUser | null): string {

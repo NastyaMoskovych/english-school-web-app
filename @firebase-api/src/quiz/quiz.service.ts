@@ -29,9 +29,17 @@ export class QuizService {
     const snapshot = await this.getBaseQuery('exam').get();
     const quizzes = snapshot.docs.map((doc) => doc.data() as QuizExtended);
     const userLevel = calculateUserLevel(quizzes, payload.answers);
+    let sessionId: string;
 
     if (userLevel.correctAnswers > MINIMUM_CORRECT_ANSWERS) {
-      await this.saveQuizResults(payload, userLevel.level);
+      sessionId = (await this.saveQuizResults(
+        payload,
+        userLevel.level,
+      )) as string;
+    }
+
+    if (sessionId) {
+      Object.assign(userLevel, { sessionId });
     }
 
     return userLevel;
@@ -66,9 +74,11 @@ export class QuizService {
   private async saveQuizResults(
     payload: QuizPayload,
     level: EnglishLevel,
-  ): Promise<void> {
+  ): Promise<void | string> {
     if (payload.uid) {
       await this.userService.updateUserLevel(level, payload.uid);
+    } else {
+      return await this.userService.saveLevelForGuest(level);
     }
   }
 }

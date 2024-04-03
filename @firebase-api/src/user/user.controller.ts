@@ -3,6 +3,7 @@ import {
   Controller,
   Param,
   Put,
+  Query,
   UsePipes,
   ValidationPipe,
 } from '@nestjs/common';
@@ -18,7 +19,8 @@ export class UserController {
   updateUser(
     @Param('uid') uid: string,
     @Body() payload: UserDto,
+    @Query('sessionId') sessionId: string,
   ): Promise<void> {
-    return this.userService.updateUser(payload, uid);
+    return this.userService.updateUser(payload, uid, sessionId);
   }
 }

@@ -1,0 +1,23 @@
+<app-page-layout
+  backgroundColor="var(--palette-primary-color-5)"
+  [breadcrumbs]="true"
+  [title]="'myAccount.title' | translate"
+>
+  <div class="my-account">
+    @if (currentUser$ | async; as user) {
+      <div
+        class="my-account__blocks-wrapper align-items-stretch flex-box flex-box-mobile"
+      >
+        @if (user.level) {
+          <app-card-menu-item [menuItem]="menuItems['continueLearning']">
+            <app-level-status [level]="user.level" />
+          </app-card-menu-item>
+        } @else {
+          <app-card-menu-item [menuItem]="menuItems['checkLevel']" />
+        }
+
+        <app-card-menu-item [menuItem]="menuItems['updateProfile']" />
+      </div>
+    }
+  </div>
+</app-page-layout>

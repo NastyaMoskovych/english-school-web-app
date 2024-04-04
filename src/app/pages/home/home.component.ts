@@ -1,8 +1,9 @@
-import { NgOptimizedImage } from '@angular/common';
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { CommonModule, NgOptimizedImage } from '@angular/common';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { PageLayoutComponent } from '@shared/components';
+import { AuthService } from '../../services';
 
 @Component({
   selector: 'app-home',
@@ -10,6 +11,14 @@ import { PageLayoutComponent } from '@shared/components';
   styleUrls: ['./home.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
-  imports: [NgOptimizedImage, PageLayoutComponent, RouterLink, TranslateModule],
+  imports: [
+    NgOptimizedImage,
+    PageLayoutComponent,
+    RouterLink,
+    TranslateModule,
+    CommonModule,
+  ],
 })
-export class HomeComponent {}
+export class HomeComponent {
+  currentUser$ = inject(AuthService).currentUser$;
+}

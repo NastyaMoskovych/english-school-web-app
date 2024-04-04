@@ -6,7 +6,8 @@ import {
   inject,
 } from '@angular/core';
 import { Router } from '@angular/router';
-import { QuizService } from '@app/services';
+import { AuthService, QuizService } from '@app/services';
+import { IUser } from '@app/shared/models';
 import { Quiz, QuizResult } from '@firebase-api/models';
 import { TranslateModule } from '@ngx-translate/core';
 import {
@@ -15,7 +16,7 @@ import {
   QuizJourneyComponent,
   SubmitAnswersEvent,
 } from '@shared/components';
-import { BehaviorSubject, Observable, tap } from 'rxjs';
+import { BehaviorSubject, Observable, finalize, tap } from 'rxjs';
 import {
   CloseEvent,
   LevelCheckResultsModalComponent,
@@ -42,35 +43,38 @@ export class LevelCheckComponent implements OnInit {
 
   quiz$: Observable<Quiz[]>;
   quizResult$ = new BehaviorSubject<QuizResult | null>(null);
+  user$ = inject(AuthService).user$;
 
   ngOnInit(): void {
     this.getQuizForLevelCheck();
   }
 
   onLevelCheckSubmit({ answers, doneCb }: SubmitAnswersEvent) {
+    const { uid } = this.user$.value || {};
+
     this.quizService
-      .checkUserLevel(answers)
+      .checkUserLevel({ answers, uid })
       .pipe(
-        tap((response: QuizResult) => {
-          this.quizResult$.next(response);
-          doneCb();
-        }),
+        tap((response: QuizResult) => this.quizResult$.next(response)),
+        finalize(() => doneCb()),
       )
       .subscribe();
   }
 
-  onModalClose({ action }: CloseEvent): void {
+  onModalClose({ action, user, quizResult }: CloseEvent): void {
     switch (action) {
       case 'RETRY': {
         this.getQuizForLevelCheck();
         break;
       }
       case 'CANCEL': {
-        this.router.navigate(['/']);
+        this.router.navigate([this.getCancelRedirectUrl(user)]);
         break;
       }
       case 'CONFIRM': {
-        this.router.navigate(['/register']);
+        this.router.navigate([this.getConfirmRedirectUrl(user)], {
+          queryParams: { sessionId: quizResult.sessionId },
+        });
         break;
       }
     }
@@ -80,5 +84,21 @@ export class LevelCheckComponent implements OnInit {
 
   private getQuizForLevelCheck(): void {
     this.quiz$ = this.quizService.getQuizForLevelCheck();
+  }
+
+  private getConfirmRedirectUrl(user: IUser | null): string {
+    if (user?.uid) {
+      return '/my-account';
+    }
+
+    return '/signup';
+  }
+
+  private getCancelRedirectUrl(user: IUser | null): string {
+    if (user?.uid) {
+      return '/my-account';
+    }
+
+    return '/';
   }
 }

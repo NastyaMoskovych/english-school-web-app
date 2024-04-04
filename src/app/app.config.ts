@@ -1,4 +1,8 @@
-import { HttpClient, provideHttpClient } from '@angular/common/http';
+import {
+  HttpClient,
+  provideHttpClient,
+  withInterceptors,
+} from '@angular/common/http';
 import {
   ApplicationConfig,
   importProvidersFrom,
@@ -17,6 +21,7 @@ import { provideQuillConfig } from 'ngx-quill/config';
 import { routes } from './app.routes';
 import { FIREBASE_CONFIG } from './configs/firebase.config';
 import { quillConfig } from './configs/quill.config';
+import { authInterceptor } from './interceptors';
 
 export function httpTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -26,7 +31,7 @@ export const appConfig: ApplicationConfig = {
   providers: [
     provideAnimations(),
     provideRouter(routes, withComponentInputBinding()),
-    provideHttpClient(),
+    provideHttpClient(withInterceptors([authInterceptor])),
     importProvidersFrom([
       provideFirebaseApp(() => initializeApp(FIREBASE_CONFIG)),
       provideAuth(() => getAuth()),

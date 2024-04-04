@@ -20,26 +20,30 @@
     </div>
   </app-page-layout>
 
-  <app-page-layout backgroundColor="var(--palette-primary-color-4)">
-    <div class="home__section home__section--primary flex-box">
-      <div>
-        <img
-          ngSrc="assets/images/exam.png"
-          width="360"
-          height="360"
-          priority
-          alt=""
-        />
-      </div>
-      <div class="text-right">
-        <h2>{{ 'home.secondaryBanner.title' | translate }}</h2>
-        <p>{{ 'home.secondaryBanner.subtitle' | translate }}</p>
-        <button class="submit-btn" routerLink="/level-check">
-          {{ 'home.secondaryBanner.button' | translate }}
-        </button>
-      </div>
-    </div>
-  </app-page-layout>
+  <ng-container *ngIf="{ user: currentUser$ | async } as obs">
+    @if (!obs.user || !obs.user.level) {
+      <app-page-layout backgroundColor="var(--palette-primary-color-4)">
+        <div class="home__section home__section--primary flex-box">
+          <div>
+            <img
+              ngSrc="assets/images/exam.png"
+              width="360"
+              height="360"
+              priority
+              alt=""
+            />
+          </div>
+          <div class="text-right">
+            <h2>{{ 'home.secondaryBanner.title' | translate }}</h2>
+            <p>{{ 'home.secondaryBanner.subtitle' | translate }}</p>
+            <button class="submit-btn" routerLink="/level-check">
+              {{ 'home.secondaryBanner.button' | translate }}
+            </button>
+          </div>
+        </div>
+      </app-page-layout>
+    }
+  </ng-container>
 
   <app-page-layout backgroundColor="var(--palette-primary-color-3)">
     <div class="home__section">

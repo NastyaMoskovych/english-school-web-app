@@ -8,23 +8,7 @@
       class="admin-panel__blocks-wrapper align-items-stretch flex-box flex-box-mobile"
     >
       @for (menuItem of menuItems; track menuItem.title) {
-        <a class="admin-panel__block" [routerLink]="menuItem.url">
-          <h3
-            class="admin-panel__block-title flex align-items-center justify-content-center"
-          >
-            <span class="material-symbols-outlined">
-              {{ menuItem.icon }}
-            </span>
-            <p>
-              {{ menuItem.title | translate }}
-            </p>
-          </h3>
-          <div class="admin-panel__block-content">
-            <p>
-              {{ menuItem.content | translate }}
-            </p>
-          </div>
-        </a>
+        <app-card-menu-item [menuItem]="menuItem" />
       }
     </div>
   </div>

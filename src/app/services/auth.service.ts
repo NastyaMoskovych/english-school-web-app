@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { FirebaseError } from '@angular/fire/app';
 import {
@@ -17,19 +18,21 @@ import {
   updatePassword,
   updateProfile,
 } from '@angular/fire/auth';
-import { Firestore, doc, getDoc, setDoc } from '@angular/fire/firestore';
+import { Firestore, doc, docData, getDoc } from '@angular/fire/firestore';
 import {
   Storage,
   getDownloadURL,
   ref,
   uploadString,
 } from '@angular/fire/storage';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Collections } from '@firebase-api/models';
 import { IUser, UserMetadata } from '@shared/models';
-import { BehaviorSubject, tap } from 'rxjs';
-import { IChangePasswordPayload } from '../pages/update-profile/components/change-password-form/change-password-form.component';
-import { IUpdateProfilePayload } from '../pages/update-profile/components/update-profile-form/update-profile-form.component';
+import { BehaviorSubject, EMPTY, Observable, switchMap, tap } from 'rxjs';
+import { lastValueFrom } from 'rxjs/internal/lastValueFrom';
+import { environment } from '../../environments/environment';
+import { IChangePasswordPayload } from '../pages/my-account/update-profile/components/change-password-form/change-password-form.component';
+import { IUpdateProfilePayload } from '../pages/my-account/update-profile/components/update-profile-form/update-profile-form.component';
 import { AuthForm } from '../shared/components/auth-form/auth-form.component';
 import { getTypeFromBase64 } from '../shared/utils';
 import { SnackbarMessages, SnackbarService } from './snackbar.service';
@@ -44,10 +47,13 @@ export class AuthService {
   public readonly authState$ = authState(this.auth);
   public readonly isAdmin$ = this.isAdmin.asObservable();
   public readonly user$ = new BehaviorSubject<IUser | null>(null);
+  public readonly currentUser$ = new BehaviorSubject<IUser | null>(null);
 
   constructor(
     private auth: Auth,
+    private activatedRoute: ActivatedRoute,
     private firestore: Firestore,
+    private http: HttpClient,
     private router: Router,
     private storage: Storage,
     private snackbar: SnackbarService,
@@ -58,6 +64,7 @@ export class AuthService {
           if (!user || !user.emailVerified) {
             this.canChangePassword.next(false);
             this.isAdmin.next(null);
+            this.currentUser$.next(null);
             return this.user$.next(null);
           }
 
@@ -79,7 +86,16 @@ export class AuthService {
               this.user$.next({ ...(this.user$.value as IUser), isAdmin });
             });
           }
+
           this.user$.next(user);
+        }),
+        switchMap((user: User | null) => {
+          if (!user || !user.emailVerified) {
+            return EMPTY;
+          }
+          return this.getCurrentUser(user.uid).pipe(
+            tap((user) => this.currentUser$.next(user)),
+          );
         }),
       )
       .subscribe();
@@ -90,6 +106,7 @@ export class AuthService {
     email,
     password,
   }: AuthForm): Promise<void> {
+    const { sessionId } = this.activatedRoute.snapshot.queryParams;
     const userCredential = await createUserWithEmailAndPassword(
       this.auth,
       email,
@@ -104,7 +121,11 @@ export class AuthService {
 
     await sendEmailVerification(userCredential.user);
     await updateProfile(userCredential.user, payload);
-    await this.updateUsersDocument(payload.uid, payload);
+    await this.updateUsersDocument(
+      payload.uid,
+      payload,
+      new URLSearchParams({ sessionId }),
+    );
     this.snackbar.show({ message: SnackbarMessages.REGISTER_SUCCESS });
 
     this.signOut();
@@ -152,7 +173,7 @@ export class AuthService {
       await this.updateUsersDocument(payload.uid, payload);
     }
 
-    this.router.navigate(['/']);
+    this.router.navigate(['/my-account']);
   }
 
   public signOut(): Promise<void> {
@@ -191,10 +212,14 @@ export class AuthService {
   public async updateUsersDocument(
     uid: string,
     user: Partial<User>,
+    params?: URLSearchParams,
   ): Promise<void> {
-    await setDoc(doc(this.firestore, Collections.USERS, uid), user, {
-      merge: true,
-    });
+    await lastValueFrom(
+      this.http.put<void>(
+        `${environment.firebaseApi}/user/${uid}?${params}`,
+        user,
+      ),
+    );
   }
 
   public async changePassword({
@@ -218,6 +243,11 @@ export class AuthService {
       doc(this.firestore, Collections.METADATA, user.uid),
     );
     return (document.data() as UserMetadata) || {};
+  }
+
+  private getCurrentUser(uid: string): Observable<IUser> {
+    const docRef = doc(this.firestore, Collections.USERS, uid);
+    return docData(docRef) as Observable<IUser>;
   }
 }
 

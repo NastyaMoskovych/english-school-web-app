@@ -73,7 +73,8 @@
       "registerSuccess": "You have successfully registered. Please check your inbox for verification link",
       "updateProfileSuccess": "You have successfully updated your profile",
       "changePasswordSuccess": "You have successfully changed your password",
-      "updateSuccess": "You have successfully updated the record"
+      "updateSuccess": "You have successfully updated the record",
+      "userAlreadyPassedQuiz": "You have already passed the quiz"
     },
     "errors": {
       "invalidLoginCredentials": "Invalid email or password",
@@ -104,6 +105,8 @@
       "admin-panel": "Admin Panel",
       "lessons-management": "Lessons Management",
       "level-test-setup": "Global Proficiency Quiz",
+      "my-account": "My Account",
+      "update-profile": "Update Profile",
       "users": "Users"
     }
   },
@@ -148,7 +151,7 @@
       "registration": "Become a student",
       "login": "Login",
       "aboutUs": "About us",
-      "profile": "Update profile",
+      "myAccount": "My account",
       "logout": "Logout",
       "adminPanel": "Admin Panel"
     }
@@ -176,10 +179,6 @@
   },
   "languageSelector": {
     "changeLang": "Change language"
-  },
-  "updateProfile": {
-    "title1": "Update Profile",
-    "title2": "Change Password"
   },
   "adminPanel": {
     "title": "Admin Panel",
@@ -254,11 +253,32 @@
         "text": "Unfortunately, you have not passed the test.\n Please try again or close the modal.",
         "submitBtn": "Try again"
       },
-      "successFlow": {
+      "successFlowGuest": {
         "title": "Congratulations!",
-        "text": "You have successfully passed the test.\n You answered {{ answers }} out of {{ total }} questions correctly.",
-        "submitBtn": "Save result"
+        "text": "You have successfully passed the test.\n You answered {{ answers }} out of {{ total }} questions correctly.\n Please register or login to save your result.",
+        "submitBtn": "Create an account"
+      },
+      "successFlowUser": {
+        "title": "Congratulations, {{ username }}!",
+        "text": "You have successfully passed the test.\n You answered {{ answers }} out of {{ total }} questions correctly.\n Your result has been saved.",
+        "submitBtn": "Go to my account"
       }
+    }
+  },
+  "myAccount": {
+    "title": "My Account",
+    "updateProfile": {
+      "title1": "Update Profile",
+      "title2": "Change Password",
+      "content": "Easily update your profile data by changing a name or uploading a new photo avatar."
+    },
+    "levelCheck": {
+      "title": "Level test",
+      "content": "Before starting the course, take a level test to assess your proficiency."
+    },
+    "continueLearning": {
+      "title": "Continue Learning",
+      "content": "Continue your learning journey by exploring new lessons and quizzes."
     }
   },
   "quizJourney": {

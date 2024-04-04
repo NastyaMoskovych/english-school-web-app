@@ -20,8 +20,16 @@ export interface UserAnswer {
   id: string;
 }
 
+export interface QuizPayload {
+  answers: UserAnswer[];
+  uid?: string;
+}
+
 export interface QuizResult {
   answerCount: number;
   correctAnswers: number;
   level: EnglishLevel;
+  sessionId?: string;
 }
+
+export const MINIMUM_CORRECT_ANSWERS = 5;

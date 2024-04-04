@@ -3,5 +3,6 @@ export enum Collections {
   LESSON_RESOURCES = 'lesson-resources',
   METADATA = 'metadata',
   QUIZZES = 'quizzes',
+  SESSION = 'session',
   USERS = 'users',
 }

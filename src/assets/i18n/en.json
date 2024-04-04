@@ -242,7 +242,8 @@
         "id": "Id",
         "name": "Name",
         "email": "Email",
-        "role": "Role"
+        "role": "Role",
+        "level": "Current Level"
       }
     }
   },

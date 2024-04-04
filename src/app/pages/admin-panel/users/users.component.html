@@ -21,6 +21,7 @@
             <th>{{ 'adminPanel.users.table.name' | translate }}</th>
             <th>{{ 'adminPanel.users.table.email' | translate }}</th>
             <th>{{ 'adminPanel.users.table.role' | translate }}</th>
+            <th>{{ 'adminPanel.users.table.level' | translate }}</th>
           </tr>
         </thead>
         <tbody>
@@ -49,11 +50,12 @@
                     ) | translate
                   }}
                 </td>
+                <td class="text-semibold">{{ user.level }}</td>
               </tr>
             }
           } @else {
             <tr>
-              <td colspan="4">
+              <td colspan="5">
                 <app-loader />
               </td>
             </tr>

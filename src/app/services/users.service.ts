@@ -2,13 +2,13 @@ import { Injectable } from '@angular/core';
 import {
   Firestore,
   collection,
-  collectionData,
+  getDocs,
   orderBy,
   query,
 } from '@angular/fire/firestore';
 import { Collections } from '@firebase-api/models';
 import { IUser, UserMetadata } from '@shared/models';
-import { Observable, forkJoin, from, map, mergeMap, take } from 'rxjs';
+import { Observable, forkJoin, from, map, mergeMap } from 'rxjs';
 import { AuthService } from './auth.service';
 
 @Injectable({
@@ -27,11 +27,12 @@ export class UsersService {
       orderBy('displayName', 'asc'),
     );
 
-    return collectionData(usersQueryRef).pipe(
-      map((data) => data as IUser[]),
-      mergeMap((users: IUser[]) => {
-        return forkJoin(
-          users.map((user: IUser) => {
+    return from(getDocs(usersQueryRef)).pipe(
+      mergeMap(({ docs }) =>
+        forkJoin(
+          docs.map((doc) => {
+            const user = doc.data() as IUser;
+
             return from(this.authService.getUserMetadata(user)).pipe(
               map((metadata: UserMetadata) => ({
                 ...user,
@@ -39,9 +40,8 @@ export class UsersService {
               })),
             );
           }),
-        );
-      }),
-      take(1),
+        ),
+      ),
     );
   }
 }

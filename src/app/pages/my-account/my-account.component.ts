@@ -40,7 +40,7 @@ export class MyAccountComponent {
       backgroundColor: 'var(--palette-primary-color-3)',
       icon: 'school',
       title: 'myAccount.continueLearning.title',
-      url: ['/courses'],
+      url: ['/learn'],
     },
     updateProfile: {
       backgroundColor: 'var(--palette-primary-color-4)',

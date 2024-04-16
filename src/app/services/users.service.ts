@@ -6,9 +6,9 @@ import {
   orderBy,
   query,
 } from '@angular/fire/firestore';
-import { Collections } from '@firebase-api/models';
+import { Collections, EnglishLevel } from '@firebase-api/models';
 import { IUser, UserMetadata } from '@shared/models';
-import { Observable, forkJoin, from, map, mergeMap } from 'rxjs';
+import { Observable, filter, forkJoin, from, map, mergeMap, take } from 'rxjs';
 import { AuthService } from './auth.service';
 
 @Injectable({
@@ -19,6 +19,14 @@ export class UsersService {
     private authService: AuthService,
     private firestore: Firestore,
   ) {}
+
+  getCurrentUserLevel(): Observable<EnglishLevel | undefined> {
+    return this.authService.currentUser$.pipe(
+      filter(Boolean),
+      map((user: IUser) => user.level),
+      take(1),
+    );
+  }
 
   getAllUsers(): Observable<IUser[]> {
     const usersCollectionRef = collection(this.firestore, Collections.USERS);

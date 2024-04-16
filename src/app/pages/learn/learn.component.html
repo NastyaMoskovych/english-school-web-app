@@ -1,1 +1,26 @@
-<p>learn works!</p>
+<app-page-layout
+  backgroundColor="var(--palette-primary-color-4)"
+  [breadcrumbs]="true"
+>
+  <div class="learn">
+    @if (lessons$ | async; as lessons) {
+      <div
+        class="learn__lessons flex-box flex-box-mobile align-items-stretch justify-content-center"
+      >
+        @for (lesson of lessons; track lesson.id) {
+          <app-card-menu-item
+            [menuItem]="{
+              background: 'url(' + lesson.imageURL + ') no-repeat top/cover',
+              title: lesson.title,
+              icon: 'play_lesson',
+              url: ['/learn', lesson.id]
+            }"
+          >
+          </app-card-menu-item>
+        }
+      </div>
+    } @else {
+      <app-loader></app-loader>
+    }
+  </div>
+</app-page-layout>

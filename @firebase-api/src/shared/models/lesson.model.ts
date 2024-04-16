@@ -11,3 +11,5 @@ export interface LessonContent {
   lessonId: string;
   videoURL: string;
 }
+
+export interface LessonExtended extends Lesson, LessonContent {}

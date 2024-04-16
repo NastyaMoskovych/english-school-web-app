@@ -7,6 +7,7 @@ export interface MenuItem {
   icon: string;
   url: string[];
   backgroundColor?: string;
+  background?: string;
   content?: string;
 }
 

@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import {
   Firestore,
@@ -13,23 +14,9 @@ import {
   updateDoc,
   where,
 } from '@angular/fire/firestore';
-import {
-  Collections,
-  Lesson,
-  LessonContent,
-  LessonExtended,
-} from '@firebase-api/models';
-import {
-  Observable,
-  filter,
-  forkJoin,
-  map,
-  mergeMap,
-  of,
-  switchMap,
-  take,
-} from 'rxjs';
-import { IUser } from '../shared/models';
+import { Collections, Lesson, LessonExtended } from '@firebase-api/models';
+import { Observable } from 'rxjs';
+import { environment } from '../../environments/environment';
 import { AuthService } from './auth.service';
 import { LessonContentService } from './lesson-content.service';
 import { QuizService } from './quiz.service';
@@ -42,6 +29,7 @@ export class LessonsService {
     private auth: AuthService,
     private firestore: Firestore,
     private lessonContentService: LessonContentService,
+    private http: HttpClient,
     private quizService: QuizService,
   ) {}
 
@@ -77,43 +65,20 @@ export class LessonsService {
     return collectionData(collectionQueryRef) as Observable<Lesson[]>;
   }
 
-  getLessonsExtendedByLevel(level: string): Observable<LessonExtended[]> {
-    return this.getLesssonsByLevel(level).pipe(
-      mergeMap((lessons: Lesson[]) => {
-        return forkJoin(
-          lessons.map((lesson: Lesson) => {
-            return this.lessonContentService
-              .getContentByLessonId(lesson.id)
-              .pipe(
-                map((lessonContent: LessonContent) => ({
-                  ...lesson,
-                  ...lessonContent,
-                })),
-                take(1),
-              );
-          }),
-        );
-      }),
-      take(1),
-    );
-  }
-
-  getLessonsForUser(): Observable<LessonExtended[]> {
-    return this.auth.currentUser$.pipe(
-      filter(Boolean),
-      switchMap((user: IUser) => {
-        if (user.level) {
-          return this.getLessonsExtendedByLevel(user.level);
-        }
-
-        return of([]) as Observable<LessonExtended[]>;
-      }),
-      take(1),
-    );
-  }
-
   getLessonById(id: string): Observable<Lesson> {
     const docRef = doc(this.firestore, Collections.LESSONS, id);
     return docData(docRef) as Observable<Lesson>;
+  }
+
+  getLessonsForUser(): Observable<LessonExtended[]> {
+    return this.http.get<LessonExtended[]>(
+      `${environment.firebaseApi}/lessons/user/${this.auth.currentUserUID}`,
+    );
+  }
+
+  getLessonExtended(lessonId: string): Observable<LessonExtended> {
+    return this.http.get<LessonExtended>(
+      `${environment.firebaseApi}/lessons/${lessonId}`,
+    );
   }
 }

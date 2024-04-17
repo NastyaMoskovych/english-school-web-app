@@ -101,6 +101,10 @@ export class AuthService {
       .subscribe();
   }
 
+  get currentUserUID(): string {
+    return this.auth.currentUser?.uid || '';
+  }
+
   public async signUpWithEmailAndPassword({
     displayName,
     email,

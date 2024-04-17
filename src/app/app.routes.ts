@@ -32,8 +32,8 @@ export const routes: Routes = [
   {
     path: 'learn',
     canActivate: [authGuard],
-    loadComponent: () =>
-      import('./pages/learn/learn.component').then((c) => c.LearnComponent),
+    loadChildren: () =>
+      import('./pages/learn/learn.routes').then((c) => c.LEARN_ROUTES),
   },
   {
     path: 'admin-panel',

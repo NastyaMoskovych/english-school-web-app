@@ -14,3 +14,5 @@ export * from './notification/notification.component';
 export * from './page-layout/page-layout.component';
 export * from './quiz-journey/quiz-journey.component';
 export * from './snackbar/snackbar.component';
+export * from './tabs/tab/tab.component';
+export * from './tabs/tabs.component';

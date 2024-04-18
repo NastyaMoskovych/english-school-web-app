@@ -1,0 +1,36 @@
+.tabs {
+
+  &__list {
+    display: inline-flex;
+    width: 100%;
+
+    li {
+      background-color: var(--palette-primary-color-3);
+      border: 1px solid transparent;
+      border-radius: 4px 4px 0 0;
+      transition: color .3s;
+
+      &.active,
+      &:hover {
+        color: var(--palette-tertiary-color-1);
+      }
+
+      a {
+        cursor: pointer;
+        font-weight: 600;
+        display: block;
+        padding: 8px 16px;
+      }
+
+      &.active {
+        margin-bottom: -1px;
+        border-color: var(--palette-tertiary-color-1);
+        border-bottom: 1px solid transparent;
+      }
+    }
+  }
+
+  &__content {
+    border-top: 1px solid var(--palette-tertiary-color-1);
+  }
+}

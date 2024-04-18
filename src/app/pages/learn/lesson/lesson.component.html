@@ -3,25 +3,38 @@
   [breadcrumbs]="true"
 >
   <div class="lesson">
-    @if (lesson$ | async; as lesson) {
-      <div
-        class="lesson__content flex-box flex-box-mobile justify-content-center align-items-start"
-      >
-        <quill-view-html
-          *ngIf="lesson.contentHTML as contentHTML"
-          [content]="contentHTML"
-        />
-        <img *ngIf="lesson.imageURL as imageURL" [src]="imageURL" alt="" />
-      </div>
+    <app-tabs *ngIf="lesson$ | async as lesson; else loader">
+      <app-tab title="Content" [active]="true">
+        <ng-container
+          [ngTemplateOutlet]="contentTmpl"
+          [ngTemplateOutletContext]="{ lesson: lesson }"
+        ></ng-container>
+      </app-tab>
 
-      <div class="lesson__content">
-        <app-iframe-video
-          *ngIf="lesson.videoURL as videoURL"
-          [videoURL]="videoURL"
-        />
-      </div>
-    } @else {
-      <app-loader></app-loader>
-    }
+      <app-tab title="Quiz"> Quiz Content </app-tab>
+    </app-tabs>
   </div>
 </app-page-layout>
+
+<ng-template #contentTmpl let-lesson="lesson">
+  <div
+    class="lesson__content flex-box flex-box-mobile justify-content-center align-items-start"
+  >
+    <quill-view-html
+      *ngIf="lesson.contentHTML as contentHTML"
+      [content]="contentHTML"
+    />
+    <img *ngIf="lesson.imageURL as imageURL" [src]="imageURL" alt="" />
+  </div>
+
+  <div class="lesson__content">
+    <app-iframe-video
+      *ngIf="lesson.videoURL as videoURL"
+      [videoURL]="videoURL"
+    />
+  </div>
+</ng-template>
+
+<ng-template #loader>
+  <app-loader></app-loader>
+</ng-template>

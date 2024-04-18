@@ -11,6 +11,8 @@ import {
   IframeVideoComponent,
   LoaderComponent,
   PageLayoutComponent,
+  TabComponent,
+  TabsComponent,
 } from '@app/shared/components';
 import { LessonExtended } from '@firebase-api/models';
 import { QuillViewHTMLComponent } from 'ngx-quill';
@@ -26,6 +28,8 @@ import { LessonsService } from '../../../services';
     LoaderComponent,
     IframeVideoComponent,
     QuillViewHTMLComponent,
+    TabComponent,
+    TabsComponent,
   ],
   templateUrl: './lesson.component.html',
   styleUrl: './lesson.component.scss',

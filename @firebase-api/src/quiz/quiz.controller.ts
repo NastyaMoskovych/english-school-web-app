@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 import { Quiz, QuizPayload, QuizResult } from '../shared/models';
 import { QuizService } from './quiz.service';
 
@@ -6,20 +6,15 @@ import { QuizService } from './quiz.service';
 export class QuizController {
   constructor(private quizService: QuizService) {}
 
-  @Get('/level-check')
-  getQuizForLevelCheck(): Promise<Quiz[]> {
-    return this.quizService.getQuizForLevelCheck();
+  @Get('/:referenceId')
+  getQuizByReferenceId(
+    @Param('referenceId') referenceId: string,
+  ): Promise<Quiz[]> {
+    return this.quizService.getQuizByReferenceId(referenceId);
   }
 
   @Post('/level-check')
   levelCheck(@Body() payload: QuizPayload): Promise<QuizResult> {
     return this.quizService.levelCheck(payload);
   }
-
-  // @Get('/:referenceId')
-  // getQuizByReferenceId(
-  //   @Param('referenceId') referenceId: string,
-  // ): Promise<QuizExtended[]> {
-  //   return this.quizService.getQuizByReferenceId(referenceId);
-  // }
 }

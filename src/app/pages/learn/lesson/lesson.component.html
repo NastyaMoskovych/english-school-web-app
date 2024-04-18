@@ -4,14 +4,19 @@
 >
   <div class="lesson">
     <app-tabs *ngIf="lesson$ | async as lesson; else loader">
-      <app-tab title="Content" [active]="true">
+      <app-tab [title]="'learn.tabs.content' | translate" [active]="true">
         <ng-container
           [ngTemplateOutlet]="contentTmpl"
           [ngTemplateOutletContext]="{ lesson: lesson }"
         ></ng-container>
       </app-tab>
 
-      <app-tab title="Quiz"> Quiz Content </app-tab>
+      <app-tab [title]="'learn.tabs.quiz' | translate">
+        <app-quiz-journey
+          *ngIf="quiz$ | async as quiz; else loader"
+          [quiz]="quiz"
+        />
+      </app-tab>
     </app-tabs>
   </div>
 </app-page-layout>

@@ -284,7 +284,11 @@
     }
   },
   "learn": {
-    "title": "Уроки {{ level }}"
+    "title": "Уроки {{ level }}",
+    "tabs": {
+      "content": "Урок",
+      "quiz": "Тест"
+    }
   },
   "quizJourney": {
     "submitBtn": "Завершити тест"

@@ -83,7 +83,9 @@ export class LevelCheckComponent implements OnInit {
   }
 
   private getQuizForLevelCheck(): void {
-    this.quiz$ = this.quizService.getQuizForLevelCheck();
+    this.quiz$ = this.quizService.getQuizByReferenceId(
+      QuizService.EXAM_REFERENCE_ID,
+    );
   }
 
   private getConfirmRedirectUrl(user: IUser | null): string {

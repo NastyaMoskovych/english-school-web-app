@@ -74,8 +74,10 @@ export class QuizService {
     return collectionData(collectionQueryRef) as Observable<QuizExtended[]>;
   }
 
-  getQuizForLevelCheck(): Observable<Quiz[]> {
-    return this.http.get<Quiz[]>(`${environment.firebaseApi}/quiz/level-check`);
+  getQuizByReferenceId(referenceId: string): Observable<Quiz[]> {
+    return this.http.get<Quiz[]>(
+      `${environment.firebaseApi}/quiz/${referenceId}`,
+    );
   }
 
   checkUserLevel(payload: QuizPayload): Observable<QuizResult> {

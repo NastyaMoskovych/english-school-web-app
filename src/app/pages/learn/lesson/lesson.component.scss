@@ -20,4 +20,13 @@
     top: 42%;
     transform: translate(-50%, -50%);
   }
+
+  app-quiz-journey {
+    display: block;
+    margin-top: 24px;
+  }
+}
+
+app-page-layout ::ng-deep .page-layout__title {
+  padding-bottom: 8px;
 }

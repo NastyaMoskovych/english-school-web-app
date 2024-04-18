@@ -20,9 +20,19 @@ export class QuizService {
     private userService: UserService,
   ) {}
 
-  async getQuizByReferenceId(referenceId: string): Promise<QuizExtended[]> {
-    const snapshot = await this.getBaseQuery(referenceId).get();
-    return snapshot.docs.map((doc) => doc.data() as QuizExtended);
+  async getQuizByReferenceId(referenceId: string): Promise<Quiz[]> {
+    const snapshot = await this.getBaseQuery(referenceId)
+      .select('id', 'question', 'answers')
+      .get();
+
+    return shuffle(
+      snapshot.docs
+        .map((doc) => doc.data() as Quiz)
+        .map((quiz: Quiz) => ({
+          ...quiz,
+          answers: shuffle(quiz.answers),
+        })),
+    );
   }
 
   async levelCheck(payload: QuizPayload): Promise<QuizResult> {
@@ -43,21 +53,6 @@ export class QuizService {
     }
 
     return userLevel;
-  }
-
-  async getQuizForLevelCheck(): Promise<Quiz[]> {
-    const snapshot = await this.getBaseQuery('exam')
-      .select('id', 'question', 'answers')
-      .get();
-
-    return shuffle(
-      snapshot.docs
-        .map((doc) => doc.data() as Quiz)
-        .map((quiz: Quiz) => ({
-          ...quiz,
-          answers: shuffle(quiz.answers),
-        })),
-    );
   }
 
   private getBaseQuery(

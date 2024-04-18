@@ -9,7 +9,7 @@
     <div class="lesson-setup__content-block">
       <app-lesson-image
         (uploadImageEvent)="onUploadImage($event)"
-        [imageURL]="obs.content?.imageURL"
+        [imageURL]="obs.lesson?.imageURL"
       >
         <p class="text-center text-danger">
           {{

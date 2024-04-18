@@ -50,6 +50,7 @@ export class BreadcrumbComponent implements OnInit {
     }
 
     for (const child of children) {
+      const routeConfig = child.snapshot.routeConfig;
       const routeURL: string = child.snapshot.url
         .map((segment) => segment.path)
         .join('/');
@@ -64,6 +65,11 @@ export class BreadcrumbComponent implements OnInit {
               labelKey: key,
               url: index === 0 ? url.split('/').slice(0, -1).join('/') : url,
             });
+          });
+        } else if (routeConfig?.path?.includes(':')) {
+          breadcrumbs.push({
+            labelKey: routeURL,
+            url,
           });
         } else {
           breadcrumbs.push({

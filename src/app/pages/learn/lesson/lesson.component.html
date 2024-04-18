@@ -1,0 +1,45 @@
+<app-page-layout
+  backgroundColor="var(--palette-primary-color-3)"
+  [breadcrumbs]="true"
+>
+  <div class="lesson">
+    <app-tabs *ngIf="lesson$ | async as lesson; else loader">
+      <app-tab [title]="'learn.tabs.content' | translate" [active]="true">
+        <ng-container
+          [ngTemplateOutlet]="contentTmpl"
+          [ngTemplateOutletContext]="{ lesson: lesson }"
+        ></ng-container>
+      </app-tab>
+
+      <app-tab [title]="'learn.tabs.quiz' | translate">
+        <app-quiz-journey
+          *ngIf="quiz$ | async as quiz; else loader"
+          [quiz]="quiz"
+        />
+      </app-tab>
+    </app-tabs>
+  </div>
+</app-page-layout>
+
+<ng-template #contentTmpl let-lesson="lesson">
+  <div
+    class="lesson__content flex-box flex-box-mobile justify-content-center align-items-start"
+  >
+    <quill-view-html
+      *ngIf="lesson.contentHTML as contentHTML"
+      [content]="contentHTML"
+    />
+    <img *ngIf="lesson.imageURL as imageURL" [src]="imageURL" alt="" />
+  </div>
+
+  <div class="lesson__content">
+    <app-iframe-video
+      *ngIf="lesson.videoURL as videoURL"
+      [videoURL]="videoURL"
+    />
+  </div>
+</ng-template>
+
+<ng-template #loader>
+  <app-loader></app-loader>
+</ng-template>

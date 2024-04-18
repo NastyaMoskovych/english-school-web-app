@@ -10,6 +10,11 @@ export class AuthGuard implements CanActivate {
     const token = req.headers.authorization?.split('Bearer ')?.[1];
     const { uid } = req.params || req.body;
 
+    if (uid && !token) {
+      req.res.status(401).send('Unauthorized');
+      return false;
+    }
+
     if (uid && token) {
       try {
         const idToken = await this.firebaseService.auth().verifyIdToken(token);

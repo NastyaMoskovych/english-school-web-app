@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import {
   Firestore,
@@ -13,8 +14,17 @@ import {
   updateDoc,
   where,
 } from '@angular/fire/firestore';
-import { Collections, Lesson } from '@firebase-api/models';
+import {
+  Storage,
+  getDownloadURL,
+  ref,
+  uploadString,
+} from '@angular/fire/storage';
+import { getTypeFromBase64 } from '@app/shared/utils';
+import { Collections, Lesson, LessonExtended } from '@firebase-api/models';
 import { Observable } from 'rxjs';
+import { environment } from '../../environments/environment';
+import { AuthService } from './auth.service';
 import { LessonContentService } from './lesson-content.service';
 import { QuizService } from './quiz.service';
 
@@ -23,8 +33,11 @@ import { QuizService } from './quiz.service';
 })
 export class LessonsService {
   constructor(
+    private auth: AuthService,
     private firestore: Firestore,
     private lessonContentService: LessonContentService,
+    private http: HttpClient,
+    private storage: Storage,
     private quizService: QuizService,
   ) {}
 
@@ -34,6 +47,21 @@ export class LessonsService {
       ...lesson,
       id: docRef.id,
       createdAt: serverTimestamp(),
+    });
+  }
+
+  async updateLessonImage(lesson: Lesson, base64: string): Promise<void> {
+    const storageRef = ref(
+      this.storage,
+      `images/lessons/${lesson.id}/image-${Date.now()}.${getTypeFromBase64(
+        base64,
+      )}`,
+    );
+
+    await uploadString(storageRef, base64, 'data_url');
+    await this.updateLesson({
+      ...lesson,
+      imageURL: await getDownloadURL(storageRef),
     });
   }
 
@@ -63,5 +91,17 @@ export class LessonsService {
   getLessonById(id: string): Observable<Lesson> {
     const docRef = doc(this.firestore, Collections.LESSONS, id);
     return docData(docRef) as Observable<Lesson>;
+  }
+
+  getLessonsForUser(): Observable<Lesson[]> {
+    return this.http.get<Lesson[]>(
+      `${environment.firebaseApi}/lessons/user/${this.auth.currentUserUID}`,
+    );
+  }
+
+  getLessonExtended(lessonId: string): Observable<LessonExtended> {
+    return this.http.get<LessonExtended>(
+      `${environment.firebaseApi}/lessons/${lessonId}`,
+    );
   }
 }

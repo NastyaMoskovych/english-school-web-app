@@ -30,20 +30,26 @@ export const routes: Routes = [
       ),
   },
   {
+    path: 'learn',
+    canActivate: [authGuard],
+    loadChildren: () =>
+      import('./pages/learn/learn.routes').then((c) => c.LEARN_ROUTES),
+  },
+  {
     path: 'admin-panel',
+    canActivate: [authGuard, adminGuard],
     loadChildren: () =>
       import('./pages/admin-panel/admin-panel.routes').then(
         (c) => c.ADMIN_PANEL_ROUTES,
       ),
-    canActivate: [authGuard, adminGuard],
   },
   {
     path: 'my-account',
+    canActivate: [authGuard],
     loadChildren: () =>
       import('./pages/my-account/my-account.routes').then(
         (c) => c.MY_ACCOUNT_ROUTES,
       ),
-    canActivate: [authGuard],
   },
   {
     path: 'about-us',

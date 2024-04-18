@@ -1,0 +1,12 @@
+<div class="tabs">
+  <ul class="tabs__list">
+    @for (tab of tabs; track tab.title) {
+      <li [class.active]="tab.active$ | async">
+        <a role="button" (click)="selectTab(tab)">{{ tab.title }}</a>
+      </li>
+    }
+  </ul>
+  <div class="tabs__content">
+    <ng-content></ng-content>
+  </div>
+</div>

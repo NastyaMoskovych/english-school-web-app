@@ -103,6 +103,7 @@
     "breadcrumbs": {
       "home": "Home",
       "admin-panel": "Admin Panel",
+      "learn": "My Lessons",
       "lessons-management": "Lessons Management",
       "level-test-setup": "Global Proficiency Quiz",
       "my-account": "My Account",
@@ -280,6 +281,13 @@
     "continueLearning": {
       "title": "Continue Learning",
       "content": "Continue your learning journey by exploring new lessons and quizzes."
+    }
+  },
+  "learn": {
+    "title": "{{ level }} lessons",
+    "tabs": {
+      "content": "Lesson",
+      "quiz": "Quiz"
     }
   },
   "quizJourney": {

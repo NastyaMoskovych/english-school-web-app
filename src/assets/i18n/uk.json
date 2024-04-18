@@ -103,6 +103,7 @@
     "breadcrumbs": {
       "home": "Головна",
       "admin-panel": "Панель Адміністратора",
+      "learn": "Мої Уроки",
       "lessons-management": "Керування уроками",
       "level-test-setup": "Налаштування тесту",
       "my-account": "Мій профіль",
@@ -280,6 +281,13 @@
     "continueLearning": {
       "title": "Продовжити навчання",
       "content": "Продовжуйте вивчати англійську мову, переглядаючи уроки та проходячи тести."
+    }
+  },
+  "learn": {
+    "title": "Уроки {{ level }}",
+    "tabs": {
+      "content": "Урок",
+      "quiz": "Тест"
     }
   },
   "quizJourney": {

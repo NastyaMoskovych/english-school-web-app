@@ -30,20 +30,20 @@ export class MyAccountComponent {
 
   menuItems: { [key: string]: MenuItem } = {
     checkLevel: {
-      backgroundColor: 'var(--palette-primary-color-3)',
+      backgroundColor: 'var(--palette-primary-color-4)',
       content: 'myAccount.levelCheck.content',
       icon: 'quiz',
       title: 'myAccount.levelCheck.title',
       url: ['/level-check'],
     },
     continueLearning: {
-      backgroundColor: 'var(--palette-primary-color-3)',
+      backgroundColor: 'var(--palette-primary-color-4)',
       icon: 'school',
       title: 'myAccount.continueLearning.title',
-      url: ['/courses'],
+      url: ['/learn'],
     },
     updateProfile: {
-      backgroundColor: 'var(--palette-primary-color-4)',
+      backgroundColor: 'var(--palette-primary-color-3)',
       content: 'myAccount.updateProfile.content',
       icon: 'manage_accounts',
       title: 'myAccount.updateProfile.title1',

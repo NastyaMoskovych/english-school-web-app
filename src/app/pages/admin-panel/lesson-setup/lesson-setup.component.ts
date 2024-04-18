@@ -46,6 +46,7 @@ export class LessonSetupComponent implements OnInit {
   @Input() id: string;
   @ViewChild(PageLayoutComponent) pageLayout: PageLayoutComponent;
 
+  private lesson: Lesson;
   private lessonContent: LessonContent;
   private lessonsService = inject(LessonsService);
   private lessonContentService = inject(LessonContentService);
@@ -57,6 +58,7 @@ export class LessonSetupComponent implements OnInit {
   ngOnInit(): void {
     this.lesson$ = this.lessonsService.getLessonById(this.id).pipe(
       tap((lesson) => {
+        this.lesson = lesson;
         this.pageLayout.setTitle(lesson.title);
       }),
     );
@@ -71,11 +73,7 @@ export class LessonSetupComponent implements OnInit {
   }
 
   async onUploadImage({ imageURL, doneCb }: UploadImageEvent): Promise<void> {
-    await this.lessonContentService.updateContentImage(
-      this.id,
-      imageURL,
-      this.lessonContent,
-    );
+    await this.lessonsService.updateLessonImage(this.lesson, imageURL);
     doneCb();
   }
 

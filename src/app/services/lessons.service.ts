@@ -14,6 +14,13 @@ import {
   updateDoc,
   where,
 } from '@angular/fire/firestore';
+import {
+  Storage,
+  getDownloadURL,
+  ref,
+  uploadString,
+} from '@angular/fire/storage';
+import { getTypeFromBase64 } from '@app/shared/utils';
 import { Collections, Lesson, LessonExtended } from '@firebase-api/models';
 import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
@@ -30,6 +37,7 @@ export class LessonsService {
     private firestore: Firestore,
     private lessonContentService: LessonContentService,
     private http: HttpClient,
+    private storage: Storage,
     private quizService: QuizService,
   ) {}
 
@@ -39,6 +47,21 @@ export class LessonsService {
       ...lesson,
       id: docRef.id,
       createdAt: serverTimestamp(),
+    });
+  }
+
+  async updateLessonImage(lesson: Lesson, base64: string): Promise<void> {
+    const storageRef = ref(
+      this.storage,
+      `images/lessons/${lesson.id}/image-${Date.now()}.${getTypeFromBase64(
+        base64,
+      )}`,
+    );
+
+    await uploadString(storageRef, base64, 'data_url');
+    await this.updateLesson({
+      ...lesson,
+      imageURL: await getDownloadURL(storageRef),
     });
   }
 
@@ -70,8 +93,8 @@ export class LessonsService {
     return docData(docRef) as Observable<Lesson>;
   }
 
-  getLessonsForUser(): Observable<LessonExtended[]> {
-    return this.http.get<LessonExtended[]>(
+  getLessonsForUser(): Observable<Lesson[]> {
+    return this.http.get<Lesson[]>(
       `${environment.firebaseApi}/lessons/user/${this.auth.currentUserUID}`,
     );
   }

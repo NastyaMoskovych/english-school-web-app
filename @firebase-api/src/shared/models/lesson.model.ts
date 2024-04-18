@@ -3,11 +3,11 @@ export interface Lesson {
   id: string;
   level: string;
   title: string;
+  imageURL: string;
 }
 
 export interface LessonContent {
   contentHTML: string;
-  imageURL: string;
   lessonId: string;
   videoURL: string;
 }

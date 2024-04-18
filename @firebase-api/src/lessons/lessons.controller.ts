@@ -1,5 +1,5 @@
 import { Controller, Get, Param } from '@nestjs/common';
-import { LessonExtended } from '../shared/models';
+import { Lesson, LessonExtended } from '../shared/models';
 import { LessonsService } from './lessons.service';
 
 @Controller('lessons')
@@ -12,7 +12,7 @@ export class LessonsController {
   }
 
   @Get('/user/:uid')
-  getLessonsForUser(@Param('uid') uid: string): Promise<LessonExtended[]> {
+  getLessonsForUser(@Param('uid') uid: string): Promise<Lesson[]> {
     return this.lessonsService.getLessonsForUser(uid);
   }
 }

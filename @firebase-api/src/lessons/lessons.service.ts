@@ -22,29 +22,19 @@ export class LessonsService {
     };
   }
 
-  async getLessonsForUser(uid: string): Promise<LessonExtended[]> {
+  async getLessonsForUser(uid: string): Promise<Lesson[]> {
     const user = await this.userService.getUser(uid);
     return this.getLessonsByLevel(user.level);
   }
 
-  private async getLessonsByLevel(level: string): Promise<LessonExtended[]> {
+  private async getLessonsByLevel(level: string): Promise<Lesson[]> {
     const snapshot = await this.firebaseService
       .firestore()
       .collection(Collections.LESSONS)
       .where('level', '==', level)
       .get();
 
-    return Promise.all(
-      snapshot.docs.map(async (doc) => {
-        const lesson = doc.data() as Lesson;
-        const lessonContent = await this.getLessonContent(lesson.id);
-
-        return {
-          ...lesson,
-          ...lessonContent,
-        };
-      }),
-    );
+    return snapshot.docs.map((doc) => doc.data() as Lesson);
   }
 
   private async getLessonContent(lessonId: string): Promise<LessonContent> {

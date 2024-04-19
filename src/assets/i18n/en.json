@@ -115,7 +115,8 @@
     "primaryBanner": {
       "title": "Join our sсhool now!",
       "subtitle": "Make your studying easier with us",
-      "button": "Become a Student"
+      "button": "Become a Student",
+      "button2": "My Account"
     },
     "secondaryBanner": {
       "title": "Test your English level",

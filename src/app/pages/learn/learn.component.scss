@@ -1,12 +1,37 @@
 .learn {
   padding: 0 16px 16px;
 
+  &__filters {
+    max-width: 300px;
+    margin-left: auto;
+    margin-bottom: 24px;
+  }
+
   &__lessons {
     gap: 24px;
     padding: 0 24px;
 
     app-card-menu-item {
       max-width: 400px;
+
+      &.completed {
+        ::ng-deep {
+          .card-menu-item {
+            &::after {
+              background: rgba(0, 0, 0, 0.5) url('/assets/images/checkmark.svg') no-repeat 50%;
+              border-radius: 50%;
+              box-shadow: var(--tertiary-box-shadow);
+              content: "";
+              height: 48px;
+              opacity: 1;
+              position: absolute;
+              right: 16px;
+              top: 16px;
+              width: 48px;
+            }
+          }
+        }
+      }
 
       ::ng-deep {
         .card-menu-item {

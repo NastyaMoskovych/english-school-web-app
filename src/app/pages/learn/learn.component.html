@@ -4,19 +4,28 @@
 >
   <div class="learn">
     @if (lessons$ | async; as lessons) {
+      <div class="learn__filters">
+        <app-dropdown
+          (selectEvent)="onStatusSelect($event)"
+          backgroundColor="var(--palette-primary-color-4)"
+          [options]="'general.dropdown.statuses' | translate | dropdownOptions"
+          [placeholder]="'learn.lessons.statusesFilter' | translate"
+        />
+      </div>
+
       <div
         class="learn__lessons flex-box flex-box-mobile align-items-stretch justify-content-center"
       >
         @for (lesson of lessons; track lesson.id) {
           <app-card-menu-item
+            [class.completed]="lesson.completed"
             [menuItem]="{
               background: 'url(' + lesson.imageURL + ') no-repeat top/cover',
               title: lesson.title,
               icon: 'play_lesson',
               url: ['/learn', lesson.id]
             }"
-          >
-          </app-card-menu-item>
+          />
         }
       </div>
     } @else {

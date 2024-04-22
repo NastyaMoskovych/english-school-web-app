@@ -98,6 +98,11 @@
         "all": "All",
         "admins": "Admins",
         "users": "Users"
+      },
+      "statuses": {
+        "all": "All",
+        "completed": "Completed",
+        "incompleted": "Incomplete"
       }
     },
     "breadcrumbs": {
@@ -286,6 +291,9 @@
   },
   "learn": {
     "title": "{{ level }} lessons",
+    "lessons": {
+      "statusesFilter": "Filter by status"
+    },
     "tabs": {
       "content": "Lesson",
       "quiz": "Quiz"

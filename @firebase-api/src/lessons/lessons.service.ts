@@ -7,11 +7,13 @@ import {
   LessonExtended,
 } from '../shared/models';
 import { UserService } from '../user/user.service';
+import { LessonsProgressService } from './lessons-progress.service';
 
 @Injectable()
 export class LessonsService {
   constructor(
     private firebaseService: FirebaseService,
+    private lessonsProgressService: LessonsProgressService,
     private userService: UserService,
   ) {}
 
@@ -24,7 +26,19 @@ export class LessonsService {
 
   async getLessonsForUser(uid: string): Promise<Lesson[]> {
     const user = await this.userService.getUser(uid);
-    return this.getLessonsByLevel(user.level);
+    const lessons = await this.getLessonsByLevel(user.level);
+
+    return Promise.all(
+      lessons.map(async (lesson: Lesson) => {
+        return {
+          ...lesson,
+          completed: await this.lessonsProgressService.isLessonCompleted(
+            uid,
+            lesson.id,
+          ),
+        };
+      }),
+    );
   }
 
   private async getLessonsByLevel(level: string): Promise<Lesson[]> {

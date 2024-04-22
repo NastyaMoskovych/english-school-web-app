@@ -98,6 +98,11 @@
         "all": "Всі",
         "admins": "Адміністратори",
         "users": "Користувачі"
+      },
+      "statuses": {
+        "all": "Всі",
+        "completed": "Завершені",
+        "incompleted": "Незавершені"
       }
     },
     "breadcrumbs": {
@@ -286,6 +291,9 @@
   },
   "learn": {
     "title": "Уроки {{ level }}",
+    "lessons": {
+      "statusesFilter": "Фільтрувати за статусом"
+    },
     "tabs": {
       "content": "Урок",
       "quiz": "Тест"

@@ -39,6 +39,7 @@ export class QuizJourneyComponent implements OnInit {
   @Output() submitEvent = new EventEmitter<SubmitAnswersEvent>();
 
   private formBuilder = inject(FormBuilder);
+  private pages: number;
   private currentPage = 1;
   private itemsPerPage = 6;
 
@@ -49,6 +50,10 @@ export class QuizJourneyComponent implements OnInit {
 
   get previousDisabled(): boolean {
     return this.currentPage <= 1;
+  }
+
+  get controlsShown(): boolean {
+    return this.pages > 1;
   }
 
   get submitShown(): boolean {
@@ -109,10 +114,10 @@ export class QuizJourneyComponent implements OnInit {
   }
 
   private paginate(): void {
-    const pages = Math.ceil(this.quiz.length / this.itemsPerPage);
+    this.pages = Math.ceil(this.quiz.length / this.itemsPerPage);
 
-    if (this.currentPage > pages && pages !== 0) {
-      this.currentPage = pages;
+    if (this.currentPage > this.pages && this.pages !== 0) {
+      this.currentPage = this.pages;
     }
 
     this.sliceStart = (this.currentPage - 1) * this.itemsPerPage;

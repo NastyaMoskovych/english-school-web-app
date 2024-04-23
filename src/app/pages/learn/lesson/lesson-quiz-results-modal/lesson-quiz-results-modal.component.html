@@ -1,0 +1,51 @@
+<app-modal
+  *ngIf="quizResult"
+  class="results-modal"
+  (closeEvent)="onClose('CANCEL')"
+  [opened]="!!quizResult"
+>
+  <ng-container body>
+    @if (isFailureFlow) {
+      <div class="text-center">
+        <span
+          class="results-modal__icon results-modal__icon--warning material-symbols-outlined"
+        >
+          report
+        </span>
+        <p class="text-pre-wrap">
+          {{
+            'learn.lessons.quizResultsModal.failureFlow.text'
+              | translate
+                : {
+                    answers: quizResult.correctAnswers,
+                    total: quizResult.answerCount
+                  }
+          }}
+        </p>
+      </div>
+    } @else {
+      <div class="text-center">
+        <span
+          class="results-modal__icon results-modal__icon--success material-symbols-outlined"
+        >
+          check_circle
+        </span>
+        <p class="text-pre-wrap">
+          {{ 'learn.lessons.quizResultsModal.successFlow.text' | translate }}
+        </p>
+      </div>
+    }
+  </ng-container>
+
+  <ng-container actions>
+    @if (isFailureFlow) {
+      <button class="submit-btn" (click)="onClose('RETRY')">
+        {{ 'learn.lessons.quizResultsModal.failureFlow.submitBtn' | translate }}
+      </button>
+    } @else {
+      <button class="submit-btn" (click)="onClose('CONTINUE')">
+        {{ 'learn.lessons.quizResultsModal.successFlow.submitBtn' | translate }}
+      </button>
+    }
+  </ng-container>
+</app-modal>

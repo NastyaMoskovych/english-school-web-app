@@ -1,6 +1,6 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { FirebaseService } from '../firebase/firebase.service';
-import { Collections, QuizLessonResult, QuizStatuses } from '../shared/models';
+import { Collections, LessonQuizResult, QuizStatuses } from '../shared/models';
 
 @Injectable()
 export class LessonsProgressService {
@@ -9,7 +9,7 @@ export class LessonsProgressService {
   async updateProgress(
     userId: string,
     lessonId: string,
-    quizResult: QuizLessonResult,
+    quizResult: LessonQuizResult,
   ): Promise<void> {
     if (!userId || !lessonId || !quizResult) {
       throw new BadRequestException('Invalid request data');

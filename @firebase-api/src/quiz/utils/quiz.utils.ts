@@ -1,5 +1,11 @@
 import { ENGLISH_LEVELS } from '../../shared/constants';
-import { QuizExtended, QuizResult, UserAnswer } from '../../shared/models';
+import {
+  LessonQuizResult,
+  QuizExtended,
+  QuizResult,
+  QuizStatuses,
+  UserAnswer,
+} from '../../shared/models';
 
 /**
  * A user must correctly answer at least 50% of the questions at a given level to pass that level.
@@ -76,5 +82,24 @@ export const calculateUserLevel = (
     answerCount: userAnswers.length,
     correctAnswers,
     level: ENGLISH_LEVELS[userLevel],
+  };
+};
+
+export const checkLessonQuiz = (
+  quiz: QuizExtended[],
+  userAnswers: UserAnswer[],
+): LessonQuizResult => {
+  const correctAnswers = quiz.filter((q) => {
+    const userAnswer = userAnswers.find((a) => a.id === q.id);
+    return userAnswer?.answer === q.correctAnswer;
+  });
+
+  return {
+    answerCount: userAnswers.length,
+    correctAnswers: correctAnswers.length,
+    status:
+      correctAnswers.length === quiz.length
+        ? QuizStatuses.COMPLETED
+        : QuizStatuses.INCOMPLETED,
   };
 };

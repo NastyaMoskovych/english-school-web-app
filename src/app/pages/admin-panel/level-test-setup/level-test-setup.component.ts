@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { QuizService } from '@app/services';
+import { EXAM_REFERENCE_ID } from '@firebase-api/models';
 import { TranslateModule } from '@ngx-translate/core';
 import { PageLayoutComponent } from '@shared/components';
 import { QuizTableComponent } from '../components';
@@ -13,5 +13,5 @@ import { QuizTableComponent } from '../components';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LevelTestSetupComponent {
-  referenceId = QuizService.EXAM_REFERENCE_ID;
+  referenceId = EXAM_REFERENCE_ID;
 }

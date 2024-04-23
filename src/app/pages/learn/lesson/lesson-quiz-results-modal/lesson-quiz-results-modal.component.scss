@@ -1,0 +1,16 @@
+.results-modal {
+
+  &__icon {
+    font-size: 64px;
+    max-width: none;
+    margin-bottom: 24px;
+
+    &--warning {
+      color: var(--palette-tertiary-color-1);
+    }
+
+    &--success {
+      color: var(--palette-secondary-color-1);
+    }
+  }
+}

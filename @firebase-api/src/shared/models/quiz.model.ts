@@ -1,5 +1,7 @@
 import { ENGLISH_LEVELS } from '../constants';
 
+export const EXAM_REFERENCE_ID = 'exam';
+
 export type EnglishLevel = (typeof ENGLISH_LEVELS)[number];
 
 export enum QuizStatuses {
@@ -37,7 +39,7 @@ export interface QuizResult {
   sessionId?: string;
 }
 
-export interface QuizLessonResult {
+export interface LessonQuizResult {
   answerCount: number;
   correctAnswers: number;
   status: QuizStatuses;

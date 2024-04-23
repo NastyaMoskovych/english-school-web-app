@@ -292,7 +292,17 @@
   "learn": {
     "title": "{{ level }} lessons",
     "lessons": {
-      "statusesFilter": "Filter by status"
+      "statusesFilter": "Filter by status",
+      "quizResultsModal": {
+        "failureFlow": {
+          "text": "Unfortunately, you have not passed the test.\n You answered {{ answers }} out of {{ total }} questions correctly. Please try again or close the modal.",
+          "submitBtn": "Try again"
+        },
+        "successFlow": {
+          "text": "You have successfully passed the test.\n Complete all lessons for level up.",
+          "submitBtn": "Continue"
+        }
+      }
     },
     "tabs": {
       "content": "Lesson",

@@ -292,6 +292,11 @@
   "learn": {
     "title": "Уроки {{ level }}",
     "lessons": {
+      "empty": {
+        "all": "На жаль, уроків для цього рівня поки немає",
+        "completed": "У вас немає завершених уроків",
+        "incompleted": "У вас немає незавершених уроків"
+      },
       "statusesFilter": "Фільтрувати за статусом",
       "quizResultsModal": {
         "failureFlow": {

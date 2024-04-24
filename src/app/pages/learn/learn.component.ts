@@ -10,6 +10,7 @@ import {
   DropdownComponent,
   DropdownOption,
   LoaderComponent,
+  NotificationComponent,
   PageLayoutComponent,
 } from '@app/shared/components';
 import { DropdownOptionsPipe } from '@app/shared/pipes';
@@ -35,6 +36,7 @@ import { LessonsService, UsersService } from '../../services';
     LoaderComponent,
     DropdownComponent,
     DropdownOptionsPipe,
+    NotificationComponent,
   ],
   templateUrl: './learn.component.html',
   styleUrl: './learn.component.scss',
@@ -47,7 +49,10 @@ export class LearnComponent {
   private translate = inject(TranslateService);
   private usersService = inject(UsersService);
 
-  selectedStatus$ = new BehaviorSubject<DropdownOption | undefined>(undefined);
+  selectedStatus$ = new BehaviorSubject<DropdownOption>({
+    label: this.translate.instant('general.dropdown.statuses.incompleted'),
+    value: 'incompleted',
+  });
 
   lessons$ = combineLatest([
     this.getLessonsForUser(),
@@ -72,6 +77,11 @@ export class LearnComponent {
     }),
   );
 
+  get emptyResultsMessage(): string {
+    const { value } = this.selectedStatus$.value;
+    return `learn.lessons.empty.${value}`;
+  }
+
   onStatusSelect(status: DropdownOption): void {
     this.selectedStatus$.next(status);
   }
@@ -85,6 +95,13 @@ export class LearnComponent {
         this.pageLayout.setTitle(
           this.translate.instant('learn.title', { level }),
         );
+
+        if (lessons.filter((lesson) => !lesson.completed).length === 0) {
+          this.selectedStatus$.next({
+            label: this.translate.instant('general.dropdown.statuses.all'),
+            value: 'all',
+          });
+        }
 
         return lessons;
       }),

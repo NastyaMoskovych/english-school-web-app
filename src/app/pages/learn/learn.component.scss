@@ -11,6 +11,10 @@
     gap: 24px;
     padding: 0 24px;
 
+    &--empty {
+      padding: 0;
+    }
+
     app-card-menu-item {
       max-width: 400px;
 

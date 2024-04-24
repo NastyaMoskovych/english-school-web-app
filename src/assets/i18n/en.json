@@ -292,6 +292,11 @@
   "learn": {
     "title": "{{ level }} lessons",
     "lessons": {
+      "empty": {
+        "all": "There are no lessons for this level",
+        "completed": "There are no completed lessons",
+        "incompleted": "There are no incompleted lessons"
+      },
       "statusesFilter": "Filter by status",
       "quizResultsModal": {
         "failureFlow": {

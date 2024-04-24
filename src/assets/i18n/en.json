@@ -98,6 +98,11 @@
         "all": "All",
         "admins": "Admins",
         "users": "Users"
+      },
+      "statuses": {
+        "all": "All",
+        "completed": "Completed",
+        "incompleted": "Incomplete"
       }
     },
     "breadcrumbs": {
@@ -115,7 +120,8 @@
     "primaryBanner": {
       "title": "Join our sсhool now!",
       "subtitle": "Make your studying easier with us",
-      "button": "Become a Student"
+      "button": "Become a Student",
+      "button2": "My Account"
     },
     "secondaryBanner": {
       "title": "Test your English level",
@@ -285,6 +291,24 @@
   },
   "learn": {
     "title": "{{ level }} lessons",
+    "lessons": {
+      "empty": {
+        "all": "There are no lessons for this level",
+        "completed": "There are no completed lessons",
+        "incompleted": "There are no incompleted lessons"
+      },
+      "statusesFilter": "Filter by status",
+      "quizResultsModal": {
+        "failureFlow": {
+          "text": "Unfortunately, you have not passed the test.\n You answered {{ answers }} out of {{ total }} questions correctly. Please try again or close the modal.",
+          "submitBtn": "Try again"
+        },
+        "successFlow": {
+          "text": "You have successfully passed the test.\n Complete all lessons for level up.",
+          "submitBtn": "Continue"
+        }
+      }
+    },
     "tabs": {
       "content": "Lesson",
       "quiz": "Quiz"

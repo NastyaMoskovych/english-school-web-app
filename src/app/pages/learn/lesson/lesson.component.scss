@@ -1,16 +1,18 @@
 .lesson {
+  padding-bottom: 24px;
 
   &__content {
     background-color: var(--palette-primary-color-5);
     box-shadow: var(--primary-box-shadow);
     gap: 24px;
-    margin: 24px 0;
+    margin-top: 24px;
     padding: 24px;
 
     img {
       margin: 0 auto;
       position: sticky;
       top: 100px;
+      max-width: 100%;
     }
   }
 
@@ -25,8 +27,4 @@
     display: block;
     margin-top: 24px;
   }
-}
-
-app-page-layout ::ng-deep .page-layout__title {
-  padding-bottom: 8px;
 }

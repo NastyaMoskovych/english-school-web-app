@@ -1,6 +1,13 @@
 import { ENGLISH_LEVELS } from '../constants';
 
+export const EXAM_REFERENCE_ID = 'exam';
+
 export type EnglishLevel = (typeof ENGLISH_LEVELS)[number];
+
+export enum QuizStatuses {
+  COMPLETED = 'COMPLETED',
+  INCOMPLETED = 'INCOMPLETED',
+}
 
 export interface Quiz {
   answers: string[];
@@ -30,6 +37,12 @@ export interface QuizResult {
   correctAnswers: number;
   level: EnglishLevel;
   sessionId?: string;
+}
+
+export interface LessonQuizResult {
+  answerCount: number;
+  correctAnswers: number;
+  status: QuizStatuses;
 }
 
 export const MINIMUM_CORRECT_ANSWERS = 5;

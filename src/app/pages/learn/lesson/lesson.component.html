@@ -14,6 +14,7 @@
       <app-tab [title]="'learn.tabs.quiz' | translate">
         <app-quiz-journey
           *ngIf="quiz$ | async as quiz; else loader"
+          (submitEvent)="onQuizSubmit($event)"
           [quiz]="quiz"
         />
       </app-tab>
@@ -43,3 +44,9 @@
 <ng-template #loader>
   <app-loader></app-loader>
 </ng-template>
+
+<app-lesson-quiz-results-modal
+  *ngIf="quizResult$ | async as quizResult"
+  (closeEvent)="onModalClose($event)"
+  [quizResult]="quizResult"
+/>

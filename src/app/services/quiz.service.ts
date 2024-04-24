@@ -15,6 +15,7 @@ import {
 } from '@angular/fire/firestore';
 import {
   Collections,
+  LessonQuizResult,
   Quiz,
   QuizExtended,
   QuizPayload,
@@ -28,8 +29,6 @@ import { SnackbarMessages, SnackbarService } from './snackbar.service';
   providedIn: 'root',
 })
 export class QuizService {
-  static readonly EXAM_REFERENCE_ID = 'exam';
-
   constructor(
     private firestore: Firestore,
     private http: HttpClient,
@@ -92,5 +91,15 @@ export class QuizService {
           return throwError(() => e);
         }),
       );
+  }
+
+  submitQuizForLesson(
+    lessonId: string,
+    payload: QuizPayload,
+  ): Observable<LessonQuizResult> {
+    return this.http.post<LessonQuizResult>(
+      `${environment.firebaseApi}/quiz/lesson/${lessonId}`,
+      payload,
+    );
   }
 }

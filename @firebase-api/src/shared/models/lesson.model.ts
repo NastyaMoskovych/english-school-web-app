@@ -4,6 +4,7 @@ export interface Lesson {
   level: string;
   title: string;
   imageURL: string;
+  completed?: boolean;
 }
 
 export interface LessonContent {

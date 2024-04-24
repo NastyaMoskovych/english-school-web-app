@@ -1,9 +1,12 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { shuffle } from 'lodash';
 import { FirebaseService } from '../firebase/firebase.service';
+import { LessonsProgressService } from '../lessons/lessons-progress.service';
 import {
   Collections,
+  EXAM_REFERENCE_ID,
   EnglishLevel,
+  LessonQuizResult,
   MINIMUM_CORRECT_ANSWERS,
   Quiz,
   QuizExtended,
@@ -11,12 +14,13 @@ import {
   QuizResult,
 } from '../shared/models';
 import { UserService } from '../user/user.service';
-import { calculateUserLevel } from './utils/quiz.utils';
+import { calculateUserLevel, checkLessonQuiz } from './utils/quiz.utils';
 
 @Injectable()
 export class QuizService {
   constructor(
     private firebaseService: FirebaseService,
+    private lessonsProgressService: LessonsProgressService,
     private userService: UserService,
   ) {}
 
@@ -36,7 +40,7 @@ export class QuizService {
   }
 
   async levelCheck(payload: QuizPayload): Promise<QuizResult> {
-    const snapshot = await this.getBaseQuery('exam').get();
+    const snapshot = await this.getBaseQuery(EXAM_REFERENCE_ID).get();
     const quizzes = snapshot.docs.map((doc) => doc.data() as QuizExtended);
     const userLevel = calculateUserLevel(quizzes, payload.answers);
     let sessionId: string;
@@ -53,6 +57,26 @@ export class QuizService {
     }
 
     return userLevel;
+  }
+
+  async quizForLesson(
+    lessonId: string,
+    payload: QuizPayload,
+  ): Promise<LessonQuizResult> {
+    if (!payload.uid || !lessonId) {
+      throw new BadRequestException('Invalid payload');
+    }
+
+    const snapshot = await this.getBaseQuery(lessonId).get();
+    const quizzes = snapshot.docs.map((doc) => doc.data() as QuizExtended);
+    const result = checkLessonQuiz(quizzes, payload.answers);
+
+    await this.lessonsProgressService.updateProgress(
+      payload.uid,
+      lessonId,
+      result,
+    );
+    return result;
   }
 
   private getBaseQuery(

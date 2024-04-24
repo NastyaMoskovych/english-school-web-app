@@ -4,9 +4,15 @@
       <div>
         <h1>{{ 'home.primaryBanner.title' | translate }}</h1>
         <p>{{ 'home.primaryBanner.subtitle' | translate }}</p>
-        <button class="submit-btn" routerLink="/signup">
-          {{ 'home.primaryBanner.button' | translate }}
-        </button>
+        @if (currentUser$ | async) {
+          <button class="submit-btn" routerLink="/my-account">
+            {{ 'home.primaryBanner.button2' | translate }}
+          </button>
+        } @else {
+          <button class="submit-btn" routerLink="/signup">
+            {{ 'home.primaryBanner.button' | translate }}
+          </button>
+        }
       </div>
       <div>
         <img

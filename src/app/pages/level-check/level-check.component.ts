@@ -8,7 +8,7 @@ import {
 import { Router } from '@angular/router';
 import { AuthService, QuizService } from '@app/services';
 import { IUser } from '@app/shared/models';
-import { Quiz, QuizResult } from '@firebase-api/models';
+import { EXAM_REFERENCE_ID, Quiz, QuizResult } from '@firebase-api/models';
 import { TranslateModule } from '@ngx-translate/core';
 import {
   LoaderComponent,
@@ -84,7 +84,7 @@ export class LevelCheckComponent implements OnInit {
 
   private getQuizForLevelCheck(): void {
     this.quiz$ = this.quizService.getQuizByReferenceId(
-      QuizService.EXAM_REFERENCE_ID,
+      EXAM_REFERENCE_ID,
     );
   }
 

@@ -15,7 +15,6 @@ import {
 } from '@angular/fire/firestore';
 import {
   Collections,
-  LessonQuizResult,
   Quiz,
   QuizExtended,
   QuizPayload,
@@ -96,8 +95,8 @@ export class QuizService {
   submitQuizForLesson(
     lessonId: string,
     payload: QuizPayload,
-  ): Observable<LessonQuizResult> {
-    return this.http.post<LessonQuizResult>(
+  ): Observable<QuizResult> {
+    return this.http.post<QuizResult>(
       `${environment.firebaseApi}/quiz/lesson/${lessonId}`,
       payload,
     );

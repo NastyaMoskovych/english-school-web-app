@@ -7,7 +7,7 @@ import {
 } from '@angular/core';
 import { RouterLinkWithHref } from '@angular/router';
 import { LessonsService } from '@app/services';
-import { Lesson } from '@firebase-api/models';
+import { EnglishLevel, Lesson } from '@firebase-api/models';
 import { TranslateModule } from '@ngx-translate/core';
 import {
   DropdownComponent,
@@ -54,9 +54,9 @@ export class LessonsManagementComponent implements OnInit {
     return this.lessonsManagementService.selectedLevel$.getValue() as DropdownOption;
   }
 
-  get selectedLevel(): string {
+  get selectedLevel(): EnglishLevel {
     return this.lessonsManagementService.selectedLevel$.getValue()
-      ?.value as string;
+      ?.value as EnglishLevel;
   }
 
   ngOnInit(): void {

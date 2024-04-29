@@ -2,16 +2,16 @@ import { BadRequestException, Injectable } from '@nestjs/common';
 import { shuffle } from 'lodash';
 import { FirebaseService } from '../firebase/firebase.service';
 import { LessonsProgressService } from '../lessons/lessons-progress.service';
+import { LessonsService } from '../lessons/lessons.service';
 import {
   Collections,
   EXAM_REFERENCE_ID,
   EnglishLevel,
-  LessonQuizResult,
-  MINIMUM_CORRECT_ANSWERS,
   Quiz,
   QuizExtended,
   QuizPayload,
   QuizResult,
+  QuizStatuses,
 } from '../shared/models';
 import { UserService } from '../user/user.service';
 import { calculateUserLevel, checkLessonQuiz } from './utils/quiz.utils';
@@ -20,6 +20,7 @@ import { calculateUserLevel, checkLessonQuiz } from './utils/quiz.utils';
 export class QuizService {
   constructor(
     private firebaseService: FirebaseService,
+    private lessonsService: LessonsService,
     private lessonsProgressService: LessonsProgressService,
     private userService: UserService,
   ) {}
@@ -45,7 +46,7 @@ export class QuizService {
     const userLevel = calculateUserLevel(quizzes, payload.answers);
     let sessionId: string;
 
-    if (userLevel.correctAnswers > MINIMUM_CORRECT_ANSWERS) {
+    if (userLevel.status === QuizStatuses.COMPLETED) {
       sessionId = (await this.saveQuizResults(
         payload,
         userLevel.level,
@@ -62,7 +63,7 @@ export class QuizService {
   async quizForLesson(
     lessonId: string,
     payload: QuizPayload,
-  ): Promise<LessonQuizResult> {
+  ): Promise<QuizResult> {
     if (!payload.uid || !lessonId) {
       throw new BadRequestException('Invalid payload');
     }
@@ -76,6 +77,21 @@ export class QuizService {
       lessonId,
       result,
     );
+
+    if (result.status === QuizStatuses.COMPLETED) {
+      const { lessonLevel, completed } =
+        await this.lessonsService.isAllLessonsCompleted(payload.uid);
+
+      if (completed) {
+        Object.assign(result, {
+          nextLevel: await this.userService.increaseUserLevel(
+            payload.uid,
+            lessonLevel,
+          ),
+        });
+      }
+    }
+
     return result;
   }
 

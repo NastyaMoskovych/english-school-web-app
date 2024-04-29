@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { FirebaseService } from '../firebase/firebase.service';
 import {
   Collections,
+  EnglishLevel,
   Lesson,
   LessonContent,
   LessonExtended,
@@ -39,6 +40,17 @@ export class LessonsService {
         };
       }),
     );
+  }
+
+  async isAllLessonsCompleted(
+    userId: string,
+  ): Promise<{ completed: boolean; lessonLevel: EnglishLevel }> {
+    const lessons = await this.getLessonsForUser(userId);
+
+    return {
+      lessonLevel: lessons[0].level,
+      completed: lessons.every(({ completed }) => completed),
+    };
   }
 
   private async getLessonsByLevel(level: string): Promise<Lesson[]> {

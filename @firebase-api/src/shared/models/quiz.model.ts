@@ -1,8 +1,6 @@
-import { ENGLISH_LEVELS } from '../constants';
+import { EnglishLevel } from './level.model';
 
 export const EXAM_REFERENCE_ID = 'exam';
-
-export type EnglishLevel = (typeof ENGLISH_LEVELS)[number];
 
 export enum QuizStatuses {
   COMPLETED = 'COMPLETED',
@@ -36,13 +34,9 @@ export interface QuizResult {
   answerCount: number;
   correctAnswers: number;
   level: EnglishLevel;
-  sessionId?: string;
-}
-
-export interface LessonQuizResult {
-  answerCount: number;
-  correctAnswers: number;
   status: QuizStatuses;
+  sessionId?: string;
+  nextLevel?: EnglishLevel;
 }
 
 export const MINIMUM_CORRECT_ANSWERS = 5;

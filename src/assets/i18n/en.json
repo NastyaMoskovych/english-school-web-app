@@ -306,6 +306,11 @@
         "successFlow": {
           "text": "You have successfully passed the test.\n Complete all lessons for level up.",
           "submitBtn": "Continue"
+        },
+        "nextLevelFlow": {
+          "title": "Congratulations!",
+          "text": "You have successfully completed all lessons on {{ level }} level.\n Keep up the good work!",
+          "submitBtn": "Continue"
         }
       }
     },

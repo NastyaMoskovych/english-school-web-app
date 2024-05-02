@@ -1,6 +1,6 @@
 import { ENGLISH_LEVELS } from '../../shared/constants';
 import {
-  LessonQuizResult,
+  MINIMUM_CORRECT_ANSWERS,
   QuizExtended,
   QuizResult,
   QuizStatuses,
@@ -26,6 +26,7 @@ export const calculateUserLevel = (
       answerCount: 0,
       correctAnswers: 0,
       level: ENGLISH_LEVELS[0],
+      status: QuizStatuses.INCOMPLETED,
     };
   }
 
@@ -82,13 +83,17 @@ export const calculateUserLevel = (
     answerCount: userAnswers.length,
     correctAnswers,
     level: ENGLISH_LEVELS[userLevel],
+    status:
+      correctAnswers > MINIMUM_CORRECT_ANSWERS
+        ? QuizStatuses.COMPLETED
+        : QuizStatuses.INCOMPLETED,
   };
 };
 
 export const checkLessonQuiz = (
   quiz: QuizExtended[],
   userAnswers: UserAnswer[],
-): LessonQuizResult => {
+): QuizResult => {
   const correctAnswers = quiz.filter((q) => {
     const userAnswer = userAnswers.find((a) => a.id === q.id);
     return userAnswer?.answer === q.correctAnswer;
@@ -97,6 +102,7 @@ export const checkLessonQuiz = (
   return {
     answerCount: userAnswers.length,
     correctAnswers: correctAnswers.length,
+    level: quiz[0].level,
     status:
       correctAnswers.length === quiz.length
         ? QuizStatuses.COMPLETED

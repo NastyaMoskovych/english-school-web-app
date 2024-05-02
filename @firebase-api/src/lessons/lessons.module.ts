@@ -9,6 +9,6 @@ import { LessonsService } from './lessons.service';
   imports: [FirebaseModule, UserModule],
   controllers: [LessonsController],
   providers: [LessonsService, LessonsProgressService],
-  exports: [LessonsProgressService],
+  exports: [LessonsService, LessonsProgressService],
 })
 export class LessonsModule {}

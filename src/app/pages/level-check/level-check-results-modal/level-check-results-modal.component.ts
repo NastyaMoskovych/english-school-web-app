@@ -7,7 +7,7 @@ import {
   Output,
 } from '@angular/core';
 import { IUser } from '@app/shared/models';
-import { MINIMUM_CORRECT_ANSWERS, QuizResult } from '@firebase-api/models';
+import { QuizResult, QuizStatuses } from '@firebase-api/models';
 import { TranslateModule } from '@ngx-translate/core';
 import { LevelStatusComponent, ModalComponent } from '@shared/components';
 import { FirstNamePipe } from '@shared/pipes';
@@ -40,7 +40,7 @@ export class LevelCheckResultsModalComponent {
   @Output() closeEvent = new EventEmitter<CloseEvent>();
 
   get isFailureFlow(): boolean {
-    return this.quizResult.correctAnswers < MINIMUM_CORRECT_ANSWERS;
+    return this.quizResult.status === QuizStatuses.INCOMPLETED;
   }
 
   onClose(action: Action): void {

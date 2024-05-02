@@ -17,7 +17,7 @@ import {
   TabComponent,
   TabsComponent,
 } from '@app/shared/components';
-import { LessonExtended, LessonQuizResult, Quiz } from '@firebase-api/models';
+import { LessonExtended, Quiz, QuizResult } from '@firebase-api/models';
 import { TranslateModule } from '@ngx-translate/core';
 import { QuillViewHTMLComponent } from 'ngx-quill';
 import { BehaviorSubject, Observable, finalize, tap } from 'rxjs';
@@ -57,7 +57,7 @@ export class LessonComponent implements OnInit {
 
   lesson$: Observable<LessonExtended>;
   quiz$: Observable<Quiz[]>;
-  quizResult$ = new BehaviorSubject<LessonQuizResult | null>(null);
+  quizResult$ = new BehaviorSubject<QuizResult | null>(null);
 
   ngOnInit(): void {
     this.lesson$ = this.lessonsService
@@ -74,7 +74,7 @@ export class LessonComponent implements OnInit {
         uid: this.authService.currentUserUID,
       })
       .pipe(
-        tap((response: LessonQuizResult) => this.quizResult$.next(response)),
+        tap((response: QuizResult) => this.quizResult$.next(response)),
         finalize(() => doneCb()),
       )
       .subscribe();

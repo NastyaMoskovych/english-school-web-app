@@ -18,9 +18,6 @@
           <a routerLink="/login">{{ 'header.menu.login' | translate }}</a>
         </li>
         <li *ngIf="!user">
-          <a routerLink="/about-us">{{ 'header.menu.aboutUs' | translate }}</a>
-        </li>
-        <li *ngIf="!user">
           <app-language-selector />
         </li>
         <li
@@ -59,14 +56,6 @@
                   </span>
                   <span class="link-text">
                     {{ 'header.menu.adminPanel' | translate }}
-                  </span>
-                </a>
-              </li>
-              <li>
-                <a routerLink="/about-us">
-                  <span class="material-symbols-outlined">info</span>
-                  <span class="link-text">
-                    {{ 'header.menu.aboutUs' | translate }}
                   </span>
                 </a>
               </li>

@@ -2,9 +2,15 @@
   padding: 0 16px 16px;
 
   &__filters {
-    max-width: 300px;
-    margin-left: auto;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    justify-content: flex-end;
     margin-bottom: 24px;
+
+    app-dropdown {
+      max-width: 260px;
+    }
   }
 
   &__lessons {

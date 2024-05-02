@@ -1,10 +1,5 @@
 import { Body, Controller, Get, Param, Post } from '@nestjs/common';
-import {
-  LessonQuizResult,
-  Quiz,
-  QuizPayload,
-  QuizResult,
-} from '../shared/models';
+import { Quiz, QuizPayload, QuizResult } from '../shared/models';
 import { QuizService } from './quiz.service';
 
 @Controller('quiz')
@@ -27,7 +22,7 @@ export class QuizController {
   quizForLesson(
     @Param('lessonId') lessonId: string,
     @Body() payload: QuizPayload,
-  ): Promise<LessonQuizResult> {
+  ): Promise<QuizResult> {
     return this.quizService.quizForLesson(lessonId, payload);
   }
 }

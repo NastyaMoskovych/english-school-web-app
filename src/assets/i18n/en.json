@@ -157,7 +157,6 @@
     "menu": {
       "registration": "Become a student",
       "login": "Login",
-      "aboutUs": "About us",
       "myAccount": "My account",
       "logout": "Logout",
       "adminPanel": "Admin Panel"
@@ -168,7 +167,6 @@
       "home": "Home",
       "signUp": "Sign Up",
       "login": "Login",
-      "aboutUs": "About us",
       "adminPanel": "Admin Panel"
     }
   },
@@ -297,6 +295,7 @@
         "completed": "There are no completed lessons",
         "incompleted": "There are no incompleted lessons"
       },
+      "levelsFilter": "Filter by available level",
       "statusesFilter": "Filter by status",
       "quizResultsModal": {
         "failureFlow": {
@@ -305,6 +304,11 @@
         },
         "successFlow": {
           "text": "You have successfully passed the test.\n Complete all lessons for level up.",
+          "submitBtn": "Continue"
+        },
+        "nextLevelFlow": {
+          "title": "Congratulations!",
+          "text": "You have successfully completed all lessons on {{ level }} level.\n Keep up the good work!",
           "submitBtn": "Continue"
         }
       }

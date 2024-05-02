@@ -1,10 +1,18 @@
+import { EnglishLevel } from './level.model';
+
 export interface Lesson {
   createdAt: Date;
   id: string;
-  level: string;
+  level: EnglishLevel;
   title: string;
   imageURL: string;
   completed?: boolean;
+}
+
+export interface UserLessons {
+  lessons: Lesson[];
+  level: EnglishLevel;
+  userLevel: EnglishLevel;
 }
 
 export interface LessonContent {

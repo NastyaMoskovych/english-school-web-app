@@ -5,7 +5,21 @@
   [opened]="!!quizResult"
 >
   <ng-container body>
-    @if (isFailureFlow) {
+    @if (quizResult.nextLevel; as nextLevel) {
+      <app-level-status [level]="nextLevel" />
+
+      <div class="text-center">
+        <h3>
+          {{ 'learn.lessons.quizResultsModal.nextLevelFlow.title' | translate }}
+        </h3>
+        <p class="text-pre-wrap">
+          {{
+            'learn.lessons.quizResultsModal.nextLevelFlow.text'
+              | translate: { level: quizResult.level }
+          }}
+        </p>
+      </div>
+    } @else if (isFailureFlow) {
       <div class="text-center">
         <span
           class="results-modal__icon results-modal__icon--warning material-symbols-outlined"

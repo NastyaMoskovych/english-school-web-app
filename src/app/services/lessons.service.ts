@@ -21,7 +21,13 @@ import {
   uploadString,
 } from '@angular/fire/storage';
 import { getTypeFromBase64 } from '@app/shared/utils';
-import { Collections, Lesson, LessonExtended } from '@firebase-api/models';
+import {
+  Collections,
+  EnglishLevel,
+  Lesson,
+  LessonExtended,
+  UserLessons,
+} from '@firebase-api/models';
 import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { AuthService } from './auth.service';
@@ -93,9 +99,15 @@ export class LessonsService {
     return docData(docRef) as Observable<Lesson>;
   }
 
-  getLessonsForUser(): Observable<Lesson[]> {
-    return this.http.get<Lesson[]>(
-      `${environment.firebaseApi}/lessons/user/${this.auth.currentUserUID}`,
+  getLessonsForUser(level?: EnglishLevel): Observable<UserLessons> {
+    const params = new URLSearchParams();
+
+    if (level) {
+      params.append('level', level);
+    }
+
+    return this.http.get<UserLessons>(
+      `${environment.firebaseApi}/lessons/user/${this.auth.currentUserUID}?${params}`,
     );
   }
 

@@ -1,5 +1,6 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { FirebaseService } from '../firebase/firebase.service';
+import { ENGLISH_LEVELS } from '../shared/constants';
 import { Collections, EnglishLevel } from '../shared/models';
 import { IUser } from './user.model';
 
@@ -72,5 +73,25 @@ export class UserService {
       .add({ level, type: 'GUEST' });
 
     return docRef.id;
+  }
+
+  async increaseUserLevel(
+    uid: string,
+    lessonLevel: EnglishLevel,
+  ): Promise<EnglishLevel> {
+    const nextLevel =
+      ENGLISH_LEVELS[ENGLISH_LEVELS.indexOf(lessonLevel) + 1] ||
+      ENGLISH_LEVELS[ENGLISH_LEVELS.length - 1];
+    const currentUserLevel = (await this.getUser(uid)).level;
+    const nextLevelIdx = ENGLISH_LEVELS.indexOf(nextLevel);
+    const currentLevelIdx = ENGLISH_LEVELS.indexOf(currentUserLevel);
+
+    if (
+      nextLevelIdx > currentLevelIdx &&
+      nextLevelIdx - currentLevelIdx === 1
+    ) {
+      await this.updateUser({ level: nextLevel }, uid);
+      return nextLevel;
+    }
   }
 }

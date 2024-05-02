@@ -295,6 +295,7 @@
         "completed": "There are no completed lessons",
         "incompleted": "There are no incompleted lessons"
       },
+      "levelsFilter": "Filter by available level",
       "statusesFilter": "Filter by status",
       "quizResultsModal": {
         "failureFlow": {

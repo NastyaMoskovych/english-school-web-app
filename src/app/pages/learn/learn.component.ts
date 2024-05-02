@@ -13,17 +13,21 @@ import {
   NotificationComponent,
   PageLayoutComponent,
 } from '@app/shared/components';
+import { ENGLISH_LEVELS_OPTIONS } from '@app/shared/constants';
 import { DropdownOptionsPipe } from '@app/shared/pipes';
-import { Lesson } from '@firebase-api/models';
+import { ENGLISH_LEVELS } from '@firebase-api/constants';
+import { EnglishLevel, Lesson } from '@firebase-api/models';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import {
   BehaviorSubject,
+  EMPTY,
   Observable,
   combineLatest,
-  forkJoin,
+  debounceTime,
   map,
+  switchMap,
 } from 'rxjs';
-import { LessonsService, UsersService } from '../../services';
+import { LessonsService } from '../../services';
 
 @Component({
   selector: 'app-learn',
@@ -47,8 +51,11 @@ export class LearnComponent {
 
   private lessonsService = inject(LessonsService);
   private translate = inject(TranslateService);
-  private usersService = inject(UsersService);
+  private selectedLevel: EnglishLevel;
 
+  levelsOptions: DropdownOption[];
+
+  selectedLevel$ = new BehaviorSubject<DropdownOption | null>(null);
   selectedStatus$ = new BehaviorSubject<DropdownOption>({
     label: this.translate.instant('general.dropdown.statuses.incompleted'),
     value: 'incompleted',
@@ -86,25 +93,61 @@ export class LearnComponent {
     this.selectedStatus$.next(status);
   }
 
-  private getLessonsForUser(): Observable<Lesson[]> {
-    return forkJoin([
-      this.lessonsService.getLessonsForUser(),
-      this.usersService.getCurrentUserLevel(),
-    ]).pipe(
-      map(([lessons, level]) => {
-        this.pageLayout.setTitle(
-          this.translate.instant('learn.title', { level }),
-        );
+  onLevelSelect(level: DropdownOption): void {
+    this.selectedLevel$.next(level);
+  }
 
-        if (lessons.filter((lesson) => !lesson.completed).length === 0) {
-          this.selectedStatus$.next({
-            label: this.translate.instant('general.dropdown.statuses.all'),
-            value: 'all',
-          });
+  private getLessonsForUser(): Observable<Lesson[]> {
+    return this.selectedLevel$.pipe(
+      debounceTime(100),
+      switchMap((option: DropdownOption | null) => {
+        if (!this.selectedLevel || option?.value !== this.selectedLevel) {
+          return this.lessonsService.getLessonsForUser(
+            option?.value as EnglishLevel,
+          );
         }
+        return EMPTY;
+      }),
+      map(({ lessons, level, userLevel }) => {
+        if (level) {
+          this.setPageTitle(level);
+          this.setSelectedLevel(level, userLevel);
+          this.selectedLevel = level;
+        }
+
+        this.setSelectedStatus(lessons);
 
         return lessons;
       }),
     );
+  }
+
+  private setPageTitle(level: string): void {
+    this.pageLayout.setTitle(this.translate.instant('learn.title', { level }));
+  }
+
+  private setSelectedLevel(level: EnglishLevel, userLevel: EnglishLevel): void {
+    this.levelsOptions = ENGLISH_LEVELS_OPTIONS.filter(({ value }) => {
+      return (
+        ENGLISH_LEVELS.indexOf(value as EnglishLevel) <=
+        ENGLISH_LEVELS.indexOf(userLevel)
+      );
+    });
+
+    if (!this.selectedLevel$.getValue()?.value) {
+      this.selectedLevel$.next({
+        label: level,
+        value: level,
+      });
+    }
+  }
+
+  private setSelectedStatus(lessons: Lesson[]): void {
+    if (lessons.filter((lesson) => !lesson.completed).length === 0) {
+      this.selectedStatus$.next({
+        label: this.translate.instant('general.dropdown.statuses.all'),
+        value: 'all',
+      });
+    }
   }
 }

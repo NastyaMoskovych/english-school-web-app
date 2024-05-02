@@ -5,9 +5,21 @@
   <div class="learn">
     @if (lessons$ | async; as lessons) {
       <div class="learn__filters">
+        @if (selectedLevel$ | async; as selectedLevel) {
+          <app-dropdown
+            (selectEvent)="onLevelSelect($event)"
+            backgroundColor="var(--palette-primary-color-4)"
+            class="w-100"
+            [options]="levelsOptions"
+            [placeholder]="'learn.lessons.levelsFilter' | translate"
+            [selectedOption]="selectedLevel"
+          />
+        }
+
         <app-dropdown
           (selectEvent)="onStatusSelect($event)"
           backgroundColor="var(--palette-primary-color-4)"
+          class="w-100"
           [options]="'general.dropdown.statuses' | translate | dropdownOptions"
           [placeholder]="'learn.lessons.statusesFilter' | translate"
           [selectedOption]="selectedStatus$ | async"

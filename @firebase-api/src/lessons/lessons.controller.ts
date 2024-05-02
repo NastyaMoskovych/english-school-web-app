@@ -1,5 +1,5 @@
-import { Controller, Get, Param } from '@nestjs/common';
-import { Lesson, LessonExtended } from '../shared/models';
+import { Controller, Get, Param, Query } from '@nestjs/common';
+import { EnglishLevel, LessonExtended, UserLessons } from '../shared/models';
 import { LessonsService } from './lessons.service';
 
 @Controller('lessons')
@@ -12,7 +12,10 @@ export class LessonsController {
   }
 
   @Get('/user/:uid')
-  getLessonsForUser(@Param('uid') uid: string): Promise<Lesson[]> {
-    return this.lessonsService.getLessonsForUser(uid);
+  getLessonsForUser(
+    @Param('uid') uid: string,
+    @Query('level') level: EnglishLevel,
+  ): Promise<UserLessons> {
+    return this.lessonsService.getLessonsForUser(uid, level);
   }
 }

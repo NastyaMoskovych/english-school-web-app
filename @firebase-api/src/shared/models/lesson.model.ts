@@ -9,6 +9,12 @@ export interface Lesson {
   completed?: boolean;
 }
 
+export interface UserLessons {
+  lessons: Lesson[];
+  level: EnglishLevel;
+  userLevel: EnglishLevel;
+}
+
 export interface LessonContent {
   contentHTML: string;
   lessonId: string;

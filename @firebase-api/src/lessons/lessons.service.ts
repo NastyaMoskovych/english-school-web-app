@@ -1,11 +1,13 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { FirebaseService } from '../firebase/firebase.service';
+import { ENGLISH_LEVELS } from '../shared/constants';
 import {
   Collections,
   EnglishLevel,
   Lesson,
   LessonContent,
   LessonExtended,
+  UserLessons,
 } from '../shared/models';
 import { UserService } from '../user/user.service';
 import { LessonsProgressService } from './lessons-progress.service';
@@ -25,27 +27,47 @@ export class LessonsService {
     };
   }
 
-  async getLessonsForUser(uid: string): Promise<Lesson[]> {
+  async getLessonsForUser(
+    uid: string,
+    level?: EnglishLevel,
+  ): Promise<UserLessons> {
     const user = await this.userService.getUser(uid);
-    const lessons = await this.getLessonsByLevel(user.level);
 
-    return Promise.all(
-      lessons.map(async (lesson: Lesson) => {
-        return {
-          ...lesson,
-          completed: await this.lessonsProgressService.isLessonCompleted(
-            uid,
-            lesson.id,
-          ),
-        };
-      }),
-    );
+    if (level) {
+      if (!ENGLISH_LEVELS.includes(level)) {
+        throw new BadRequestException('Invalid level provided');
+      }
+
+      if (ENGLISH_LEVELS.indexOf(level) > ENGLISH_LEVELS.indexOf(user.level)) {
+        throw new BadRequestException(
+          'User level is lower than requested level',
+        );
+      }
+    }
+
+    const lessons = await this.getLessonsByLevel(level || user.level);
+
+    return {
+      userLevel: user.level,
+      level: level || user.level,
+      lessons: await Promise.all(
+        lessons.map(async (lesson: Lesson) => {
+          return {
+            ...lesson,
+            completed: await this.lessonsProgressService.isLessonCompleted(
+              uid,
+              lesson.id,
+            ),
+          };
+        }),
+      ),
+    };
   }
 
   async isAllLessonsCompleted(
     userId: string,
   ): Promise<{ completed: boolean; lessonLevel: EnglishLevel }> {
-    const lessons = await this.getLessonsForUser(userId);
+    const { lessons } = await this.getLessonsForUser(userId);
 
     return {
       lessonLevel: lessons[0].level,

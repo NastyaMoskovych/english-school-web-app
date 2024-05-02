@@ -295,6 +295,7 @@
         "completed": "У вас немає завершених уроків",
         "incompleted": "У вас немає незавершених уроків"
       },
+      "levelsFilter": "Фільтрувати за доступним рівнем",
       "statusesFilter": "Фільтрувати за статусом",
       "quizResultsModal": {
         "failureFlow": {

@@ -157,7 +157,6 @@
     "menu": {
       "registration": "Become a student",
       "login": "Login",
-      "aboutUs": "About us",
       "myAccount": "My account",
       "logout": "Logout",
       "adminPanel": "Admin Panel"
@@ -168,7 +167,6 @@
       "home": "Home",
       "signUp": "Sign Up",
       "login": "Login",
-      "aboutUs": "About us",
       "adminPanel": "Admin Panel"
     }
   },

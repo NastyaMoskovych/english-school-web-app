@@ -27,7 +27,7 @@
       </div>
 
       <div
-        class="learn__lessons flex-box flex-box-mobile align-items-stretch justify-content-center"
+        class="learn__lessons flex-box flex-box-mobile flex-wrap align-items-stretch justify-content-center"
         [class.learn__lessons--empty]="!lessons.length"
       >
         @for (lesson of lessons; track lesson.id) {

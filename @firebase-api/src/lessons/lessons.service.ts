@@ -80,6 +80,7 @@ export class LessonsService {
       .firestore()
       .collection(Collections.LESSONS)
       .where('level', '==', level)
+      .orderBy('createdAt', 'asc')
       .get();
 
     return snapshot.docs.map((doc) => doc.data() as Lesson);

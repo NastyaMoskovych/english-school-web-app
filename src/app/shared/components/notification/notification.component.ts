@@ -18,6 +18,7 @@ import { TranslateModule } from '@ngx-translate/core';
 })
 export class NotificationComponent {
   @Input({ required: true }) message: string;
+  @Input() extraMessage: string | undefined;
   @Input() type: 'success' | 'error' = 'error';
   @Input() closable = false;
   @Output() closeEvent = new EventEmitter<void>();

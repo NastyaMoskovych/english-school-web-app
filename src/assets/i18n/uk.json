@@ -74,7 +74,8 @@
       "updateProfileSuccess": "Ваш профіль успішно оновлено",
       "changePasswordSuccess": "Ваш пароль успішно змінено",
       "updateSuccess": "Дані успішно оновлено",
-      "userAlreadyPassedQuiz": "Ви вже пройшли тест на визначення рівня"
+      "userAlreadyPassedQuiz": "Ви вже пройшли тест на визначення рівня",
+      "userLevelExists": "Ви вже склали тест раніше, ваш поточний рівень"
     },
     "errors": {
       "invalidLoginCredentials": "Неправильний логін або пароль",

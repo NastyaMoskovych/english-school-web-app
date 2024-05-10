@@ -8,7 +8,12 @@
     margin-top: 24px;
     padding: 24px;
 
+    quill-view-html {
+      flex: 1 1 60%;
+    }
+
     img {
+      flex: 1 1 40%;
       overflow: auto;
       margin: 0 auto;
       position: sticky;

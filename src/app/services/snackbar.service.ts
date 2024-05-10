@@ -7,10 +7,12 @@ export enum SnackbarMessages {
   CHANGE_PASSWORD_SUCCESS = 'general.messages.changePasswordSuccess',
   UPDATE_SUCCESS = 'general.messages.updateSuccess',
   SUBMIT_QUIZ_FAILED = 'general.messages.userAlreadyPassedQuiz',
+  USER_LEVEL_EXISTS = 'general.messages.userLevelExists',
 }
 
 export interface ISnackbarPayload {
   message: SnackbarMessages;
+  extraMessage?: string;
   type?: 'success' | 'error';
 }
 

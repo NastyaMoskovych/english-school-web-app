@@ -74,7 +74,8 @@
       "updateProfileSuccess": "You have successfully updated your profile",
       "changePasswordSuccess": "You have successfully changed your password",
       "updateSuccess": "You have successfully updated the record",
-      "userAlreadyPassedQuiz": "You have already passed the quiz"
+      "userAlreadyPassedQuiz": "You have already passed the quiz",
+      "userLevelExists": "You have already passed the test, your current level is"
     },
     "errors": {
       "invalidLoginCredentials": "Invalid email or password",

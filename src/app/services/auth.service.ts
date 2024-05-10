@@ -110,7 +110,6 @@ export class AuthService {
     email,
     password,
   }: AuthForm): Promise<void> {
-    const { sessionId } = this.activatedRoute.snapshot.queryParams;
     const userCredential = await createUserWithEmailAndPassword(
       this.auth,
       email,
@@ -128,7 +127,7 @@ export class AuthService {
     await this.updateUsersDocument(
       payload.uid,
       payload,
-      new URLSearchParams({ sessionId }),
+      new URLSearchParams({ sessionId: this.getSessionId() }),
     );
     this.snackbar.show({ message: SnackbarMessages.REGISTER_SUCCESS });
 
@@ -163,18 +162,27 @@ export class AuthService {
         : new FacebookAuthProvider(),
     );
     const { email, photoURL, displayName, uid } = userCredential.user;
-    const document = (
-      await getDoc(doc(this.firestore, Collections.USERS, uid))
-    ).exists();
+    const sessionId = this.getSessionId();
+    const document = await getDoc(doc(this.firestore, Collections.USERS, uid));
+    const { level } = document.data() || ({} as IUser);
 
-    if (!document) {
+    if (!document.exists() || !level) {
       const payload = {
         email,
         displayName,
         uid,
         photoURL,
       };
-      await this.updateUsersDocument(payload.uid, payload);
+      await this.updateUsersDocument(
+        payload.uid,
+        payload,
+        new URLSearchParams({ sessionId }),
+      );
+    } else if (sessionId) {
+      this.snackbar.show({
+        message: SnackbarMessages.USER_LEVEL_EXISTS,
+        extraMessage: level,
+      });
     }
 
     this.router.navigate(['/my-account']);
@@ -218,12 +226,13 @@ export class AuthService {
     user: Partial<User>,
     params?: URLSearchParams,
   ): Promise<void> {
-    await lastValueFrom(
-      this.http.put<void>(
-        `${environment.firebaseApi}/user/${uid}?${params}`,
-        user,
-      ),
-    );
+    let url = `${environment.firebaseApi}/user/${uid}`;
+
+    if (params) {
+      url += `?${params}`;
+    }
+
+    await lastValueFrom(this.http.put<void>(url, user));
   }
 
   public async changePassword({
@@ -252,6 +261,10 @@ export class AuthService {
   private getCurrentUser(uid: string): Observable<IUser> {
     const docRef = doc(this.firestore, Collections.USERS, uid);
     return docData(docRef) as Observable<IUser>;
+  }
+
+  private getSessionId(): string {
+    return this.activatedRoute.snapshot.queryParams['sessionId'];
   }
 }
 

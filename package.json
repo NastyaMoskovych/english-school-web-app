@@ -27,9 +27,8 @@
     "@angular/service-worker": "^17.0.4",
     "@ngx-translate/core": "^15.0.0",
     "@ngx-translate/http-loader": "^8.0.0",
-    "firebase-tools": "^12.8.0",
     "ngx-image-compress": "^15.1.6",
-    "ngx-quill": "^24.0.4",
+    "ngx-quill": "^25.3.2",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.14.2"

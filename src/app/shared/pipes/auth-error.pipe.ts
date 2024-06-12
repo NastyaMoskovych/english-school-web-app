@@ -12,7 +12,8 @@ export class AuthErrorPipe implements PipeTransform {
 }
 
 const errorMessagesMap: { [key: string]: string } = {
-  'auth/invalid-login-credentials': 'general.errors.invalidLoginCredentials',
-  'auth/email-already-in-use': 'general.errors.emailAlreadyInUse',
+  [AuthErrorCodes.INVALID_LOGIN_CREDENTIALS]:
+    'general.errors.invalidLoginCredentials',
+  [AuthErrorCodes.EMAIL_EXISTS]: 'general.errors.emailAlreadyInUse',
   [AuthErrorCodes.UNVERIFIED_EMAIL]: 'general.errors.unverifiedEmail',
 };

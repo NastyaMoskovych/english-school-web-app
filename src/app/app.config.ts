@@ -32,11 +32,11 @@ export const appConfig: ApplicationConfig = {
     provideAnimations(),
     provideRouter(routes, withComponentInputBinding()),
     provideHttpClient(withInterceptors([authInterceptor])),
+    provideFirebaseApp(() => initializeApp(FIREBASE_CONFIG)),
+    provideAuth(() => getAuth()),
+    provideFirestore(() => getFirestore()),
+    provideStorage(() => getStorage()),
     importProvidersFrom([
-      provideFirebaseApp(() => initializeApp(FIREBASE_CONFIG)),
-      provideAuth(() => getAuth()),
-      provideFirestore(() => getFirestore()),
-      provideStorage(() => getStorage()),
       TranslateModule.forRoot({
         loader: {
           provide: TranslateLoader,
